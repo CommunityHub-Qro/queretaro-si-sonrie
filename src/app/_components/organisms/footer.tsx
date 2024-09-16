@@ -1,6 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 
 export default function Footer() {
+  const router = usePathname();
+  if (router === "/main-system" || router === "/main-system/reports"){
+    return(
+      <div/>
+    );
+  }
   return (
     <footer className="flex w-full bg-secondary p-4 md:h-60">
       <div className="flex w-full flex-col items-center justify-center space-y-3">

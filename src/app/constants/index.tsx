@@ -4,6 +4,10 @@ export const navbar = [
     href: '/team'
   },
   {
+    name: 'Impacto',
+    href: '/impact-page'
+  },
+  {
     name: 'Voluntariado',
     href: '/volunteering'
   },

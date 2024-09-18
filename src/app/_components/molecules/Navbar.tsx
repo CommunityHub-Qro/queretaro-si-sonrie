@@ -17,6 +17,7 @@ const Navbar = () => {
     const previous = scrollY.getPrevious() || 0;
     if (latest > previous && latest > 500) {
       console.log(latest);
+      setHidden(true);
     } else {
       setHidden(false);
     }
@@ -26,7 +27,7 @@ const Navbar = () => {
       <>
         <Link
           href={"/access-page"}
-          className="me-96 flex items-start rounded-md bg-opacity-10 hover:bg-black"
+          className="me-96 flex items-start rounded-md bg-opacity-10 hover:bg-black p-2 px-5"
         >
           Acceso
         </Link>
@@ -70,6 +71,10 @@ const Navbar = () => {
           </Link>
       </div>
     </>
+  }
+  if (router === "/access-page")
+  {
+    content = <></>
   }
   
   return (

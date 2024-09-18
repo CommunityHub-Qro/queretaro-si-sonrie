@@ -54,10 +54,16 @@ model Session {
     // user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Roles {
+    ADMIN
+    CLIENT
+}
+
 model User {
     id       String @id @default(cuid())
     email    String @unique
     password String
+    role     Roles
 }
 
 model VerificationToken {

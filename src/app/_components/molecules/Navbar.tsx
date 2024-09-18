@@ -22,54 +22,8 @@ const Navbar = () => {
     }
   });
 
-  if (router === "/main-system" || router === "/main-system/reports") {
-    return (
-      <div className="pb-20">
-        <motion.nav
-          variants={{
-            visible: { y: 0 },
-            hidden: { y: "-100%" },
-          }}
-          animate={hidden ? "hidden" : "visible"}
-          transition={{ duration: 0.35, ease: "easeInOut" }}
-          className={`fixed z-50 flex w-full items-center bg-secondary p-5 text-white`}
-        >
-          <Link
-            href={"/main-system"}
-            className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"
-          >
-            Expedientes
-          </Link>
-          <Link
-            href={"/main-system/reports"}
-            className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"
-          >
-            Reportes
-          </Link>
-          <Link
-            href={"/"}
-            className="flex h-full w-32 justify-center rounded-full bg-third py-2 text-center drop-shadow-md hover:bg-[rgb(255,40,40)]"
-          >
-            Salir
-          </Link>
-        </motion.nav>
-      </div>
-    );
-  }
-  return (
-    <div className="pb-20">
-      <motion.nav
-        variants={{
-          visible: { y: 0 },
-          hidden: { y: "-100%" },
-        }}
-        animate={hidden ? "hidden" : "visible"}
-        transition={{ duration: 0.35, ease: "easeInOut" }}
-        className={`fixed z-50 flex w-full items-center justify-between bg-secondary p-5 text-white`}
-      >
-        <Link href={"/"}>
-          <img src="icons/logo.png" className="w-32" />
-        </Link>
+  let content = 
+      <>
         <Link
           href={"/access-page"}
           className="me-96 flex items-start rounded-md bg-opacity-10 hover:bg-black"
@@ -90,6 +44,49 @@ const Navbar = () => {
           </nav>
           <Donar />
         </div>
+      </>
+
+  if (router === "/main-system" || router === "/main-system/reports") {
+    content = 
+    <>
+      <div className="flex items-center" >        
+          <Link
+            href={"/main-system"}
+            className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"
+          >
+            Expedientes
+          </Link>
+          <Link
+            href={"/main-system/reports"}
+            className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"
+          >
+            Reportes
+          </Link>
+          <Link
+            href={"/"}
+            className="flex h-full w-32 justify-center rounded-full bg-third py-2 text-center drop-shadow-md hover:bg-[rgb(255,40,40)]"
+          >
+            Salir
+          </Link>
+      </div>
+    </>
+  }
+  
+  return (
+    <div className="pb-20">
+      <motion.nav
+        variants={{
+          visible: { y: 0 },
+          hidden: { y: "-100%" },
+        }}
+        animate={hidden ? "hidden" : "visible"}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className={`fixed z-50 flex w-full items-center justify-between bg-secondary p-5 text-white`}
+      >
+        <Link href={"/"}>
+          <img src="icons/logo.png" className="w-32" />
+        </Link>
+        {content}
       </motion.nav>
     </div>
   );

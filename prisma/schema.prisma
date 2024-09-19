@@ -80,3 +80,12 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Record {
+    id          String @id @default(cuid())
+    name        String
+    birth_date  DateTime @default(now())
+    register_date   DateTime @default(now())
+    dx          String
+    notes       String
+}

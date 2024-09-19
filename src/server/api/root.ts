@@ -1,5 +1,6 @@
-import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { postRouter } from "~/server/api/routers/post";
+import { patientRecordRouter } from "~/server/api/routers/patientRecord";
+import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 import { newUser } from "./routers/newUser";
 
 /**
@@ -9,6 +10,7 @@ import { newUser } from "./routers/newUser";
  */
 export const appRouter = createTRPCRouter({
   post: postRouter,
+  patientRecord: patientRecordRouter,
   newUser: newUser,
 });
 

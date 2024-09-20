@@ -107,7 +107,7 @@ export default function Home() {
           </div>
           <Link
             className="h-full w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)] sm:ml-[42%] sm:mt-3 md:ml-[48%] lg:ml-[45%] lg:mt-[5%] xl:ml-[138%] xl:mt-20"
-            href={"/donar"}
+            href={"/donations-page"}
           >
             Donar
           </Link>

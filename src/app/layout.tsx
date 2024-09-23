@@ -6,6 +6,8 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 import Navbar from "./_components/molecules/Navbar";
 import Footer from "./_components/organisms/footer";
+import ClientSessionProvider from "./_components/scripts/clientProvider";
+
 
 export const metadata: Metadata = {
   title: "Querétaro Sí Sonríe",
@@ -20,9 +22,13 @@ Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body className="inter overflow-x-hidden h-full">
-        <Navbar/>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
-        <Footer/>
+        <ClientSessionProvider>
+          <Navbar/>
+          <TRPCReactProvider>
+            {children}
+          </TRPCReactProvider>
+          <Footer/>
+        </ClientSessionProvider>
       </body>
     </html>
   );

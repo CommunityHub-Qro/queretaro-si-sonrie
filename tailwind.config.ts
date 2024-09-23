@@ -13,6 +13,12 @@ export default {
         third: '#FF4141',
         fourth: '#FFE135',
         fifth: '#00A2FF',
+      },
+      borderColor: {
+        secondary: '#292929',
+        third: '#FF4141',
+        fourth: '#FFE135',
+        fifth: '#00A2FF',
       }
     },
     screens:{

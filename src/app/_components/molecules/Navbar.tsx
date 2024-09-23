@@ -34,6 +34,9 @@ const Navbar = () => {
           transition={{ duration: 0.35, ease: "easeInOut" }}
           className={`fixed z-50 flex w-full items-center bg-secondary p-5 text-white`}
         >
+          <Link href={"/main-system/users"} className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black">
+            Usuarios
+          </Link>
           <Link
             href={"/main-system"}
             className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"

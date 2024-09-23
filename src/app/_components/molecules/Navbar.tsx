@@ -44,7 +44,7 @@ const Navbar = () => {
             href={"/main-system/reports"}
             className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"
           >
-            Reportes
+            Estadísticas
           </Link>
           <Link
             href={"/"}

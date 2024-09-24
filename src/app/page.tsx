@@ -117,7 +117,7 @@ export default function Home() {
       {/* Organigrama */}
       <div className="text-bold poppins -mt-48 flex h-screen flex-col items-center p-5 text-6xl">
         <div className="flex h-full items-center">
-          <img src={"images/organigrama.png"} className="h-full w-full" />
+          <img src={"images/organigrama.png"} className="h-full w-full drop-shadow-md" />
         </div>
       </div>
       {/* Servicios */}

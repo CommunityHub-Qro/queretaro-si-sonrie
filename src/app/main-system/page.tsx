@@ -3,12 +3,12 @@
 import { Key, useState } from "react";
 import PatientRecordForm from "../_components/organisms/patientRecordForm";
 import PatientCard from "../_components/organisms/PatientCard";
-import { trpc } from "../../server/api/trpc";
+import { getRecords } from "../_components/hooks/getRecords";
 
 
 export default function System() {
   const [isFormVisible, setFormVisible] = useState(false);
-  const { data: patients, isLoading } = trpc.patientRecord.getPatientRecords.useQuery();
+  const { data, error, isLoading } = getRecords();
 
   const toggleForm = () => {
     setFormVisible(!isFormVisible);
@@ -38,11 +38,10 @@ export default function System() {
         {isLoading ? (
           <p className="text-center col-span-full">Cargando registros...</p>
         ) : (
-          patients?.map((patient: { id: Key | null | undefined; name: string; birth_date: number; dx: any; }) => (
+          data?.map((patient: { id: Key | null | undefined; name: string; dx: any;}) => (
             <PatientCard
               key={patient.id}
               name={patient.name}
-              age={patient.birth_date}  
               dx={patient.dx || "No definido"}
             />
           ))

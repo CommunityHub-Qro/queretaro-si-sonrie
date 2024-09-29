@@ -1,42 +1,48 @@
-'use client'
-import React, { FC, useEffect } from 'react'
+"use client";
+import React, { FC } from "react";
 
 interface DecorationProps {
-  color1: string,
-  color2: string,
-  color3?: string,
-  rotation?: string,
-  className: string
+  color1: string;
+  color2: string;
+  color3?: string;
+  rotation?: string;
+  className: string;
 }
 
 interface IconProps {
-  img: string,
+  img: string;
 }
 
-export const Decorations: FC<DecorationProps> = ({color1, color2, rotation, color3, className}) => {
-
+export const Decorations: FC<DecorationProps> = ({
+  color1,
+  color2,
+  rotation,
+  color3,
+  className,
+}) => {
   return (
-    <div className={`absolute -z-10 ${rotation? parseInt(rotation) < 0 ? '-rotate-45': 'rotate-45'
-    : null} ${className}` }>
-      <div className={`w-[45rem] h-16 rounded-full ${color1 === 'fourth' ? 
-        'bg-fourth' 
-        : color1 === 'fifth' ? 'bg-fifth' : 'bg-third'}`} />
-      <div className={`w-[45rem] h-16 rounded-full relative left-20 -top-3 ${color2 === 'fourth' ? 
-        'bg-fourth' 
-        : color2 === 'fifth' ? 'bg-fifth' : 'bg-third'}`} />   
-      {color3 ? 
-        <div className={`w-[45rem] h-16 rounded-full relative -left-20 -top-3 ${color3 === 'fourth' ? 
-        'bg-fourth' 
-        : color3 === 'fifth' ? 'bg-fifth' : 'bg-third'}`} />  :null  
-      }
+    <div
+      className={`absolute -z-10 ${rotation ? (parseInt(rotation) < 0 ? "-rotate-45" : "rotate-45") : ""} ${className}`}
+    >
+      <div
+        className={`h-16 w-[40rem] rounded-full md:w-[45rem] ${color1 === "fourth" ? "bg-fourth" : color1 === "fifth" ? "bg-fifth" : "bg-third"}`}
+      />
+      <div
+        className={`relative -top-3 left-20 h-16 w-[40rem] rounded-full md:w-[45rem] ${color2 === "fourth" ? "bg-fourth" : color2 === "fifth" ? "bg-fifth" : "bg-third"}`}
+      />
+      {color3 && (
+        <div
+          className={`relative -left-20 -top-3 h-16 w-[40rem] rounded-full md:w-[45rem] ${color3 === "fourth" ? "bg-fourth" : color3 === "fifth" ? "bg-fifth" : "bg-third"}`}
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export const Icon: FC<IconProps> = ({img}) => {
+export const Icon: FC<IconProps> = ({ img }) => {
   return (
-    <div className='w-32 h-32 rounded-full border-dashed border-black border-4 flex items-center justify-center'>
-      <img src={'images/'+img} className='size-20'/>
+    <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-dashed border-black md:h-32 md:w-32">
+      <img src={`images/${img}`} className="h-20 w-20 object-cover" />
     </div>
-  )
-}
+  );
+};

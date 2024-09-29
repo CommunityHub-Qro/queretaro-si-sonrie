@@ -4,8 +4,8 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import Navbar from "./_components/molecules/Navbar";
-import Footer from "./_components/organisms/footer";
+import Footer from "./_components/templates/Footer";
+import Navbar from "./_components/templates/Navbar";
 
 export const metadata: Metadata = {
   title: "Querétaro Sí Sonríe",
@@ -15,14 +15,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}:
-Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="inter overflow-x-hidden h-full">
-        <Navbar/>
+      <body className="inter h-full overflow-x-hidden">
+        <Navbar />
         <TRPCReactProvider>{children}</TRPCReactProvider>
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

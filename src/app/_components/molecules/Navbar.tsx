@@ -34,24 +34,29 @@ const Navbar = () => {
           transition={{ duration: 0.35, ease: "easeInOut" }}
           className={`fixed z-50 flex w-full items-center bg-secondary p-5 text-white`}
         >
-          <Link
-            href={"/main-system"}
-            className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"
-          >
-            Expedientes
+          <Link href={"/"}>
+          <img src="icons/logo.png" className="w-32" />
           </Link>
-          <Link
-            href={"/main-system/reports"}
-            className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"
-          >
-            Reportes
-          </Link>
-          <Link
-            href={"/"}
-            className="flex h-full w-32 justify-center rounded-full bg-third py-2 text-center drop-shadow-md hover:bg-[rgb(255,40,40)]"
-          >
-            Salir
-          </Link>
+          <div className=" flex justify-center ml-auto">
+            <Link
+              href={"/main-system"}
+              className="flex items-center ml-10 mr-5 rounded-md bg-opacity-10 hover:bg-black"
+            >
+              Expedientes
+            </Link>
+            <Link
+              href={"/main-system/reports"}
+              className="flex items-center ml-5 mr-10 rounded-md bg-opacity-10 hover:bg-black"
+            >
+              Reportes
+            </Link>
+            <Link
+              href={"/"}
+              className="flex h-full w-32 justify-center rounded-full bg-third py-2 text-center drop-shadow-md hover:bg-[rgb(255,40,40)]"
+            >
+              Salir
+            </Link>
+          </div>
         </motion.nav>
       </div>
     );

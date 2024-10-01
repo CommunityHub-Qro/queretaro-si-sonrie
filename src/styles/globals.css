@@ -17,6 +17,10 @@
 .poppins {
   font-family: "Poppins";
 }
+
+.input {
+  border-bottom: 2px solid black;
+}
 .modal {
   position: fixed;
   top: 0;

@@ -1,3 +1,4 @@
+import { $Enums } from "@prisma/client";
 import { z } from "zod";
 
 import {
@@ -5,6 +6,13 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
+
+export interface UserDataType {
+  id: string, 
+  name: string, 
+  email: string,
+  role: $Enums.UserRole
+}
 
 export const newUser = createTRPCRouter({
   create: publicProcedure
@@ -40,7 +48,27 @@ export const newUser = createTRPCRouter({
   getAllUsers: publicProcedure
     .query(async ({ctx}) => {
       const users = await ctx.db.user.findMany();
-      return users;
-    })
+      const user: UserDataType[] = users.map(u => {
+        let user: UserDataType = {
+          id: u.id,
+          name: u.name,
+          email: u.email,
+          role: u.role,
+        }
+        return user;
+      })
+      
+      return user;
+    }),
+
+    deleteUser: publicProcedure
+      .input(z.object({
+        id: z.string()
+      }))
+      .mutation(async ({ ctx, input }) => {
+        await ctx.db.user.delete({
+          where: {id: input.id}
+        })
+      })
 
   });

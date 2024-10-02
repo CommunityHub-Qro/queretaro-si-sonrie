@@ -50,3 +50,7 @@ export const useRetrieveAllUsers = async() => {
   
     return user;
 }
+export const useDeleteUser = async(id: string) => {
+  const result = await api.newUser.deleteUser({id: id}).then(() => 'success').catch((e) => ('Error: ' + e))
+  return result;
+}

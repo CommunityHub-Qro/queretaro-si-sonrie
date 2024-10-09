@@ -1,22 +1,31 @@
-
 import React from "react";
+//import GeneratePdfButton from "../atoms/GeneratePdfButton";
 
 interface PatientCardProps {
   name: string;
   dx: string;
+  b_date: string;
 }
 
-const PatientCard: React.FC<PatientCardProps> = ({ name, dx }) => {
+const PatientCard: React.FC<PatientCardProps> = ({ name, dx, b_date }) => {
   return (
-    <div className="flex flex-col items-center border-2 border-gray-300 rounded-lg p-4 shadow-lg bg-white">
+    <div className="flex w-80 flex-row items-center rounded-2xl border-2 border-gray-300 bg-white p-4 shadow-lg">
       <img
-        src="/images/patient.png" 
+        src="/images/patient.png"
         alt="ícono de paciente"
-        className="w-24 h-24 rounded-full object-cover"
+        className="mr-4 h-32 w-32 rounded-sm object-cover"
       />
-      <div className="mt-4 text-center">
-        <p className="font-semibold">Nombre: <span className="font-normal">{name}</span></p>
-        <p className="font-semibold">Diagnóstico: <span className="font-normal">{dx}</span></p>
+      <div className="text-left">
+        <p className="font-semibold">
+          Nombre: <span className="text-sm font-normal">{name}</span>
+        </p>
+        <p className="font-semibold">
+          Fecha de nacimiento:{" "}
+          <span className="text-sm font-normal">{b_date}</span>
+        </p>
+        <p className="font-semibold">
+          Diagnóstico: <span className="text-sm font-normal">{dx}</span>
+        </p>
       </div>
     </div>
   );

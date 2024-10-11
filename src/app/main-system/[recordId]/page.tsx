@@ -3,8 +3,8 @@
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getRecords } from "../../_components/hooks/getRecords";
+import UpdatePatientRecord from '../../_components/organisms/updatePatientRecord'; 
 
-// Define la interfaz de tipo Patient
 interface Patient {
   id: string;
   name: string;
@@ -15,41 +15,67 @@ interface Patient {
 }
 
 const RecordDetails = () => {
-  // Extraer el parámetro recordId de la URL
   const { recordId } = useParams();
-
-  // Estado para almacenar los registros, usando el tipo Patient[]
   const [records, setRecords] = useState<Patient[]>([]);
-  const [patient, setPatient] = useState<Patient | null>(null); // Estado para almacenar el paciente encontrado
+  const [patient, setPatient] = useState<Patient | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false); 
+
   const { data, error, isLoading: isFetching } = getRecords();
 
   useEffect(() => {
     if (data) {
-      setRecords(data); // Asegúrate de que data sea del tipo Patient[]
-      // Filtrar el registro correspondiente al ID
+      setRecords(data);
       const foundPatient = data.find((record) => record.id === recordId);
       setPatient(foundPatient || null);
     }
-    setIsLoading(isFetching); // Manejar el estado de carga
+    setIsLoading(isFetching);
   }, [data, recordId, isFetching]);
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleUpdateSuccess = (updatedData: Patient) => {
+    setPatient(updatedData);
+    setIsEditing(false); 
+  };
+
   if (isLoading) {
-    return <p>Cargando detalles del paciente...</p>;
+    return <p className="text-center">Cargando detalles del paciente...</p>;
   }
 
   if (!patient) {
-    return <p>No se encontró el paciente.</p>;
+    return <p className="text-center">No se encontró el paciente.</p>;
   }
 
   return (
-    <div>
-      <h1>Detalles del Registro</h1>
-      <p>ID del registro: {recordId}</p>
-      <p>Nombre: {patient.name}</p>
-      <p>Fecha de nacimiento: {patient.birth_date.toDateString()}</p>
-      <p>Diagnóstico: {patient.dx}</p>
-      <p>Notas: {patient.notes}</p>
+    <div className="max-w-xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Detalles del Registro</h1>
+      {isEditing ? (
+        <UpdatePatientRecord
+        patientId={patient.id}
+        initialData={{
+          name: patient.name,
+          birth_date: patient.birth_date ? patient.birth_date.toISOString().split('T')[0] : '',
+          register_date: patient.register_date ? patient.register_date.toISOString().split('T')[0] : '',
+          dx: patient.dx,
+          notes: patient.notes,
+        }}
+        onSuccess={handleUpdateSuccess}
+      />
+      ) : (
+        <div className="space-y-4">
+          <p><strong>ID del registro:</strong> {recordId}</p>
+          <p><strong>Nombre:</strong> {patient.name}</p>
+          <p><strong>Fecha de nacimiento:</strong> {patient.birth_date.toDateString()}</p>
+          <p><strong>Diagnóstico:</strong> {patient.dx}</p>
+          <p><strong>Notas:</strong> {patient.notes}</p>
+          <button onClick={handleEditClick} className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600">
+            Editar
+          </button>
+        </div>
+      )}
     </div>
   );
 };

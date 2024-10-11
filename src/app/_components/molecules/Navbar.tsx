@@ -22,7 +22,7 @@ const Navbar = () => {
     }
   });
 
-  if (router === "/main-system" || router === "/main-system/reports") {
+  if (router.startsWith("/main-system")) {
     return (
       <div className="nav-bar-component pb-20">
         <motion.nav

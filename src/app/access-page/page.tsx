@@ -87,12 +87,6 @@ export default function AccessPage() {
             >
               Log in
             </button>
-            <a
-              className={`-mt-8 cursor-pointer text-sm text-[rgb(255,65,65)]`}
-              onClick={() => recuperarContraseña()}
-            >
-              ¿Olvidaste tu contraseña?
-            </a>
           </form>
           {/* <hr
             className={`m-5 w-11/12 border-black border-b-[1] ${signIn ? "hidden" : ""}`}

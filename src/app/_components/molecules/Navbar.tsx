@@ -24,7 +24,7 @@ const Navbar = () => {
 
   if (router === "/main-system" || router === "/main-system/reports") {
     return (
-      <div className="pb-20">
+      <div className="nav-bar-component pb-20">
         <motion.nav
           variants={{
             visible: { y: 0 },
@@ -35,18 +35,18 @@ const Navbar = () => {
           className={`fixed z-50 flex w-full items-center bg-secondary p-5 text-white`}
         >
           <Link href={"/"}>
-          <img src="icons/logo.png" className="w-32" />
+            <img src="icons/logo.png" className="w-32" />
           </Link>
-          <div className=" flex justify-center ml-auto">
+          <div className="ml-auto flex justify-center">
             <Link
               href={"/main-system"}
-              className="flex items-center ml-10 mr-5 rounded-md bg-opacity-10 hover:bg-black"
+              className="ml-10 mr-5 flex items-center rounded-md bg-opacity-10 hover:bg-black"
             >
               Expedientes
             </Link>
             <Link
               href={"/main-system/reports"}
-              className="flex items-center ml-5 mr-10 rounded-md bg-opacity-10 hover:bg-black"
+              className="ml-5 mr-10 flex items-center rounded-md bg-opacity-10 hover:bg-black"
             >
               Reportes
             </Link>

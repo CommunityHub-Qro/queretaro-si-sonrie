@@ -47,9 +47,9 @@ export default function Home() {
         <Decorations
           color1="third"
           color2="fourth"
-          className="relative right-[30rem] -z-20 h-fit md:-top-5 md:right-[30rem] lg:right-[30rem] lg:top-1 xl:right-[30rem] xl:top-20"
+          className="relative right-[30rem] -z-20 h-fit md:-top-5 md:right-[30rem] lg:right-[30rem] lg:top-4 xl:right-[30rem] xl:top-32"
         />
-        <h1 className="block text-4xl font-bold sm:-ml-80 md:-ml-80 md:-mt-8 md:w-[40rem] lg:right-[30rem] lg:mt-5 xl:right-[30rem] xl:mt-20">
+        <h1 className="block text-4xl font-bold sm:-ml-80 md:-ml-80 md:-mt-8 md:w-[40rem] lg:right-[30rem] lg:mt-8 xl:right-[30rem] xl:mt-36">
           El Instituto Queretano para la Atención de Enfermedades Congénitas
           (IQUEC)
         </h1>
@@ -111,11 +111,47 @@ export default function Home() {
           >
             Donar
           </Link>
+          {/*Sonrisas que inspiran*/}
+          <div className="block h-40 flex-col items-start justify-start md:flex md:shrink-0 xl:ml-20 xl:mt-5">
+            <h1 className="ml-6 mt-8 w-[100%] text-4xl font-bold md:ml-[30%] xl:ml-1 xl:mt-10">
+              <span className="text-red-500">SONRISAS</span> QUE INSPIRAN
+            </h1>
+            <Decorations
+              color1="fifth"
+              color2="third"
+              className="-z-20 hidden md:left-[40rem] md:block lg:left-[50rem] lg:block xl:-left-[27rem] xl:top-[122rem] xl:block"
+            />
+            <div className="flex h-60 justify-between md:flex md:shrink-0 xl:ml-28">
+              <img
+                src="/images/antes1.png"
+                alt="imagen"
+                className="h-52 rounded-lg border-[10px] border-solid border-yellow-300 xl:mb-5 xl:ml-14 xl:mt-10"
+              />
+
+              <img
+                src="/images/despues1.png"
+                alt="imagen"
+                className="h-52 rounded-lg border-[10px] border-solid border-yellow-300 xl:ml-20 xl:mt-10"
+              />
+            </div>
+            <div className="flex h-60 justify-between md:flex md:shrink-0 xl:ml-28">
+              <img
+                src="/images/antes2.png"
+                alt="imagen"
+                className="h-52 rounded-lg border-[10px] border-solid border-blue-600 xl:ml-80 xl:mt-20"
+              />
+              <img
+                src="/images/despues2.png"
+                alt="imagen"
+                className="h-52 rounded-lg border-[10px] border-solid border-blue-600 xl:ml-20 xl:mt-20"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Organigrama */}
-      <div className="text-bold poppins -mt-48 flex h-screen flex-col items-center p-5 text-6xl">
+      <div className="text-bold poppins -mt-48 flex h-screen flex-col items-center p-5 text-6xl md:mt-60 lg:mt-64 xl:mt-96">
         <div className="flex h-full items-center">
           <img src={"images/organigrama.png"} className="h-full w-full" />
         </div>
@@ -136,13 +172,13 @@ export default function Home() {
             color1={"fourth"}
             color2={""}
             color3="fifth"
-            className={"-right-24 top-[360vh] -rotate-45"}
+            className={"-right-80 top-[280vh] -rotate-45"}
           />
           <Decorations
             color1={"third"}
             color2={"fourth"}
             color3="fifth"
-            className={"-left-36 top-[320vh] -rotate-45"}
+            className={"-left-36 top-[380vh] -rotate-45"}
           />
           {/* <Decorations color1={"third"} color2={"fourth"} color3="fifth" className={"top-[400vh] right-[30rem] -rotate-45 border-2 border-red-600 w-32"}/> */}
           <section className="flex h-screen flex-col flex-wrap items-center gap-10">
@@ -156,6 +192,12 @@ export default function Home() {
                       {servicio.descripción}
                     </span>
                   </span>
+                  <Decorations
+                    color1={"fourth"}
+                    color2={""}
+                    color3="fifth"
+                    className={"-right-24 top-[520vh] -rotate-45"}
+                  />
                 </div>
               </div>
             ))}

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import sendEmail from '../hooks/sendEmail';
-import { Decorations } from '../atoms/Decorations';
+import React, { useState } from "react";
+import sendEmail from "../hooks/sendEmail";
+import { Decorations } from "../atoms/Decorations";
 
 const RecuperarContrasenia = () => {
-  const [email, setEmail] = useState('')
-  
+  const [email, setEmail] = useState("");
+
   function handleSubmit(e: any) {
     e.preventDefault();
 
@@ -12,16 +12,40 @@ const RecuperarContrasenia = () => {
   }
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)} className='flex h-screen justify-center items-center flex-col gap-10'>
+    <form
+      onSubmit={(e) => handleSubmit(e)}
+      className="flex h-screen flex-col items-center justify-center gap-10"
+    >
       <p>Ingresa su correo electrónico para recuperar su contraseña</p>
-      <input className="w-3/5 input p-2" placeholder='Email' type="text" onChange={(u) => setEmail(u.target.value)} value={email}/>
-      <button type="submit" className='w-32 drop-shadow-md bg-third rounded-full text-center hover:bg-[rgb(255,40,40)] py-2 h-10 items-center text-white'>
+      <input
+        className="input w-3/5 p-2"
+        placeholder="Email"
+        type="text"
+        onChange={(u) => setEmail(u.target.value)}
+        value={email}
+      />
+      <button
+        type="submit"
+        className="bg-specialRed h-10 w-32 items-center rounded-full py-2 text-center text-white drop-shadow-md hover:bg-[rgb(255,40,40)]"
+      >
         Enviar
       </button>
-      <Decorations color1="fifth" color2="third" color3='fourth' className={'top-[10rem] right-[10rem]'} rotation='45' />
-      <Decorations color1="fifth" color2="fourth" color3='third' className={'top-[30rem] left-[10rem]'} rotation='45' />
+      <Decorations
+        color1="specialBlue"
+        color2="specialRed"
+        color3="specialYellow"
+        className={"right-[10rem] top-[10rem]"}
+        rotation="45"
+      />
+      <Decorations
+        color1="specialBlue"
+        color2="specialYellow"
+        color3="specialRed"
+        className={"left-[10rem] top-[30rem]"}
+        rotation="45"
+      />
     </form>
   );
-}
+};
 
 export default RecuperarContrasenia;

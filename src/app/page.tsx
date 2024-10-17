@@ -30,13 +30,13 @@ export default function Home() {
               <img src="icons/logoFacebook.png" className="h-8 w-8" />
             </Link>
             <Decorations
-              color1="fifth"
-              color2="third"
+              color1="specialBlue"
+              color2="specialRed"
               className="-z-20 hidden md:left-[40rem] md:block lg:left-[50rem] lg:block xl:left-[65rem] xl:top-[26rem] xl:block"
             />
             <Decorations
-              color1="fifth"
-              color2="third"
+              color1="specialBlue"
+              color2="specialRed"
               className="absolute left-[20rem] top-[38rem] md:hidden lg:hidden xl:hidden"
             />
           </div>
@@ -45,8 +45,8 @@ export default function Home() {
 
       <div className="mt-60 flex md:-mt-52 md:mb-32 md:shrink-0 xl:h-28">
         <Decorations
-          color1="third"
-          color2="fourth"
+          color1="specialRed"
+          color2="specialYellow"
           className="relative right-[30rem] -z-20 h-fit md:-top-5 md:right-[30rem] lg:right-[30rem] lg:top-1 xl:right-[30rem] xl:top-20"
         />
         <h1 className="block text-4xl font-bold sm:-ml-80 md:-ml-80 md:-mt-8 md:w-[40rem] lg:right-[30rem] lg:mt-5 xl:right-[30rem] xl:mt-20">
@@ -64,8 +64,8 @@ export default function Home() {
             className="top-[2%] w-[95%] md:-mt-20 xl:-mt-24"
           />
           <Decorations
-            color1="third"
-            color2="fourth"
+            color1="specialRed"
+            color2="specialYellow"
             className="relative left-[65rem] -z-20 md:left-[35rem] md:mt-60 lg:mt-8 xl:left-[65rem] xl:-mt-24"
           />
         </div>
@@ -106,7 +106,7 @@ export default function Home() {
             <Carousel images={images} />
           </div>
           <Link
-            className="h-full w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)] sm:ml-[42%] sm:mt-3 md:ml-[48%] lg:ml-[45%] lg:mt-[5%] xl:ml-[138%] xl:mt-20"
+            className="bg-specialRed h-full w-32 items-center rounded-full py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)] sm:ml-[42%] sm:mt-3 md:ml-[48%] lg:ml-[45%] lg:mt-[5%] xl:ml-[138%] xl:mt-20"
             href={"/donar"}
           >
             Donar
@@ -122,9 +122,9 @@ export default function Home() {
       </div>
       {/* Servicios */}
       <Decorations
-        color1="fifth"
-        color2="third"
-        color3="fourth"
+        color1="specialBlue"
+        color2="specialRed"
+        color3="specialYellow"
         className="top-[480vh] -z-20 ml-[10rem]"
         rotation="-45"
       />
@@ -133,18 +133,18 @@ export default function Home() {
 
         <section className="h-screen">
           <Decorations
-            color1={"fourth"}
+            color1={"specialYellow"}
             color2={""}
-            color3="fifth"
+            color3="specialBlue"
             className={"-right-24 top-[360vh] -rotate-45"}
           />
           <Decorations
-            color1={"third"}
-            color2={"fourth"}
-            color3="fifth"
+            color1={"specialRed"}
+            color2={"specialYellow"}
+            color3="specialBlue"
             className={"-left-36 top-[320vh] -rotate-45"}
           />
-          {/* <Decorations color1={"third"} color2={"fourth"} color3="fifth" className={"top-[400vh] right-[30rem] -rotate-45 border-2 border-red-600 w-32"}/> */}
+          {/* <Decorations color1={"specialRed"} color2={"specialYellow"} color3="specialBlue" className={"top-[400vh] right-[30rem] -rotate-45 border-2 border-red-600 w-32"}/> */}
           <section className="flex h-screen flex-col flex-wrap items-center gap-10">
             {servicios.map((servicio, i) => (
               <div key={i}>

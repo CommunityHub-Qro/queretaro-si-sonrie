@@ -47,7 +47,7 @@ const UserCards: FC<Props> = ({ user }) => {
       <p className="col-span-1">{user.name}</p>
       <p className="col-start-3">{user.email}</p>
       <button
-        className="col-start-10 rounded-md border-2 bg-third p-2 text-white drop-shadow-sm hover:border-black"
+        className="bg-specialRed col-start-10 rounded-md border-2 p-2 text-white drop-shadow-sm hover:border-black"
         onClick={(user) => confirmation()}
       >
         Delete

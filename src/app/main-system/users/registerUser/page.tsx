@@ -94,7 +94,7 @@ const RegisterUser = () => {
           />
           <button
             type="submit"
-            className={`h-[3rem] w-32 items-center rounded-full bg-third py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
+            className={`bg-specialRed h-[3rem] w-32 items-center rounded-full py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
             onClick={(e) => sessionSignIn(e)}
           >
             Registrar

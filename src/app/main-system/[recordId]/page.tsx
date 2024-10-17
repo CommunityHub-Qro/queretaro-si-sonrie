@@ -54,7 +54,7 @@ const RecordDetails = () => {
     <div className="mx-auto max-w-xl p-4">
       <Link
         href={"/main-system"}
-        className="flex h-full w-32 items-center justify-center rounded-full bg-third py-2 text-center text-white drop-shadow-md hover:bg-[rgb(255,40,40)]"
+        className="bg-specialRed flex h-full w-32 items-center justify-center rounded-full py-2 text-center text-white drop-shadow-md hover:bg-[rgb(255,40,40)]"
       >
         Regresar
       </Link>

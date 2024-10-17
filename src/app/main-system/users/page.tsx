@@ -33,7 +33,7 @@ const EliminarUsuario = () => {
       <div className="flex justify-between">
         <h1 className="text-xl">Usuarios</h1>
         <Link
-          className="text-md flex h-[2rem] w-44 items-center justify-center rounded-full border-4 border-third py-2 font-bold text-black drop-shadow-md hover:bg-third hover:text-white"
+          className="text-md border-specialRed hover:bg-specialRed flex h-[2rem] w-44 items-center justify-center rounded-full border-4 py-2 font-bold text-black drop-shadow-md hover:text-white"
           href={"/main-system/users/registerUser"}
         >
           Registrar Usuario

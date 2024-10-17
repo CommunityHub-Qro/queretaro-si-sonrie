@@ -57,7 +57,7 @@ export default function System() {
           )
         )}
         <button
-          className="generatePdfButton h-16 w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)]"
+          className="generatePdfButton bg-specialRed h-16 w-32 items-center rounded-full py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)]"
           onClick={() => window.print()}
         >
           Generar PDF

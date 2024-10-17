@@ -24,8 +24,8 @@ const CorpusVolunteering = () => {
 
           <div className="w-1/2">
             <Decorations
-              color1="fourth"
-              color2="third"
+              color1="specialYellow"
+              color2="specialRed"
               className="top-[60 vh] sticky left-[60vh]"
             />
             <div className="p-8">
@@ -56,7 +56,7 @@ const CorpusVolunteering = () => {
         {/* Sección de dos bloques */}
         <div className="flex flex-row text-white">
           <div className="w-1/2 p-8">
-            <div className="rounded-3xl bg-secondary p-2">
+            <div className="bg-specialBlack rounded-3xl p-2">
               <h3 className="p-8 text-2xl font-bold">
                 ¿Qué actividades voy a realizar?
               </h3>
@@ -81,7 +81,7 @@ const CorpusVolunteering = () => {
           </div>
 
           <div className="w-1/2 p-8">
-            <div className="rounded-3xl bg-secondary p-2 pb-20">
+            <div className="bg-specialBlack rounded-3xl p-2 pb-20">
               <h3 className="p-8 text-2xl font-bold">¿Qué voy a aprender?</h3>
               <ul className="list-disc pb-8 pl-12">
                 <li>Trabajo multidisciplinario entre área dental y médica.</li>
@@ -93,8 +93,8 @@ const CorpusVolunteering = () => {
             </div>
           </div>
           <Decorations
-            color1={"fourth"}
-            color2={"fifth"}
+            color1={"specialYellow"}
+            color2={"specialBlue"}
             className={"absolute -right-80 top-[120vh]"}
           />
         </div>
@@ -103,9 +103,9 @@ const CorpusVolunteering = () => {
         <div className="flex flex-row justify-evenly p-10">
           <h1 className="text-5xl font-bold">Voluntariado</h1>
           <Decorations
-            color1={"fourth"}
-            color2={"secondary"}
-            color3={"fifth"}
+            color1={"specialYellow"}
+            color2={"specialBlack"}
+            color3={"specialBlue"}
             className={"-right-10 top-[220vh] -rotate-45"}
           />
         </div>
@@ -120,7 +120,7 @@ const CorpusVolunteering = () => {
 
         <div className="flex flex-row">
           <div className="w-1/2">
-            <div className="m-10 mt-14 flex flex-col rounded-3xl bg-secondary p-4 text-white">
+            <div className="bg-specialBlack m-10 mt-14 flex flex-col rounded-3xl p-4 text-white">
               <div className="p-8 text-2xl font-bold">¿Qué voy a realizar?</div>
               <ul className="list-disc pb-8 pl-12">
                 <li>
@@ -150,12 +150,12 @@ const CorpusVolunteering = () => {
               />
             </div>
             <Decorations
-              color1={"fourth"}
-              color2={"secondary"}
+              color1={"specialYellow"}
+              color2={"specialBlack"}
               className={"left-0 top-[230vh] -rotate-45"}
             />
 
-            <div className="m-10 mt-11 flex flex-col rounded-3xl bg-secondary p-4 text-white">
+            <div className="bg-specialBlack m-10 mt-11 flex flex-col rounded-3xl p-4 text-white">
               <div className="p-8 text-2xl font-bold">Características</div>
               <ul className="list-disc pb-8 pl-12">
                 <li>Pasión por su trabajo.</li>

@@ -1,12 +1,15 @@
-import Link from 'next/link';
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 const Donar = () => {
   return (
-    <Link className='w-32 drop-shadow-md bg-third rounded-full text-center hover:bg-[rgb(255,40,40)] py-2 h-full items-center' href={'/donations-page'}>
-        Donar
+    <Link
+      className="bg-specialRed h-full w-32 items-center rounded-full py-2 text-center drop-shadow-md hover:bg-[rgb(255,40,40)]"
+      href={"/donations-page"}
+    >
+      Donar
     </Link>
-  )
-}
+  );
+};
 
-export default Donar
+export default Donar;

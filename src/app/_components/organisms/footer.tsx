@@ -3,16 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-
 export default function Footer() {
   const router = usePathname();
-  if (router.startsWith("/main-system")){
-    return(
-      <div/>
-    );
+  if (router.startsWith("/main-system")) {
+    return <div />;
   }
   return (
-    <footer className="flex w-full bg-secondary p-4 md:h-60">
+    <footer className="bg-specialBlack flex w-full p-4 md:h-60">
       <div className="flex w-full flex-col items-center justify-center space-y-3">
         <p className="flex items-center text-3xl font-medium text-white md:text-4xl">
           <img src="/icons/logo.png" className="mr-2 h-8 md:h-10" alt="Logo" />

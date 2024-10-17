@@ -119,7 +119,7 @@ export default function Home() {
             <Decorations
               color1="fifth"
               color2="third"
-              className="-z-20 hidden md:left-[40rem] md:block lg:left-[50rem] lg:block xl:-left-[27rem] xl:top-[122rem] xl:block"
+              className="-z-20 hidden md:left-[40rem] md:block lg:left-[50rem] lg:top-[118rem] lg:block xl:-left-[27rem] xl:top-[122rem] xl:block"
             />
             <div className="flex h-60 justify-between md:flex md:shrink-0 xl:ml-28">
               <img

@@ -1,6 +1,7 @@
 import TeamMember from "../_components/organisms/TeamMember";
 import MainTitle from "../_components/atoms/MainTitle";
 import Content from "../_components/molecules/Content";
+import { Decorations } from "../_components/atoms/Decorations";
 
 const Team = () => {
   return (
@@ -10,7 +11,7 @@ const Team = () => {
         color="text-black"
         size="text-5xl"
       />
-      <div className="container mx-auto flex flex-wrap justify-center gap-24">
+      <div className="container relative mx-auto flex flex-wrap justify-center gap-24">
         <TeamMember
           name="Juan Martinez"
           role="Especialista en negocios internacionales y relaciones públicas"
@@ -33,6 +34,13 @@ const Team = () => {
           imageUrl="/images/team-img-3.png"
           titleColor="text-black"
           textColor="text-gray-500"
+        />
+
+        <Decorations
+          color1="third"
+          color2="fifth"
+          rotation=""
+          className="right-0 top-0"
         />
       </div>
       <div className="container mx-auto flex w-full max-w-5xl flex-shrink-0 flex-grow flex-col items-center text-center">
@@ -80,7 +88,7 @@ const Team = () => {
         />
       </div>
 
-      <div className="my-6 flex flex-wrap items-center justify-center gap-24">
+      <div className="relative my-6 flex flex-wrap items-center justify-center gap-24">
         <img
           src="images/team-img-institution-7.png"
           alt="Logo de More Brands Studio"

@@ -33,11 +33,11 @@ const ImageWithContent: React.FC<ImageWithContentProps> = ({
 }) => {
   return (
     <div
-      className={`flex w-full ${isImageLeft ? "" : "flex-row-reverse"} flex-wrap`}
+      className={`item-center flex w-full ${isImageLeft ? "" : "flex-row-reverse"} flex-wrap`}
     >
-      <div className="w-full lg:w-1/2">
+      <div className="flex w-full justify-center lg:w-1/2">
         <Image
-          className={`h-auto w-full ${borderRadius ? "rounded-l-lg" : ""}`}
+          className={`h-fill w-auto ${borderRadius ? "rounded-2xl" : ""}`}
           src={imageSrc}
           alt={imageAlt}
           width={imageWidth}
@@ -45,7 +45,7 @@ const ImageWithContent: React.FC<ImageWithContentProps> = ({
         />
       </div>
       <div
-        className={`mb-24 mt-24 w-full lg:w-1/2 ${borderRadius ? "rounded-r-lg" : ""} ${backgroundColor}`}
+        className={`mb-24 mt-24 w-full lg:w-1/2 ${borderRadius ? "rounded-2xl" : ""} ${backgroundColor}`}
       >
         <Content
           title={title}

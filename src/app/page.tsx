@@ -1,6 +1,4 @@
 import { Decorations, Icon } from "./_components/atoms/Decorations";
-import { Carousel } from "./_components/atoms/Carousel";
-import { servicios } from "./constants";
 import MainTitle from "./_components/atoms/MainTitle";
 import ImageWithContent from "./_components/organisms/ImageWithContent";
 import CarouselWithContent from "./_components/organisms/CarouselWithContent";
@@ -64,16 +62,18 @@ export default function Home() {
 
   return (
     <>
-      <Banner
-        leftImageSrc="/images/Collage.png"
-        leftImageAlt="Descripción de la imagen a la izquierda"
-        logoSrc="/images/mainTitle.png"
-        logoAlt="Logo de la organización"
-        leftImageWidth={500} // Ajusta según tu diseño
-        leftImageHeight={300} // Ajusta según tu diseño
-        logoWidth={624} // Ajusta según tu diseño
-        logoHeight={175} // Ajusta según tu diseño
-      />
+      <div className="relative">
+        <Banner
+          leftImageSrc="/images/Collage.png"
+          leftImageAlt="Descripción de la imagen a la izquierda"
+          logoSrc="/images/mainTitle.png"
+          logoAlt="Logo de la organización"
+          leftImageWidth={500} // Ajusta según tu diseño
+          leftImageHeight={300} // Ajusta según tu diseño
+          logoWidth={624} // Ajusta según tu diseño
+          logoHeight={175} // Ajusta según tu diseño
+        />
+      </div>
 
       <main className="mx-auto mb-24 mt-24 flex max-w-[80%] flex-col items-center gap-24">
         <MainTitle
@@ -81,7 +81,7 @@ export default function Home() {
           color="text-black-500"
           size="text-5xl"
         />
-        <div className="container mx-auto">
+        <div className="container relative mx-auto">
           <ImageWithContent
             imageSrc="/images/elipse1.png" // Reemplaza con tu imagen
             imageAlt="Descripción de la imagen"
@@ -91,12 +91,19 @@ export default function Home() {
             textColor="text-gray-700" // Clase de color para el texto
             backgroundColor="bg-white" // Fondo del contenido
             isImageLeft={true} // Imagen a la izquierda
-            borderRadius={true} // Bordes redondeados
+            borderRadius={false} // Bordes redondeados
             imageWidth={500} // Ancho de la imagen
             imageHeight={300} // Alto de la imagen
           />
+
+          <Decorations
+            color1="third"
+            color2="fifth"
+            rotation=""
+            className="right-0 top-0"
+          />
         </div>
-        <div className="container mx-auto">
+        <div className="container relative mx-auto">
           <CarouselWithContent
             images={images}
             title="Visión"
@@ -114,8 +121,15 @@ export default function Home() {
               <Donar />
             </div>
           </CarouselWithContent>
+
+          <Decorations
+            color1="fourth"
+            color2="third"
+            rotation=""
+            className="left-0 top-0"
+          />
         </div>
-        <div className="container mx-auto">
+        <div className="container relative mx-auto">
           <ContentCarouselWithContent
             items={items}
             title="Nuestros Servicios"

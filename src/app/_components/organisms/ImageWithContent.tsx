@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import Image from "next/image";
 import Content from "../molecules/Content";
 
@@ -7,6 +7,7 @@ interface ImageWithContentProps {
   imageAlt: string;
   title: string;
   text: string;
+  children?: ReactNode;
   titleColor: string; // Color del título
   textColor: string; // Color del texto
   backgroundColor: string; // Color de fondo
@@ -28,6 +29,7 @@ const ImageWithContent: React.FC<ImageWithContentProps> = ({
   borderRadius,
   imageWidth,
   imageHeight,
+  children,
 }) => {
   return (
     <div
@@ -50,7 +52,9 @@ const ImageWithContent: React.FC<ImageWithContentProps> = ({
           text={text}
           titleColor={titleColor}
           textColor={textColor}
-        />
+        >
+          {children}
+        </Content>
       </div>
     </div>
   );

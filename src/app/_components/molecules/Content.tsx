@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import Text from "../atoms/Text";
 
 interface ContentProps {
@@ -6,6 +6,7 @@ interface ContentProps {
   text: string;
   titleColor: string;
   textColor: string;
+  children?: ReactNode;
 }
 
 const Content: React.FC<ContentProps> = ({
@@ -13,6 +14,7 @@ const Content: React.FC<ContentProps> = ({
   text,
   titleColor,
   textColor,
+  children,
 }) => {
   return (
     <div className="p-5">
@@ -20,6 +22,7 @@ const Content: React.FC<ContentProps> = ({
         {title}
       </h2>
       <Text className={`text-base md:text-2xl ${textColor}`}>{text}</Text>
+      {children}
     </div>
   );
 };

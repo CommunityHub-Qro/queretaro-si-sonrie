@@ -4,6 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Decorations, Icon } from "../_components/atoms/Decorations";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { useEffect, useRef } from 'react';
+import { HydrateClient } from "~/trpc/server";
+import Chart, { ChartType, ChartData, ChartOptions } from 'chart.js/auto';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 const testimonials = [
   {
@@ -26,6 +30,7 @@ const testimonials = [
   },
 ];
 
+
 const Impact = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
 
@@ -43,6 +48,104 @@ const Impact = () => {
   const getTestimonialIndex = (offset: number) => {
     return (currentIndex + offset + testimonials.length) % testimonials.length;
   };
+
+  const chartData = [200, 500, 300, 450, 800, 500];
+  const labels = ['2019', '2020', '2021', '2022', '2023', '2024'];
+
+  // Set a fixed height for the chart
+  const fixedHeight = 150; // Fixed height of 150 pixels
+
+  // Calculate the maximum value in chartData to scale heights
+  const maxValue = Math.max(...chartData);
+
+  // Reference for Doughnut Chart canvas and Chart instance
+  const doughnutChartRef = useRef<HTMLCanvasElement | null>(null);
+  const chartInstanceRef = useRef<Chart<"doughnut"> | null>(null);
+
+  useEffect(() => {
+    const ctx = doughnutChartRef.current?.getContext('2d');
+
+    // If a chart instance already exists, destroy it before creating a new one
+    if (chartInstanceRef.current) {
+      chartInstanceRef.current.destroy();
+    }
+
+    if (ctx) {
+      // Register the ChartDataLabels plugin
+      Chart.register(ChartDataLabels);
+
+      // Create a new doughnut chart and store the instance in chartInstanceRef
+      chartInstanceRef.current = new Chart<"doughnut", number[], unknown>(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['55 (0.4%)', '44 (16.3%)', '39 (14.4%)', '27 (10.0%)', '24 (8.9%)', '24 (8.9%)'],
+          datasets: [{
+            label: 'Procedimientos',
+            data: [0.4, 16.3, 14.4, 10.0, 8.9, 8.9], // Data is explicitly of type number[]
+            backgroundColor: [
+              '#007bff', // Blue
+              '#ff5733', // Red
+              '#ffc300', // Yellow
+              '#28a745', // Green
+              '#fd9644', // Orange
+              '#8e44ad', // Purple
+            ],
+            borderWidth: 5,
+            borderColor: '#ffffff',
+            hoverOffset: 4,
+            borderRadius: 10, // Rounded corners for the arcs
+          }]
+        },
+        options: {
+          responsive: true,
+          cutout: '60%', // Controls the doughnut thickness
+          plugins: {
+            legend: {
+              display: false // Hide the default legend
+            },
+            tooltip: {
+              enabled: false // Disable tooltips
+            },
+            // Data labels plugin to show numbers
+            datalabels: {
+              color: '#000', // Set the text color
+              font: {
+                weight: 'bold',
+                size: 14
+              },
+              formatter: (value, context) => {
+                const label = context.chart.data.labels?.[context.dataIndex] || '';
+                return label;
+              },
+              anchor: 'end', // Align the label outside the segment
+              align: 'end',
+              offset: 10,
+            }
+          },
+          layout: {
+            padding: {
+              top: 30,
+              bottom: 30,
+              left: 90,
+              right: 60,
+            }
+          },
+          elements: {
+            arc: {
+              borderRadius: 10, // Rounded edges for the arcs
+            },
+          },
+        },
+      });
+    }
+
+    // Cleanup function to destroy the chart on component unmount
+    return () => {
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
+      }
+    };
+  }, []); // Empty dependency array ensures the effect runs only once when the component mounts
 
   return (
     <main className="bg-white">
@@ -127,10 +230,13 @@ const Impact = () => {
 
             {[-1, 0, 1].map((offset) => {
               const testimonial = testimonials[getTestimonialIndex(offset)];
+              if (!testimonial) return null; // Safeguard to avoid undefined error
               return (
                 <div
                   key={testimonial.id}
-                  className={`mx-4 rounded-lg bg-gray-100 p-6 ${offset === 0 ? "w-1/2" : "w-1/4 opacity-60"}`}
+                  className={`mx-4 rounded-lg bg-gray-100 p-6 ${
+                    offset === 0 ? "w-1/2" : "w-1/4 opacity-60"
+                  }`}
                 >
                   <div className="mb-4 flex">
                     {[1, 2, 3, 4, 5].map((star) => (
@@ -210,6 +316,87 @@ const Impact = () => {
           </div>
         </div>
       </section>
+      <section className="flex flex-col mt-20">
+          <div className="flex min-w-full">
+            <h2 className="text-[4vw] text-center sm:text-4xl lg:text-4xl w-[100%] text-black-600 font-bold mb-0">
+              ESTADÍSTICAS
+            </h2>
+          </div>
+
+          {/* Flex Container for Chart and Text */}
+          <div className="flex flex-row justify-center items-start w-full mt-10">
+            {/* Bar Chart Section with 70% Width */}
+            <div className="basis-[60%]">
+              <div className="px-4">
+                <div className="w-full px-20 py-10">
+                  <div>
+                    <div className="md:flex md:justify-between md:items-center">
+                      <div>
+                        <h2 className="text-xl text-gray-800 font-bold leading-tight">PACIENTES ATENDIDOS</h2>
+                        <p className="mb-2 text-gray-600 text-sm">CADA AÑO</p>
+                      </div>
+                    </div>
+
+                    <div className="my-8 relative">
+                      {/* Bar Chart */}
+                      <div className="flex items-end mb-2 space-x-2" style={{ height: `${fixedHeight}px` }}>
+                        {chartData.map((data, index) => (
+                          <div key={index} className="relative w-1/6">
+                            <div
+                              style={{ height: `${(data / maxValue) * fixedHeight}px` }} // Scale height based on max value
+                              className={`rounded-lg transition ease-in duration-200 ${
+                                data === maxValue ? 'bg-blue-600' : 'bg-blue-300'
+                              }`}
+                            >
+                              {/* Display the data value above the bar */}
+                              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 text-gray-800 text-sm font-bold">
+                                {data}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Labels */}
+                      <div className="border-t border-gray-400 mt-2"></div>
+                      <div className="flex items-end space-x-2 mt-2">
+                        {labels.map((label, index) => (
+                          <div key={index} className="relative w-1/6">
+                            <div className="text-center text-sm text-gray-700 font-bold">{label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Text Section with 30% Width */}
+            <div className="basis-[40%] pr-10 py-20 flex felx-col justify-center items-center">
+            <p className="text-gray-800 text-base leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Curabitur bibendum ante ut feugiat semper. 
+                Integer interdum tincidunt nulla id ullamcorper. 
+                Aliquam erat volutpat. 
+                Phasellus vitae dui finibus, euismod ante at, tristique leo. 
+                Proin dictum justo at ante varius, 
+                facilisis euismod tellus mattis. 
+                Suspendisse rutrum ultricies consectetur. <br /><br />
+                Integer sagittis lectus eu ultricies vehicula.
+                Praesent turpis ante, tempus sit amet elit quis, porta placerat est. 
+              </p>
+            </div>
+          </div>
+
+          {/* Doughnut Chart Section */}
+          <div className="flex w-full mx-auto ml-20 justify-start items-start">
+            <div className="w-[40%]">
+              <canvas ref={doughnutChartRef} id="myDoughnutChart"></canvas>
+            </div>
+            <h1 className="text-2xl font-bold text-left mt-20 ml-10 w-[60%]">PORCENTAJES DE PROCEDIMIENTOS <br /> REALIZADOS AL AÑO</h1>
+          </div>
+        </section>
     </main>
   );
 };

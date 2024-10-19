@@ -6,6 +6,7 @@ import {
   useRetrieveUser,
 } from "../_components/hooks/useRetrieveUser";
 import RecuperarContrasenia from "../_components/organisms/RecuperarContrasenia";
+import Link from "next/link";
 
 export default function AccessPage() {
   const [user, setUser] = useState<string>("");
@@ -82,7 +83,7 @@ export default function AccessPage() {
             />
             <button
               type="submit"
-              className={`bg-specialRed h-[3rem] w-32 items-center rounded-full py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
+              className={`h-[3rem] w-32 items-center rounded-full bg-specialRed py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
               onClick={(e) => sessionLogIn(e)}
             >
               Log in
@@ -91,6 +92,12 @@ export default function AccessPage() {
           {/* <hr
             className={`m-5 w-11/12 border-black border-b-[1] ${signIn ? "hidden" : ""}`}
           /> */}
+          {/* <Link
+            href={"/access-page/forgotten-password"}
+            className="text-specialRed hover:underline"
+          >
+            ¿Olvidé mi contraseña?
+          </Link> */}
         </aside>
       </div>
     );

@@ -20,6 +20,9 @@ export default {
         specialYellow: "#FFE135",
         specialBlue: "#00A2FF",
       },
+      textColor: {
+        specialRed: "#FF4141",
+      },
     },
     screens: {
       sm: "640px",

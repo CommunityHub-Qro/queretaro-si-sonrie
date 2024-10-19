@@ -100,7 +100,7 @@ export default function Home() {
             color1="third"
             color2="fifth"
             rotation=""
-            className="right-0 top-0"
+            className="left-0 top-0"
           />
         </div>
         <div className="container relative mx-auto">
@@ -121,13 +121,6 @@ export default function Home() {
               <Donar />
             </div>
           </CarouselWithContent>
-
-          <Decorations
-            color1="fourth"
-            color2="third"
-            rotation=""
-            className="left-0 top-0"
-          />
         </div>
         <div className="container relative mx-auto">
           <ContentCarouselWithContent
@@ -138,6 +131,13 @@ export default function Home() {
             textColor="text-gray-700"
             backgroundColor="bg-white"
             borderRadius={true}
+          />
+
+          <Decorations
+            color1="fourth"
+            color2="third"
+            rotation=""
+            className="top-50 right-0"
           />
         </div>
       </main>

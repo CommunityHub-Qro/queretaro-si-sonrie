@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Logo from "../atoms/Logo";
 import Navigation from "../molecules/Navigation";
-import Donar from "../atoms/Donar";
 import LinkComponent from "../atoms/LinkComponent";
 import AdminNavbar from "../molecules/AdminNavbar";
 import { navbar } from "../../constants";
@@ -49,7 +48,6 @@ const MainNavbar: React.FC = () => {
           Acceso
         </LinkComponent>
         <Navigation links={navbar} />
-        <Donar />
       </div>
 
       {/* Botón de menú para móviles */}
@@ -75,7 +73,7 @@ const MainNavbar: React.FC = () => {
 
       {/* Menú colapsable */}
       {isOpen && (
-        <div className="absolute right-0 top-16 z-50 w-48 rounded-lg bg-secondary p-5 shadow-lg md:hidden">
+        <div className="absolute left-0 top-16 z-50 flex w-full flex-col items-center justify-between gap-5 rounded-lg bg-secondary p-5 shadow-lg md:hidden md:flex-wrap">
           <LinkComponent
             href="/access-page"
             className="block py-2 text-white hover:bg-black hover:bg-opacity-10"
@@ -83,7 +81,6 @@ const MainNavbar: React.FC = () => {
             Acceso
           </LinkComponent>
           <Navigation links={navbar} />
-          <Donar />
         </div>
       )}
     </nav>

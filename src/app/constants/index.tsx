@@ -15,6 +15,10 @@ export const navbar = [
     name: 'Contacto',
     href: '/contact-page'
   },
+  {
+    name: 'Donar',
+    href: '/donations-page'
+  }
   
 ]
 

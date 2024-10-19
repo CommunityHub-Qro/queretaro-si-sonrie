@@ -11,14 +11,14 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ links }) => (
-  <nav className="flex w-full flex-col items-center gap-5 md:flex-row md:flex-wrap md:justify-between">
+  <nav className="flex w-full flex-col items-center gap-5 lg:flex-row lg:flex-wrap lg:justify-between">
     {links.map((link) =>
       link.name == "Donar" ? (
         <Donar key={link.href} />
       ) : (
         <LinkComponent
           href={link.href}
-          className="rounded-md bg-opacity-10 p-2 px-5 hover:bg-black"
+          className="rounded-lg bg-opacity-10 p-2 px-5 hover:bg-black"
           key={link.href}
         >
           {link.name}

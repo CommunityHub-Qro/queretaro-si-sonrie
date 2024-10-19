@@ -1,66 +1,71 @@
 export const navbar = [
   {
-    name: 'Nosotros',
-    href: '/team'
+    name: "Inicio",
+    href: "/",
   },
   {
-    name: 'Impacto',
-    href: '/impact-page'
+    name: "Nosotros",
+    href: "/team",
   },
   {
-    name: 'Voluntariado',
-    href: '/volunteering'
+    name: "Impacto",
+    href: "/impact-page",
   },
   {
-    name: 'Contacto',
-    href: '/contact-page'
+    name: "Voluntariado",
+    href: "/volunteering",
   },
   {
-    name: 'Donar',
-    href: '/donations-page'
-  }
-  
-]
+    name: "Contacto",
+    href: "/contact-page",
+  },
+  {
+    name: "Donar",
+    href: "/donations-page",
+  },
+];
 
 export const servicios = [
   {
-    titulo: 'Odontopediatria',
-    descripción: 'Actividades preventivas y correctivas de los dientes de deciduos',
-    img: 'odoPed.png'
+    titulo: "Odontopediatria",
+    descripción:
+      "Actividades preventivas y correctivas de los dientes de deciduos",
+    img: "odoPed.png",
   },
   {
-    titulo: 'Odontología',
-    descripción: 'Odontología infantil 1x4 a las 9 - 13 años.\nCirugía ortognática',
-    img: 'odo.png'
+    titulo: "Odontología",
+    descripción:
+      "Odontología infantil 1x4 a las 9 - 13 años.\nCirugía ortognática",
+    img: "odo.png",
   },
   {
-    titulo: 'Ortopedia pre-quirúrgica',
-    descripción: 'Conformadores nasales',
-    img: 'ortoPre.png'
+    titulo: "Ortopedia pre-quirúrgica",
+    descripción: "Conformadores nasales",
+    img: "ortoPre.png",
   },
   {
-    titulo: 'Ortopedia',
-    descripción: 'Post nam\nHas y hyrax controles verticales y transversales.',
-    img: 'orto.png'
+    titulo: "Ortopedia",
+    descripción: "Post nam\nHas y hyrax controles verticales y transversales.",
+    img: "orto.png",
   },
   {
-    titulo: 'Terapia de Lenguaje',
-    descripción: '',
-    img: 'tl.png'
+    titulo: "Terapia de Lenguaje",
+    descripción: "",
+    img: "tl.png",
   },
   {
-    titulo: 'Cirugía plástica',
-    descripción: 'Queilo, palato, velo, nasorino',
-    img: 'ciru.png'
+    titulo: "Cirugía plástica",
+    descripción: "Queilo, palato, velo, nasorino",
+    img: "ciru.png",
   },
   {
-    titulo: 'Maxilofacial',
-    descripción: 'Terceros molares, cirugía ortognática',
-    img: 'maxi.png'
+    titulo: "Maxilofacial",
+    descripción: "Terceros molares, cirugía ortognática",
+    img: "maxi.png",
   },
   {
-    titulo: 'Preventiva',
-    descripción: 'Actividades preventivas, caries, control de higiene',
-    img: 'prev.png'
+    titulo: "Preventiva",
+    descripción: "Actividades preventivas, caries, control de higiene",
+    img: "prev.png",
   },
-]
+];

@@ -40,10 +40,10 @@ const MainNavbar: React.FC = () => {
         <Logo src="icons/logo.png" alt="Logo" className="w-32" />
       </LinkComponent>
 
-      <div className="hidden md:flex md:items-center md:gap-5">
+      <div className="hidden lg:flex lg:items-center lg:gap-5">
         <LinkComponent
           href="/access-page"
-          className="me-96 flex items-start rounded-md bg-opacity-10 hover:bg-black"
+          className="me-96 flex items-start rounded-lg bg-opacity-10 hover:bg-black"
         >
           Acceso
         </LinkComponent>
@@ -52,7 +52,7 @@ const MainNavbar: React.FC = () => {
 
       {/* Botón de menú para móviles */}
       <button
-        className="flex items-center justify-center md:hidden"
+        className="flex items-center justify-center lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
         <svg
@@ -73,7 +73,7 @@ const MainNavbar: React.FC = () => {
 
       {/* Menú colapsable */}
       {isOpen && (
-        <div className="absolute left-0 top-16 z-50 flex w-full flex-col items-center justify-between gap-5 rounded-lg bg-secondary p-5 shadow-lg md:hidden md:flex-wrap">
+        <div className="absolute left-0 top-16 z-50 flex w-full flex-col items-center justify-between gap-5 rounded-lg bg-secondary p-5 shadow-lg lg:top-0 lg:flex-row lg:flex-wrap">
           <LinkComponent
             href="/access-page"
             className="block py-2 text-white hover:bg-black hover:bg-opacity-10"

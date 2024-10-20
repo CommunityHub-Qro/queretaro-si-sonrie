@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { navbar } from "../../constants";
 import { useState } from "react";
 import { useScroll, useMotionValueEvent, motion } from "framer";
-import Donar from "../atoms/Donar";
+import Donar from "../Atoms/Donar";
 
 const Navbar = () => {
   const [hidden, setHidden] = useState(false);

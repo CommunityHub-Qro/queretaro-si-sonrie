@@ -1,9 +1,5 @@
-import { HydrateClient } from "~/trpc/server";
+import Impact from "./Impact";
 
-export default function ImpactPage(){
-    return(
-        <HydrateClient>
-            <div>new page</div>
-        </HydrateClient>
-    );
+export default function ImpactPage() {
+  return <Impact />;
 }

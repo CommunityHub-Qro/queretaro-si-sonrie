@@ -1,0 +1,18 @@
+@media print {
+  .nav-bar-component,
+  .generatePdfButton,
+  .addFile,
+  .regresar,
+  .editar {
+    display: none;
+  }
+  @page {
+    margin-bottom: 0;
+  }
+  footer {
+    display: none;
+  }
+  .detailsTitle {
+    margin-top: 50px;
+  }
+}

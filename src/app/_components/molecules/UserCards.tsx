@@ -54,7 +54,7 @@ const UserCards: FC<Props> = ({ user }) => {
   function handleUpdate(e: React.FormEvent) {
     e.preventDefault();
 
-    useUpdateUser(user.id, ...formData);
+    // useUpdateUser(user.id, ...formData);
 
     setShown(false);
   }

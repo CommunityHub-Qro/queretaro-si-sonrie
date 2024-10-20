@@ -44,7 +44,11 @@ export default function AccessPage() {
       // Función Fetch para conseguir usuario y contraseña para acceder acceso
       userSession = await useRetrieveUser(user, password)
         .then((value) => value)
-        .catch((error) => console.log("Error" + error));
+        .catch((error) => {
+          console.log("Error" + error);
+          alert("Error: Usuario no registrado");
+          return error;
+        });
       console.log(userSession);
       if (userSession) {
         window.location.href = "main-system";

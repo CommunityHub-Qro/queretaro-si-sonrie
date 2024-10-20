@@ -48,9 +48,11 @@ export default function AccessPage() {
           alert("Error: Usuario no registrado");
           return error;
         });
-      console.log(userSession);
-      if (userSession) {
+      // console.log(userSession);
+      if (userSession != "Error: usuario no registrado") {
         window.location.href = "main-system";
+      } else {
+        alert("Error: usuario no registrado");
       }
     };
     fetch();

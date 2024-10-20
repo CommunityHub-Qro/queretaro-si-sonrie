@@ -1,126 +1,107 @@
+import TeamMember from "../_components/organisms/TeamMember";
+import MainTitle from "../_components/atoms/MainTitle";
+import Content from "../_components/molecules/Content";
+import { Decorations } from "../_components/atoms/Decorations";
+
 const Team = () => {
-    return (
-      <div className="min-h-screen bg-white text-gray-900">
-        <main className="flex flex-col">
-          {/* Team Introduction Section */}
-          <section className="flex flex-col items-center mt-20">
-            <div className="flex w-full">
-            <h1 className="text-[4vw] sm:text-3xl lg:text-5xl w-[70%] text-red-600 font-bold mt-[3%] ml-[5.5%] mb-0"> ¡Te presentamos a nuestro equipo! </h1>
+  return (
+    <main className="mx-auto mb-24 mt-24 flex max-w-[80%] flex-col items-center gap-24">
+      <MainTitle
+        title="¡Te presentamos a nuestro equipo!"
+        color="text-black"
+        size="text-5xl"
+      />
+      <div className="container relative mx-auto flex flex-wrap justify-center gap-24">
+        <TeamMember
+          name="Juan Martinez"
+          role="Especialista en negocios internacionales y relaciones públicas"
+          imageUrl="/images/team-img-1.png"
+          titleColor="text-black"
+          textColor="text-gray-500"
+        />
 
-                <div className="relative w-[30%]">
-                    <div className="absolute left-[30%] w-[70%] top-[28%] h-[33%] bg-third rounded-l-3xl shadow-dsgn"></div>
-                    <div className="absolute left-[10%] w-[90%] top-[50%] h-[33%] bg-fourth rounded-l-3xl shadow-dsgn"></div>
-                </div>
-            </div>
-            
-            <div className="flex justify-center gap-[7.1%] pt-[5vh] w-full">
-              <div className="w-[22.6vw] text-center">
-                <img 
-                  src="images/team-img-1.png" 
-                  alt="imagen del especialista, Juan Martinez" 
-                  className="w-[22.6vw] rounded-full border-[0.8vw] border-fourth"
-                />
-                <h2 className="text-[1.5vw] font-black tracking-tighter mt-[10%] mb-[4%]">Juan Martinez</h2>
-                <p className="text-[1.5vw] leading-7">
-                  Especialista en negocios <br/>
-                  internacionales y <br/>
-                  relaciones públicas
-                </p>
-              </div>
-              
-              <div className="w-[22.6vw] text-center">
-                <img 
-                  src="images/team-img-2.png" 
-                  alt="imagen de Dr. Estrada Vargas" 
-                  className="w-[22.6vw] rounded-full border-[0.8vw] border-fourth"
-                />
-                <h2 className="text-[1.5vw] font-black tracking-tighter mt-[10%] mb-[4%]">Dr. Estrada Vargas</h2>
-                <p className="text-[1.5vw] leading-7">
-                  Cirujano con maestría en <br/>
-                  farmaceutica  
-                </p>
-              </div>
-              
-              <div className="w-[22.6vw] text-center">
-                <img 
-                  src="images/team-img-3.png" 
-                  alt="imagen de Dra. Maria Castillo" 
-                  className="w-[22.6vw] rounded-full border-[0.8vw] border-fourth"
-                />
-                <h2 className="text-[1.5vw] font-black tracking-tighter mt-[10%] mb-[4%]">Dra. Maria Castillo</h2>
-                <p className="text-[1.5vw] leading-7">
-                  Doctora en Ciencias <br/>
-                  Médicas
-                </p>
-              </div>
-            </div>
-          </section>
-          
-          {/* Institutions Section */}
-          <section className="flex flex-col items-center pb-[10vh]">
-            <div className="relative w-full">
-              <div className="absolute w-[15%] mt-[0.5%] h-[18.455%] bg-third rounded-r-3xl shadow-dsgn"></div>
-              <div className="absolute w-[9%] mt-[2%] h-[18.455%] bg-fourth rounded-r-3xl shadow-dsgn"></div>
-              <h1 className="text-[4.5vw] text-center mt-[8%] font-semibold">Nuestros convenios</h1>
-            </div>
-            <p className="text-[1.26vw] mt-[2.5%] text-center">
-              Hemos hecho sinergia con varias instituciones 
-              para poder lograr una mejor atención a mejores 
-              costos para nuestros pacientes.
-            </p>
-            
-            <div className="flex justify-center items-center gap-[12%] my-[3%]">
-              <img 
-                src="images/team-img-institution-1.png" 
-                alt="Logo de SmileTrain" 
-                className="w-[15vw]"
-              />
-              <img 
-                src="images/team-img-institution-2.png" 
-                alt="Logo de Quirófanos del Valle" 
-                className="w-[22vw]"
-              />
-              <img 
-                src="images/team-img-institution-3.png" 
-                alt="Logo de Rxmind Gabinete Radiológico" 
-                className="w-[22vw]"
-              />
-            </div>
-            
-            <div className="flex justify-center items-center gap-[8%] my-[1%]">
-              <img 
-                src="images/team-img-institution-4.png" 
-                alt="Logo de Laboratorio de Análisis Clinicos Danthe" 
-                className="w-[13vw]"
-              />
-              <img 
-                src="images/team-img-institution-5.png" 
-                alt="Logo de UVM" 
-                className="w-[30vw]"
-              />
-              <img 
-                src="images/team-img-institution-6.png" 
-                alt="Logo de Orthodontics Bajio" 
-                className="w-[20vw]"
-              />
-            </div>
-            
-            <div className="flex justify-center items-center gap-[10%] my-[3%]">
-              <img 
-                src="images/team-img-institution-7.png" 
-                alt="Logo de More Brands Studio" 
-                className="w-[25vw]"
-              />
-              <img 
-                src="images/team-img-institution-8.png" 
-                alt="Logo de RoberToon Ilustrador" 
-                className="w-[25vw]"
-              />
-            </div>
-          </section>
-        </main>
+        <TeamMember
+          name="Dr. Estrada Vargas "
+          role="Cirujano con maestría en farmaceutica"
+          imageUrl="/images/team-img-2.png"
+          titleColor="text-black"
+          textColor="text-gray-500"
+        />
+
+        <TeamMember
+          name="Dra. Maria Castillo"
+          role="Doctora en Ciencias Médicas"
+          imageUrl="/images/team-img-3.png"
+          titleColor="text-black"
+          textColor="text-gray-500"
+        />
+
+        <Decorations
+          color1="third"
+          color2="fifth"
+          rotation=""
+          className="right-0 top-0"
+        />
       </div>
-    );
-}
+      <div className="container mx-auto flex w-full max-w-5xl flex-shrink-0 flex-grow flex-col items-center text-center">
+        <Content
+          title="Nuestros convenios"
+          text="Hemos hecho sinergia con varias instituciones para poder lograr una mejor atención a mejores costos para nuestros pacientes."
+          titleColor="text-black"
+          textColor="text-gray-700"
+        />
+      </div>
 
-export default Team;
+      <div className="my-6 flex flex-wrap items-center justify-center gap-24">
+        <img
+          src="images/team-img-institution-1.png"
+          alt="Logo de SmileTrain"
+          className="w-20 sm:w-24 md:w-28 lg:w-32 xl:w-48"
+        />
+        <img
+          src="images/team-img-institution-2.png"
+          alt="Logo de Quirófanos del Valle"
+          className="w-28 sm:w-32 md:w-36 lg:w-40 xl:w-48"
+        />
+        <img
+          src="images/team-img-institution-3.png"
+          alt="Logo de Rxmind Gabinete Radiológico"
+          className="w-28 sm:w-32 md:w-36 lg:w-40 xl:w-48"
+        />
+      </div>
+
+      <div className="my-4 flex flex-wrap items-center justify-center gap-24">
+        <img
+          src="images/team-img-institution-4.png"
+          alt="Logo de Laboratorio de Análisis Clinicos Danthe"
+          className="w-16 sm:w-20 md:w-24 lg:w-28 xl:w-32"
+        />
+        <img
+          src="images/team-img-institution-5.png"
+          alt="Logo de UVM"
+          className="w-36 sm:w-40 md:w-44 lg:w-48 xl:w-56"
+        />
+        <img
+          src="images/team-img-institution-6.png"
+          alt="Logo de Orthodontics Bajio"
+          className="w-24 sm:w-28 md:w-32 lg:w-36 xl:w-48"
+        />
+      </div>
+
+      <div className="relative my-6 flex flex-wrap items-center justify-center gap-24">
+        <img
+          src="images/team-img-institution-7.png"
+          alt="Logo de More Brands Studio"
+          className="w-24 sm:w-28 md:w-32 lg:w-36 xl:w-48"
+        />
+        <img
+          src="images/team-img-institution-8.png"
+          alt="Logo de RoberToon Ilustrador"
+          className="w-24 sm:w-28 md:w-32 lg:w-36 xl:w-48"
+        />
+      </div>
+    </main>
+  );
+};
+
+export default Team;

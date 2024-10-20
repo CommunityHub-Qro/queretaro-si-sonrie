@@ -17,32 +17,56 @@ const Navbar = () => {
     const previous = scrollY.getPrevious() || 0;
     if (latest > previous && latest > 500) {
       console.log(latest);
+      setHidden(true);
     } else {
       setHidden(false);
     }
   });
 
-  if (router === "/main-system" || router === "/main-system/reports") {
-    return (
-      <div className="pb-20">
-        <motion.nav
-          variants={{
-            visible: { y: 0 },
-            hidden: { y: "-100%" },
-          }}
-          animate={hidden ? "hidden" : "visible"}
-          transition={{ duration: 0.35, ease: "easeInOut" }}
-          className={`fixed z-50 flex w-full items-center bg-secondary p-5 text-white`}
-        >
+  let content = (
+    <>
+      <Link
+        href={"/access-page"}
+        className="me-96 flex items-start rounded-md bg-opacity-10 p-2 px-5 hover:bg-black"
+      >
+        Acceso
+      </Link>
+      <div className="flex h-full gap-5">
+        <nav className="flex gap-10">
+          {navbar.map((link) => (
+            <Link
+              href={link.href}
+              className="rounded-md bg-opacity-10 p-2 px-5 hover:bg-black"
+              key={link.href}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+        <Donar />
+      </div>
+    </>
+  );
+
+  if (router.includes("main-system")) {
+    content = (
+      <>
+        <div className="flex items-center">
+          <Link
+            href={"/main-system/users"}
+            className="mx-10 flex items-start rounded-md bg-opacity-10 hover:bg-black"
+          >
+            Usuarios
+          </Link>
           <Link
             href={"/main-system"}
-            className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"
+            className="mx-10 flex items-start rounded-md bg-opacity-10 hover:bg-black"
           >
             Expedientes
           </Link>
           <Link
             href={"/main-system/reports"}
-            className="flex items-start mx-10 rounded-md bg-opacity-10 hover:bg-black"
+            className="mx-10 flex items-start rounded-md bg-opacity-10 hover:bg-black"
           >
             Reportes
           </Link>
@@ -52,10 +76,14 @@ const Navbar = () => {
           >
             Salir
           </Link>
-        </motion.nav>
-      </div>
+        </div>
+      </>
     );
   }
+  if (router === "/access-page") {
+    content = <></>;
+  }
+
   return (
     <div className="pb-20">
       <motion.nav
@@ -70,26 +98,7 @@ const Navbar = () => {
         <Link href={"/"}>
           <img src="icons/logo.png" className="w-32" />
         </Link>
-        <Link
-          href={"/access-page"}
-          className="me-96 flex items-start rounded-md bg-opacity-10 hover:bg-black"
-        >
-          Acceso
-        </Link>
-        <div className="flex h-full gap-5">
-          <nav className="flex gap-10">
-            {navbar.map((link) => (
-              <Link
-                href={link.href}
-                className="rounded-md bg-opacity-10 p-2 px-5 hover:bg-black"
-                key={link.href}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-          <Donar />
-        </div>
+        {content}
       </motion.nav>
     </div>
   );

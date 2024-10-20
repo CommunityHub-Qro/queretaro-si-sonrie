@@ -4,7 +4,6 @@ import { Key, useState } from "react";
 import PatientRecordForm from "../_components/organisms/patientRecordForm";
 import PatientCard from "../_components/organisms/PatientCard";
 import { getRecords } from "../_components/hooks/getRecords";
-import "./style.css";
 
 export default function System() {
   const [isFormVisible, setFormVisible] = useState(false);
@@ -56,12 +55,6 @@ export default function System() {
             ),
           )
         )}
-        <button
-          className="generatePdfButton h-16 w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)]"
-          onClick={() => window.print()}
-        >
-          Generar PDF
-        </button>
       </div>
     </div>
   );

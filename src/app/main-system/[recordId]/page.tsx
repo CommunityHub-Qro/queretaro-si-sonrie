@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getRecords } from "../../_components/hooks/getRecords";
 import UpdatePatientRecord from "../../_components/organisms/updatePatientRecord";
 import Link from "next/link";
+import "./style.css";
 
 interface Patient {
   id: string;
@@ -54,11 +55,13 @@ const RecordDetails = () => {
     <div className="mx-auto max-w-xl p-4">
       <Link
         href={"/main-system"}
-        className="flex h-full w-32 items-center justify-center rounded-full bg-third py-2 text-center text-white drop-shadow-md hover:bg-[rgb(255,40,40)]"
+        className="regresar flex h-full w-32 items-center justify-center rounded-full bg-third py-2 text-center text-white drop-shadow-md hover:bg-[rgb(255,40,40)]"
       >
         Regresar
       </Link>
-      <h1 className="mb-4 text-2xl font-bold">Detalles del Registro</h1>
+      <h1 className="detailsTitle mb-4 text-2xl font-bold">
+        Detalles del Registro
+      </h1>
       {isEditing ? (
         <UpdatePatientRecord
           patientId={patient.id}
@@ -95,9 +98,15 @@ const RecordDetails = () => {
           </p>
           <button
             onClick={handleEditClick}
-            className="rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
+            className="editar rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
           >
             Editar
+          </button>
+          <button
+            className="generatePdfButton h-10 w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)]"
+            onClick={() => window.print()}
+          >
+            Generar PDF
           </button>
         </div>
       )}

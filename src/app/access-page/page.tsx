@@ -49,10 +49,10 @@ export default function AccessPage() {
           return error;
         });
       // console.log(userSession);
-      if (userSession != "Error: usuario no registrado") {
+      if (userSession === true) {
         window.location.href = "main-system";
       } else {
-        alert("Error: usuario no registrado");
+        alert(userSession);
       }
     };
     fetch();
@@ -88,7 +88,7 @@ export default function AccessPage() {
             />
             <button
               type="submit"
-              className={`bg-third h-[3rem] w-32 items-center rounded-full py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
+              className={`h-[3rem] w-32 items-center rounded-full bg-third py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
               onClick={(e) => sessionLogIn(e)}
             >
               Log in

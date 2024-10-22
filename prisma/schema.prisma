@@ -6,12 +6,9 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("POSTGRES_URL")
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Post {
@@ -82,10 +79,10 @@ model VerificationToken {
 }
 
 model Record {
-    id          String @id @default(cuid())
-    name        String
-    birth_date  DateTime @default(now())
-    register_date   DateTime @default(now())
-    dx          String
-    notes       String
+    id            String   @id @default(cuid())
+    name          String
+    birth_date    DateTime @default(now())
+    register_date DateTime @default(now())
+    dx            String
+    notes         String
 }

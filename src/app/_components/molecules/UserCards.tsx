@@ -9,9 +9,10 @@ interface Props {
 
 const UserCards: FC<Props> = ({ user }) => {
   const deleteUser = async () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const response = await useDeleteUser(user.id);
     if (response == "success") {
-      Swal.fire({
+      void Swal.fire({
         title: "Eliminado!",
         text: "Usuario ha sido eliminado de forma exitosa",
         icon: "success",
@@ -19,7 +20,7 @@ const UserCards: FC<Props> = ({ user }) => {
     }
   };
   const confirmation = () => {
-    Swal.fire({
+    void Swal.fire({
       title: `¿Seguro quieres eliminar al usuario: ${user.name}?`,
       text: "Esta acción no se puede revertir",
       icon: "warning",
@@ -29,12 +30,12 @@ const UserCards: FC<Props> = ({ user }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteUser();
+        void deleteUser();
       }
     });
   };
 
-  const showInfo = (e: any) => {
+  const showInfo = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     console.log(e.target);
   };
@@ -48,7 +49,7 @@ const UserCards: FC<Props> = ({ user }) => {
       <p className="col-start-3">{user.email}</p>
       <button
         className="col-start-10 rounded-md border-2 bg-third p-2 text-white drop-shadow-sm hover:border-black"
-        onClick={(user) => confirmation()}
+        onClick={() => confirmation()}
       >
         Delete
       </button>

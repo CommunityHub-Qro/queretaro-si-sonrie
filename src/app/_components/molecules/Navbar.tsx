@@ -10,7 +10,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [hidden, setHidden] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); 
+  const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const router = usePathname();
 
@@ -72,13 +72,11 @@ const Navbar = () => {
         transition={{ duration: 0.35, ease: "easeInOut" }}
         className={`fixed z-50 flex w-full items-center justify-between bg-secondary p-5 text-white`}
       >
-        
         <Link href={"/"}>
           <img src="icons/logo.png" className="w-32" />
         </Link>
 
-        
-        <div className="hidden md:flex me-96">
+        <div className="me-96 hidden md:flex">
           <Link
             href={"/access-page"}
             className="flex items-start rounded-md bg-opacity-10 hover:bg-black"
@@ -87,14 +85,13 @@ const Navbar = () => {
           </Link>
         </div>
 
-        
         <div className="md:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)} className="text-3xl">
             {menuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
 
-        <div className="hidden md:flex h-full gap-5">
+        <div className="hidden h-full gap-5 md:flex">
           <nav className="flex gap-10">
             {navbar.map((link) => (
               <Link
@@ -112,7 +109,7 @@ const Navbar = () => {
         <motion.div
           initial={{ height: 0 }}
           animate={{ height: menuOpen ? "auto" : 0 }}
-          className={`absolute top-full left-0 right-0 overflow-hidden bg-secondary md:hidden`}
+          className={`absolute left-0 right-0 top-full overflow-hidden bg-secondary md:hidden`}
         >
           <div className="flex flex-col items-center py-4">
             {navbar.map((link) => (
@@ -129,7 +126,7 @@ const Navbar = () => {
             <Link
               href={"/access-page"}
               className="w-full p-4 text-center hover:bg-black"
-              onClick={() => setMenuOpen(false)} 
+              onClick={() => setMenuOpen(false)}
             >
               Acceso
             </Link>
@@ -144,4 +141,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

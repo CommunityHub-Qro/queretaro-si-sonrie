@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import {
   useCreateUser,
   useRetrieveUser,
@@ -32,21 +32,21 @@ export default function AccessPage() {
     return true;
   }
 
-  function sessionLogIn(e: any) {
+  function sessionLogIn(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
 
     if (!comprobarEntradas()) {
       return;
     }
 
-    const fetch = async () => {
+    const useFetch = async (): Promise<void> => {
       // Función Fetch para conseguir usuario y contraseña para acceder acceso
       userSession = await useRetrieveUser(user, password)
         .then((value) => value)
         .catch((error) => {
           console.log("Error" + error);
           alert("Error: Usuario no registrado");
-          return error;
+          return;
         });
       // console.log(userSession);
       if (userSession != "Error: usuario no registrado") {
@@ -54,13 +54,12 @@ export default function AccessPage() {
       } else {
         alert("Error: usuario no registrado");
       }
+      return;
     };
-    fetch();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    void useFetch();
   }
 
-  function recuperarContraseña() {
-    setRecuperarContraseniaState(true);
-  }
   if (recuperarContraseniaState) {
     return <RecuperarContrasenia />;
   } else {
@@ -88,7 +87,7 @@ export default function AccessPage() {
             />
             <button
               type="submit"
-              className={`bg-third h-[3rem] w-32 items-center rounded-full py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
+              className={`h-[3rem] w-32 items-center rounded-full bg-third py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
               onClick={(e) => sessionLogIn(e)}
             >
               Log in

@@ -1,16 +1,25 @@
 import { api } from "~/trpc/react";
 import { useState, FormEvent } from "react";
 
+interface Patient {
+  id: string;
+  name: string;
+  birth_date: Date;
+  register_date: Date;
+  dx: string;
+  notes: string;
+}
+
 interface UpdatePatientRecordProps {
   patientId: string;
   initialData: {
     name: string;
     birth_date: string;
-    register_date: string; 
+    register_date: string;
     dx: string;
     notes: string;
   };
-  onSuccess: (updatedData: any) => void;
+  onSuccess: (updatedData: Patient) => void;
 }
 const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   patientId,

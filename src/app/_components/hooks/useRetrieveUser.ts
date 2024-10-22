@@ -3,7 +3,7 @@ import { newUser } from "./../../../server/api/routers/newUser";
 
 import { error } from "console";
 import { api } from "~/trpc/server";
-const argon2 = require("argon2");
+import argon2 from "argon2";
 
 type newUser = {
   name: string;
@@ -21,7 +21,7 @@ export const useCreateUser = async (newUser: newUser) => {
         password: h,
       }),
     )
-    .catch((error: any) => console.log(error));
+    .catch((error: string) => console.log(error));
 };
 
 export const useRetrieveUser = async (name: string, password: string) => {

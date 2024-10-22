@@ -20,8 +20,8 @@
             const patientRecord = db.record.create({
                 data:{
                     name: input.name,
-                    birth_date: input.b_date || new Date(), 
-                    register_date: input.r_date || new Date(),
+                    birth_date: input.b_date ?? new Date(), 
+                    register_date: input.r_date ?? new Date(),
                     dx: input.dx,
                     notes: input.notes
                 }
@@ -46,8 +46,8 @@
               where: { id: input.id },
               data: {
                 name: input.name,
-                birth_date: input.birth_date || new Date(),
-                register_date: input.register_date || new Date(),
+                birth_date: input.birth_date ?? new Date(),
+                register_date: input.register_date ?? new Date(),
                 dx: input.dx,
                 notes: input.notes,
               }

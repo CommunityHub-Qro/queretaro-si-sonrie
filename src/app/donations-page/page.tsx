@@ -1,8 +1,5 @@
-import Link from "next/link";
-
 import { getServerAuthSession } from "~/server/auth";
-import { api, HydrateClient } from "~/trpc/server";
-import { Decorations, Icon } from "~/app/_components/atoms/Decorations";
+import { Decorations } from "~/app/_components/atoms/Decorations";
 import CopyToClipboard from "~/app/_components/atoms/CopyToClipboard";
 
 export default async function Home() {

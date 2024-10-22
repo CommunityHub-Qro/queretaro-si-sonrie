@@ -29,7 +29,7 @@ const RecordDetails = () => {
     if (data) {
       setRecords(data);
       const foundPatient = data.find((record) => record.id === recordId);
-      setPatient(foundPatient || null);
+      setPatient(foundPatient ?? null);
     }
     setIsLoading(isFetching);
   }, [data, recordId, isFetching]);

@@ -2,11 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Decorations, Icon } from "../_components/atoms/Decorations";
+import { Decorations } from "../_components/atoms/Decorations";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { useEffect, useRef } from 'react';
-import { HydrateClient } from "~/trpc/server";
-import Chart, { ChartType, ChartData, ChartOptions } from 'chart.js/auto';
+import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 const testimonials = [

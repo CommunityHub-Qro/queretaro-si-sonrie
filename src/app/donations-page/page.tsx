@@ -4,7 +4,7 @@ import { LatestPost } from "~/app/_components/post";
 import { getServerAuthSession } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import { Decorations, Icon } from "~/app/_components/atoms/Decorations";
-import CopyToClipboard from "~/app/_components/Atoms/CopyToClipboard";
+import CopyToClipboard from "~/app/_components/atoms/CopyToClipboard";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });

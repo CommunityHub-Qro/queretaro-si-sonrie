@@ -12,6 +12,7 @@ export default function PatientRecordForm() {
     api.patientRecord.createPatientRecord.useMutation();
 
   function create_patientRecord(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     createPatientRecordMutation.mutate(
       {
         name,
@@ -19,6 +20,12 @@ export default function PatientRecordForm() {
         notes,
       },
       {
+      onSuccess(data) {
+        console.log("Registro creado exitosamente:", data);
+        // Recargar la página después de que la mutación sea exitosa
+        window.location.reload();
+      },
+      
         onError(error, variables, context) {
           console.log({
             error,

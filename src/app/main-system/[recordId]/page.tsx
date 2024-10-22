@@ -67,12 +67,9 @@ const RecordDetails = () => {
           patientId={patient.id}
           initialData={{
             name: patient.name,
-            birth_date: patient.birth_date
-              ? patient.birth_date.toISOString().split("T")[0]
-              : "",
-            register_date: patient.register_date
-              ? patient.register_date.toISOString().split("T")[0]
-              : "",
+            birth_date: patient.birth_date?.toISOString().split("T")[0] ?? "",
+            register_date:
+              patient.register_date?.toISOString().split("T")[0] ?? "",
             dx: patient.dx,
             notes: patient.notes,
           }}

@@ -57,9 +57,6 @@ export default function AccessPage() {
     fetch();
   }
 
-  function recuperarContraseña() {
-    setRecuperarContraseniaState(true);
-  }
   if (recuperarContraseniaState) {
     return <RecuperarContrasenia />;
   } else {
@@ -93,15 +90,12 @@ export default function AccessPage() {
               Log in
             </button>
           </form>
-          {/* <hr
-            className={`m-5 w-11/12 border-black border-b-[1] ${signIn ? "hidden" : ""}`}
-          /> */}
-          {/* <Link
-            href={"/access-page/forgotten-password"}
+          <a
+            onClick={() => setRecuperarContraseniaState(true)}
             className="text-specialRed hover:underline"
           >
             ¿Olvidé mi contraseña?
-          </Link> */}
+          </a>
         </aside>
       </div>
     );

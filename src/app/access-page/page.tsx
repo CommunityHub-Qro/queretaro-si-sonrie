@@ -7,12 +7,15 @@ import {
 } from "../_components/hooks/useRetrieveUser";
 import RecuperarContrasenia from "../_components/organisms/RecuperarContrasenia";
 import Link from "next/link";
+import { Decorations } from "../_components/atoms/Decorations";
 
 export default function AccessPage() {
   const [user, setUser] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [recuperarContraseniaState, setRecuperarContraseniaState] =
     useState(false);
+  const [code, setCode] = useState<string | boolean>(false);
+  const [verificationCode, setVerificationCode] = useState<string>("");
 
   let userSession;
 
@@ -57,8 +60,57 @@ export default function AccessPage() {
     fetch();
   }
 
+  function handleVerifyCode(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (code === verificationCode) {
+      console.log("success!");
+    } else {
+      console.log("Error!");
+    }
+  }
+  if (code) {
+    return (
+      <form
+        onSubmit={(e) => handleVerifyCode(e)}
+        className="flex h-screen flex-col items-center justify-center gap-10"
+      >
+        <p>Ingresa el código de recuperación:</p>
+        <input
+          className="input w-1/5 p-2"
+          placeholder="Código"
+          type="text"
+          onChange={(u) => setVerificationCode(u.target.value)}
+          value={verificationCode}
+        />
+        <button
+          type="submit"
+          className="h-10 w-32 items-center rounded-full bg-specialRed py-2 text-center text-white drop-shadow-md hover:bg-[rgb(255,40,40)]"
+        >
+          Enviar
+        </button>
+        <Decorations
+          color1="specialBlue"
+          color2="specialRed"
+          color3="specialYellow"
+          className={"right-[15rem] top-[5rem]"}
+          rotation="45"
+        />
+        <Decorations
+          color1="specialBlue"
+          color2="specialYellow"
+          color3="specialRed"
+          className={"left-[10rem] top-[30rem]"}
+          rotation="45"
+        />
+      </form>
+    );
+  }
   if (recuperarContraseniaState) {
-    return <RecuperarContrasenia />;
+    return (
+      <RecuperarContrasenia
+        setCode={(code: string | boolean) => setCode(code)}
+      />
+    );
   } else {
     return (
       <div className="max-md:h-full md:flex md:h-[90vh]">

@@ -1,4 +1,5 @@
 "use server";
+import { UserRole } from "@prisma/client";
 import { newUser } from "./../../../server/api/routers/newUser";
 
 import { error } from "console";
@@ -9,6 +10,7 @@ type newUser = {
   name: string;
   password: string;
   email: string;
+  role: UserRole;
 };
 
 export const useCreateUser = async (newUser: newUser) => {
@@ -19,6 +21,7 @@ export const useCreateUser = async (newUser: newUser) => {
         name: newUser.name,
         email: newUser.email,
         password: h,
+        role: newUser.role,
       }),
     )
     .catch((error: any) => console.log(error));

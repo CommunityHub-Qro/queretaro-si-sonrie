@@ -1,5 +1,6 @@
 "use client";
 
+import { UserRole } from "@prisma/client";
 import React, { useState } from "react";
 import { useCreateUser } from "~/app/_components/hooks/useRetrieveUser";
 
@@ -8,6 +9,7 @@ const RegisterUser = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [emailValidation, setEmailValidation] = useState(false);
+  const [role, setRole] = useState<string>("");
 
   function comprobarEntradas() {
     if (user === "") {
@@ -58,6 +60,7 @@ const RegisterUser = () => {
       name: user,
       email: email,
       password: password,
+      role: role == "voluntario" ? "USER" : "ADMIN",
     });
     alert("Usuario creado");
     window.location.reload();
@@ -92,6 +95,15 @@ const RegisterUser = () => {
             onChange={(p) => setPassword(p.target.value)}
             id="password"
           />
+          <select
+            className="input w-3/5 p-2"
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="voluntario" selected>
+              Voluntario
+            </option>
+            <option value="admin">Admin</option>
+          </select>
           <button
             type="submit"
             className={`h-[3rem] w-32 items-center rounded-full bg-third py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}

@@ -8,6 +8,7 @@ import {
 import RecuperarContrasenia from "../_components/organisms/RecuperarContrasenia";
 import Link from "next/link";
 import { Decorations } from "../_components/atoms/Decorations";
+import VerificarCodigoDeRecuperacion from "../_components/organisms/VerificarCodigoDeRecuperacion";
 
 export default function AccessPage() {
   const [user, setUser] = useState<string>("");
@@ -68,43 +69,18 @@ export default function AccessPage() {
       console.log("Error!");
     }
   }
+
   if (code) {
     return (
-      <form
-        onSubmit={(e) => handleVerifyCode(e)}
-        className="flex h-screen flex-col items-center justify-center gap-10"
-      >
-        <p>Ingresa el código de recuperación:</p>
-        <input
-          className="input w-1/5 p-2"
-          placeholder="Código"
-          type="text"
-          onChange={(u) => setVerificationCode(u.target.value)}
-          value={verificationCode}
-        />
-        <button
-          type="submit"
-          className="h-10 w-32 items-center rounded-full bg-specialRed py-2 text-center text-white drop-shadow-md hover:bg-[rgb(255,40,40)]"
-        >
-          Enviar
-        </button>
-        <Decorations
-          color1="specialBlue"
-          color2="specialRed"
-          color3="specialYellow"
-          className={"right-[15rem] top-[5rem]"}
-          rotation="45"
-        />
-        <Decorations
-          color1="specialBlue"
-          color2="specialYellow"
-          color3="specialRed"
-          className={"left-[10rem] top-[30rem]"}
-          rotation="45"
-        />
-      </form>
+      <VerificarCodigoDeRecuperacion
+        setVerificationCode={(code: string) => setVerificationCode(code)}
+        handleVerifyCode={(event: React.FormEvent<HTMLFormElement>) =>
+          handleVerifyCode(event)
+        }
+      />
     );
   }
+
   if (recuperarContraseniaState) {
     return (
       <RecuperarContrasenia

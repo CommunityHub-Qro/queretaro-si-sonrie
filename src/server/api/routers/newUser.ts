@@ -89,7 +89,7 @@ export const newUser = createTRPCRouter({
       await ctx.db.user.update({
         where: { id: input.id },
         data: {
-          name: input.name,
+          name: input.name, // TO FIX
           email: input.email,
           password: input.password,
         },

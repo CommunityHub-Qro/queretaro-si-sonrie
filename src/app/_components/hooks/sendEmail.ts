@@ -1,7 +1,9 @@
 "use server";
+import { newUser } from "./../../../server/api/routers/newUser";
 
 import nodemailer from "nodemailer";
 import { env } from "~/env";
+import { api } from "~/trpc/server";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -15,15 +17,20 @@ const transporter = nodemailer.createTransport({
 });
 const sendEmail = async (email: string) => {
   let code = Math.floor(Math.random() * 89999) + 10000;
-  const info = await transporter.sendMail({
-    from: '"Querétaro si sonrie"', // sender address
-    to: email, // list of receivers
-    subject: "Recuperar contraseña", // Subject line
-    text: "Tu código para recuperar la contraseña es: " + code, // plain text body
-  });
+  const user = await api.newUser.getUser({ name: email });
+  if (user) {
+    const info = await transporter.sendMail({
+      from: '"Querétaro si sonrie"', // sender address
+      to: email, // list of receivers
+      subject: "Recuperar contraseña", // Subject line
+      text: "Tu código para recuperar la contraseña es: " + code, // plain text body
+    });
 
-  console.log(info.messageId);
-  return code.toString();
+    console.log(info.messageId);
+    return code.toString();
+  } else {
+    throw new Error("email no se encuentra registrado");
+  }
 };
 
 export default sendEmail;

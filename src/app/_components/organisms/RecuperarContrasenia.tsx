@@ -15,7 +15,7 @@ const RecuperarContrasenia: FC<Props> = ({ setCode }) => {
     retrieveCode = await sendEmail(email)
       .then((code) => code)
       .catch((error) => {
-        alert("Error: " + error);
+        alert(error);
         return false;
       });
     setCode(retrieveCode);

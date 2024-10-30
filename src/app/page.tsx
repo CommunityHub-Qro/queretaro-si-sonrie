@@ -106,7 +106,7 @@ export default function Home() {
             <Carousel images={images} />
           </div>
           <Link
-            className="bg-specialRed h-full w-32 items-center rounded-full py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)] sm:ml-[42%] sm:mt-3 md:ml-[48%] lg:ml-[45%] lg:mt-[5%] xl:ml-[138%] xl:mt-20"
+            className="h-full w-32 items-center rounded-full bg-specialRed py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)] sm:ml-[42%] sm:mt-3 md:ml-[48%] lg:ml-[45%] lg:mt-[5%] xl:ml-[138%] xl:mt-20"
             href={"/donar"}
           >
             Donar
@@ -114,12 +114,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Organigrama */}
-      <div className="text-bold poppins -mt-48 flex h-screen flex-col items-center p-5 text-6xl">
-        <div className="flex h-full items-center">
-          <img src={"images/organigrama.png"} className="h-full w-full" />
-        </div>
-      </div>
       {/* Servicios */}
       <Decorations
         color1="specialBlue"

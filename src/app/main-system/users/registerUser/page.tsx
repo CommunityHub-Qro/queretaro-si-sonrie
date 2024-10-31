@@ -1,6 +1,6 @@
 "use client";
 
-import { UserRole } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useCreateUser } from "~/app/_components/hooks/useRetrieveUser";
 
@@ -10,6 +10,8 @@ const RegisterUser = () => {
   const [password, setPassword] = useState<string>("");
   const [emailValidation, setEmailValidation] = useState(false);
   const [role, setRole] = useState<string>("");
+
+  const router = useRouter();
 
   function comprobarEntradas() {
     if (user === "") {
@@ -56,6 +58,7 @@ const RegisterUser = () => {
       return;
     }
     // Generar usuario con valores de entrada
+    router.push("/main-system/users");
     useCreateUser({
       name: user,
       email: email,
@@ -63,7 +66,6 @@ const RegisterUser = () => {
       role: role == "voluntario" ? "USER" : "ADMIN",
     });
     alert("Usuario creado");
-    window.location.reload();
   }
 
   return (

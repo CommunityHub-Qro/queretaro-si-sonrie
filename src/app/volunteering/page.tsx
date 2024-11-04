@@ -3,39 +3,31 @@ import { Decorations, Icon } from "../_components/atoms/Decorations";
 
 const CorpusVolunteering = () => {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen md:flex-col">
       {/* Body */}
-      <div className="pt-12">
+      <div className="pt-0 md:pt-12">
         {/* Sección de imagen y texto */}
-        <div className="flex flex-row py-12">
-          <div className="relative flex w-1/2 items-center justify-center">
+        <div className="md:flex md:flex-row md:py-12">
+          <div className="relative flex 2xl:w-1/2 items-center justify-center">
             <img
               src="images/wave.png"
-              className="-ml-20 -mt-48 w-full object-cover"
-              alt=""
-            />
-
-            <img
-              src="images/Voluntariado3.jpeg"
-              className="absolute h-auto w-80 rounded-3xl"
-              alt="Imagen de la actividad"
+              className="md:-ml-20 -mt-96 2xl:-mt-48 w-full object-cover"
             />
           </div>
-
           <div className="w-1/2">
             <Decorations
               color1="fourth"
               color2="third"
-              className="top-[60 vh] sticky left-[60vh]"
+              className="md:top-[60 vh] md:sticky left-[60vh] overflow-hidden "
             />
             <div className="p-8">
               <div>
                 {" "}
-                <h1 className="text-5xl font-bold"> Servicio Social </h1>{" "}
+                <h1 className="text-4xl md:text-5xl font-bold text-center md:text-left"> Servicio Social </h1>{" "}
               </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center p-4">
+            <div className="md:flex md:flex-col text-justify p-6 md:p-4">
               <p>
                 {" "}
                 En <strong>Querétaro Sí Sonríe</strong> el servicio social es
@@ -51,11 +43,17 @@ const CorpusVolunteering = () => {
               </p>
             </div>
           </div>
+
+          <img
+              src="images/Voluntariado3.jpeg"
+              className="absolute h-auto w-80 mx-10 -mb-36 md:mt-10 2xl:mt-0 md:ml-20 2xl:ml-52 rounded-3xl"
+          />
+
         </div>
 
         {/* Sección de dos bloques */}
-        <div className="flex flex-row text-white">
-          <div className="w-1/2 p-8">
+        <div className="md:flex md:flex-row text-white mt-96 md:mt-0">
+          <div className="w-1/2 p-2 md:p-8">
             <div className="rounded-3xl bg-secondary p-2">
               <h3 className="p-8 text-2xl font-bold">
                 ¿Qué actividades voy a realizar?

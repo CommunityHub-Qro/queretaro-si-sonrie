@@ -7,6 +7,7 @@
     publicProcedure,
     } from "~/server/api/trpc";
     import UpdatePatientRecord from "~/app/_components/organisms/updatePatientRecord";
+    import DeletePatientRecord from "~/app/_components/organisms/deletePatientRecord";
 
     export const patientRecordRouter = createTRPCRouter({
 
@@ -55,4 +56,20 @@
             return updatedPatientRecord;
           }),
 
+        deletePatientRecord: publicProcedure
+          .input(
+            z.object({
+              id: z.string(),
+            })
+          )
+          .mutation(async ({input}) => {
+            try{
+              const deletePatientRecord = await db.record.delete({
+                where: {id: input.id},
+              });
+              return deletePatientRecord;
+            }catch(error){
+              throw new Error("No se pudo eliminar el registro del paciente");
+            }
+          }),
     });

@@ -8,6 +8,7 @@ interface Patient {
   register_date: Date;
   dx: string;
   notes: string;
+  record_link: string;
 }
 
 interface UpdatePatientRecordProps {
@@ -18,6 +19,7 @@ interface UpdatePatientRecordProps {
     register_date: string;
     dx: string;
     notes: string;
+    record_link: string;
   };
   onSuccess: (updatedData: Patient) => void;
 }
@@ -31,6 +33,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   const [registerDate, setRegisterDate] = useState(initialData.register_date);
   const [dx, setDx] = useState(initialData.dx);
   const [notes, setNotes] = useState(initialData.notes);
+  const [record_link, setLink] = useState(initialData.record_link);
 
   const updatePatientRecordMutation =
     api.patientRecord.updatePatientRecord.useMutation();
@@ -50,6 +53,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         register_date: registerDateObj, // Pasar la fecha como un objeto Date
         dx,
         notes,
+        record_link,
       });
 
       onSuccess(updatedPatient);
@@ -100,6 +104,14 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
+          className="mt-1 block w-full rounded-md border border-gray-300 p-2"
+        />
+      </div>
+      <div>
+        <label className="block font-semibold">Link del documento:</label>
+        <textarea
+          value={record_link}
+          onChange={(e) => setLink(e.target.value)}
           className="mt-1 block w-full rounded-md border border-gray-300 p-2"
         />
       </div>

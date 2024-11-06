@@ -41,6 +41,7 @@
             register_date: z.date().optional(),
             dx: z.string(),
             notes: z.string(),
+            record_link: z.string(),
           })).mutation(async ({ input }) => {
             const updatedPatientRecord = await db.record.update({
               where: { id: input.id },
@@ -50,6 +51,7 @@
                 register_date: input.register_date ?? new Date(),
                 dx: input.dx,
                 notes: input.notes,
+                record_link: input.record_link,
               }
             });
             return updatedPatientRecord;

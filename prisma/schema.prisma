@@ -80,4 +80,5 @@ model Record {
     register_date   DateTime @default(now())
     dx          String
     notes       String
+    photoUrl    String
 }

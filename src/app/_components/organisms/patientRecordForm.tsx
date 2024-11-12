@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { api } from "~/trpc/react";
-
+import { UploadButton } from "~/utils/uploadthing";
 
 export default function PatientRecordForm() {
   const [name, setName] = useState("");
@@ -8,21 +8,31 @@ export default function PatientRecordForm() {
   const [registrationDate, setRegistrationDate] = useState("");
   const [dx, setDx] = useState("");
   const [notes, setNotes] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
 
-  const createPatientRecordMutation = api.patientRecord.createPatientRecord.useMutation()
+  const createPatientRecordMutation =
+    api.patientRecord.createPatientRecord.useMutation();
 
   function create_patientRecord(e: FormEvent<HTMLFormElement>) {
-    createPatientRecordMutation.mutate({
+    if (!photoUrl) {
+      e.preventDefault();
+      alert("Cargar foto del paciente.");
+      return;
+    }
+    createPatientRecordMutation.mutate(
+      {
         name,
         dx,
         notes,
-    }, {
+      },
+      {
         onError(error, variables, context) {
-            console.log({
-                error
-            })
+          console.log({
+            error,
+          });
         },
-    })
+      },
+    );
   }
 
   return (
@@ -33,24 +43,64 @@ export default function PatientRecordForm() {
     >
       <div>
         <label htmlFor="name">Nombre:</label>
-        <input type="text" id="name" name="name" onChange={e => setName(e.target.value)} />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          onChange={(e) => setName(e.target.value)}
+        />
       </div>
       <div>
         <label htmlFor="b_date">Fecha de nacimiento:</label>
-        <input type="date" id="b_date" name="b_date" onChange={e => setBirthdayDate(e.target.value)}/>
+        <input
+          type="date"
+          id="b_date"
+          name="b_date"
+          onChange={(e) => setBirthdayDate(e.target.value)}
+        />
       </div>
       <div>
         <label htmlFor="r_date">Fecha de ingreso:</label>
-        <input type="date" id="r_date" name="r_date" onChange={e => setRegistrationDate(e.target.value)}/>
+        <input
+          type="date"
+          id="r_date"
+          name="r_date"
+          onChange={(e) => setRegistrationDate(e.target.value)}
+        />
       </div>
       <div>
         <label htmlFor="dx">DX:</label>
-        <input type="text" id="dx" name="dx" onChange={e => setDx(e.target.value)}/>
+        <input
+          type="text"
+          id="dx"
+          name="dx"
+          onChange={(e) => setDx(e.target.value)}
+        />
       </div>
       <div>
         <label htmlFor="notes">Anotaciones:</label>
-        <input type="text" id="notes" name="notes" onChange={e => setNotes(e.target.value)}/>
+        <input
+          type="text"
+          id="notes"
+          name="notes"
+          onChange={(e) => setNotes(e.target.value)}
+        />
       </div>
+      <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          if (res && res[0] && res[0].url) {
+            setPhotoUrl(res[0].url);
+            console.log("Files: ", res);
+            alert("Upload Completed");
+          }
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
+
       <button type="submit">Enviar</button>
     </form>
   );

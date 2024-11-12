@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getRecords } from "../../_components/hooks/getRecords";
+import { UploadButton } from "~/utils/uploadthing";
 import UpdatePatientRecord from "../../_components/organisms/updatePatientRecord";
 import Link from "next/link";
 import "./style.css";
@@ -108,6 +109,20 @@ const RecordDetails = () => {
           >
             Generar PDF
           </button>
+          <UploadButton
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              if (res && res[0] && res[0].url) {
+                setPhotoUrl(res[0].url);
+                console.log("Files: ", res);
+                alert("Upload Completed");
+              }
+            }}
+            onUploadError={(error: Error) => {
+              // Do something with the error.
+              alert(`ERROR! ${error.message}`);
+            }}
+          />
         </div>
       )}
     </div>

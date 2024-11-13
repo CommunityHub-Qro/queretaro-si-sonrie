@@ -4,6 +4,7 @@ import { newUser } from "./../../../server/api/routers/newUser";
 
 import { error } from "console";
 import { api } from "~/trpc/server";
+import { loginSession } from "../library/sessionAuth";
 const argon2 = require("argon2");
 
 type newUser = {
@@ -36,6 +37,8 @@ export const useRetrieveUser = async (name: string, password: string) => {
 
   try {
     if (await argon2.verify(user.password, password)) {
+      loginSession(user);
+      console.log;
       return true;
     } else {
       return "Error: contraseña incorrecta";

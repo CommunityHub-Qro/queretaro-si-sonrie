@@ -110,6 +110,7 @@ const RecordDetails = () => {
             Generar PDF
           </button>
           <UploadButton
+            className="imageUploader"
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {
               if (res && res[0] && res[0].url) {

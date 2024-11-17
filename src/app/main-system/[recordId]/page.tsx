@@ -45,7 +45,7 @@ const RecordDetails = () => {
     setIsEditing(false);
   };
 
-  const handleDeleteSucces = () =>{
+  const handleDeleteSucces = () => {
     router.push("/main-system");
   };
 

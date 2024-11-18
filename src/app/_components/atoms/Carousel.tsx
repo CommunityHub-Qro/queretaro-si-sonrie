@@ -10,7 +10,7 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
   const [autoPlay, setAutoPlay] = useState(true);
 
   useEffect(() => {
-    let intervalId;
+    let intervalId: ReturnType<typeof setInterval>;
     if (autoPlay) {
       intervalId = setInterval(() => {
         setCurrentIndex((currentIndex + 1) % images.length);

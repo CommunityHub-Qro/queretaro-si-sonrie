@@ -1,20 +1,43 @@
 'use client';
 import React from 'react';
+import { getRecords } from "../hooks/getRecords";
+import { record } from 'zod';
+import { log } from 'console';
+import moment from 'moment';
 
 const GenerateReport: React.FC = () => {
-    const data = [
-        { name: 'Total personas atendidas', value: 120 },
-        { name: 'Atendidos actualmente', value: 90 },
-        { name: 'Pacientes ortopedia', value: 75 },
-        { name: 'Pacientes quieloplastia', value: 60 },
-        { name: 'Pacientes ontología general', value: 30 },
-      ];    
+      const records = getRecords(); // { data, error, isLoading }
+      moment().format("MM/DD/YYYY");
+  
       const generateCSV = () => {
         // Encabezados
-        const headers = ['Atributo', 'Cantidad'];
-    
+        const headers = ['', 'Pacientes atendidos'];
+        const day = new Date();
+
         // Unir los encabezados y los datos en formato CSV
-        const rows = data.map(item => `${item.name},${item.value}`).join('\n');
+        let rows = [[`Total`, `${records.data?records.data.length:0}`],
+          [`Sexo:`],
+          [`Hombres`, `NA`],
+          [`Mujeres`, `NA`],
+          [`Ingresos recientes:`],
+          [`este mes`, `${records.data?records.data.filter(
+              item => item.register_date.getMonth()==day.getMonth()
+            ).length:0}`],
+          [`este anio`, `${records.data?records.data.filter(
+              item => item.register_date.getFullYear()==day.getFullYear()
+            ).length:0}`],
+          [`Edades atendidas:`]
+        ].join('\n');
+
+        for (let i = 0; i < 18; i++) {
+          rows = [rows, [`${i} anios`, `${records.data?records.data.filter(
+              item => moment().diff(item.birth_date, 'years') == i
+            ).length:0}`]].join('\n');
+        }
+
+        // agregar cuantos pacientes hay por tratamiento/etapa
+        // **                                diagnostico
+        
         const csvContent = [headers.join(','), rows].join('\n');
     
         // Crear un enlace para descargar el archivo CSV

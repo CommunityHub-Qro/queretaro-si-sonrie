@@ -13,8 +13,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     onSearch(searchTerm);
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
-    <div className="flex">
+    <div className="flex w-full items-center justify-between">
       <SearchInput
         value={searchTerm}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

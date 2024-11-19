@@ -98,6 +98,7 @@ model Treatment {
     report      String
     patient     Record       @relation(fields: [patientId], references: [id])
     patientId   String
+    photoUrl    String
 
     @@index([patientId])
 }

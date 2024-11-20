@@ -1,6 +1,6 @@
 "use client";
 
-import { Key, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import PatientRecordForm from "../_components/organisms/patientRecordForm";
 import PatientCard from "../_components/organisms/PatientCard";
 import { getRecords } from "../_components/hooks/getRecords";
@@ -11,6 +11,7 @@ export default function System() {
   const [isFormVisible, setFormVisible] = useState(false);
   const { data, error, isLoading } = getRecords();
   const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [displayedData, setdisplayedData] = useState<any>()
 
   const toggleForm = () => {
     setFormVisible(!isFormVisible);
@@ -26,11 +27,16 @@ export default function System() {
     );
     setSearchResults(filtered);
   };
+  
+  // let displayedData =
+  //   searchResults.length > 0 || searchResults.length === 0
+  //     ? searchResults
+  //     : data;
+  useEffect(() => {setdisplayedData(data)
+    console.log(displayedData);
+  }, [data]);
 
-  const displayedData =
-    searchResults.length > 0 || searchResults.length === 0
-      ? searchResults
-      : data;
+
 
   return (
     <div className="p-8">

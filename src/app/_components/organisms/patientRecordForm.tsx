@@ -12,6 +12,7 @@ export default function PatientRecordForm() {
     api.patientRecord.createPatientRecord.useMutation();
 
   function create_patientRecord(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     createPatientRecordMutation.mutate(
       {
         name,

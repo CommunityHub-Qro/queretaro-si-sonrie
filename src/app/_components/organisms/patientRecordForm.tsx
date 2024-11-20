@@ -1,5 +1,6 @@
 import { useState, FormEvent } from "react";
 import { api } from "~/trpc/react";
+import { UploadDropzone } from "~/utils/uploadthing";
 
 export default function PatientRecordForm() {
   const [name, setName] = useState("");
@@ -7,11 +8,17 @@ export default function PatientRecordForm() {
   const [registrationDate, setRegistrationDate] = useState("");
   const [dx, setDx] = useState("");
   const [notes, setNotes] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
 
   const createPatientRecordMutation =
     api.patientRecord.createPatientRecord.useMutation();
 
   function create_patientRecord(e: FormEvent<HTMLFormElement>) {
+    if (!photoUrl) {
+      e.preventDefault();
+      alert("Cargar foto del paciente.");
+      return;
+    }
     e.preventDefault();
     createPatientRecordMutation.mutate(
       {
@@ -20,12 +27,12 @@ export default function PatientRecordForm() {
         notes,
       },
       {
-      onSuccess(data) {
-        console.log("Registro creado exitosamente:", data);
-        // Recargar la página después de que la mutación sea exitosa
-        window.location.reload();
-      },
-      
+        onSuccess(data) {
+          console.log("Registro creado exitosamente:", data);
+          // Recargar la página después de que la mutación sea exitosa
+          window.location.reload();
+        },
+
         onError(error, variables, context) {
           console.log({
             error,
@@ -84,6 +91,19 @@ export default function PatientRecordForm() {
           id="notes"
           name="notes"
           onChange={(e) => setNotes(e.target.value)}
+        />
+        <UploadDropzone
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            if (res && res[0] && res[0].url) {
+              setPhotoUrl(res[0].url);
+              console.log("Files: ", res);
+              alert("Upload Completed");
+            }
+          }}
+          onUploadError={(error: Error) => {
+            alert(`ERROR! ${error.message}`);
+          }}
         />
       </div>
       <button type="submit">Enviar</button>

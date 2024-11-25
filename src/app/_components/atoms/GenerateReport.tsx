@@ -1,15 +1,13 @@
 'use client';
 import React from 'react';
 import { getRecords } from "../hooks/getRecords";
-import { record } from 'zod';
-import { log } from 'console';
 import moment from 'moment';
 
 const GenerateReport: React.FC = () => {
       const records = getRecords(); // { data, error, isLoading }
       moment().format("MM/DD/YYYY");
   
-      const generateCSV = () => {
+      const generateCSV = async () => {
         // Encabezados
         const headers = ['', 'Pacientes atendidos'];
         const day = new Date();
@@ -33,6 +31,23 @@ const GenerateReport: React.FC = () => {
           rows = [rows, [`${i} anios`, `${records.data?records.data.filter(
               item => moment().diff(item.birth_date, 'years') == i
             ).length:0}`]].join('\n');
+        }
+
+        try {
+          const response = await fetch('/api/Report'); // Llama al endpoint
+          if (!response.ok) {
+            throw new Error('Error fetching treatment data');
+          }
+          const treatments = await response.json();
+
+          // Añade las filas de tratamientos al CSV
+          rows = [rows, ['Tratamientos:', '']].join('\n');
+          treatments.forEach((treatment: { title: string; count: number }) => {
+            rows = [rows, [treatment.title, treatment.count.toString()]].join('\n');
+          });
+        } catch (error) {
+          console.error('Error fetching treatments:', error);
+          rows = [rows, ['Error fetching treatments', '']].join('\n');
         }
 
         // agregar cuantos pacientes hay por tratamiento/etapa

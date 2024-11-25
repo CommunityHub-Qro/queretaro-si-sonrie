@@ -31,6 +31,7 @@ interface Patient {
   register_date: Date;
   dx: string;
   notes: string;
+  photoUrl: string;
   exams?: Exam[];
   diagnoses?: Diagnosis[];
   treatments?: Treatment[];

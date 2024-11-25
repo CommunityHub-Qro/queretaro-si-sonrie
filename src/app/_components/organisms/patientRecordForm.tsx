@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { api } from "~/trpc/react";
-import { UploadDropzone } from "~/utils/uploadthing";
+import { UploadButton } from "~/utils/uploadthing";
 
 export default function PatientRecordForm() {
   const [name, setName] = useState("");
@@ -25,6 +25,7 @@ export default function PatientRecordForm() {
         name,
         dx,
         notes,
+        photoUrl,
       },
       {
         onSuccess(data) {
@@ -92,7 +93,7 @@ export default function PatientRecordForm() {
           name="notes"
           onChange={(e) => setNotes(e.target.value)}
         />
-        <UploadDropzone
+        <UploadButton
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
             if (res && res[0] && res[0].url) {

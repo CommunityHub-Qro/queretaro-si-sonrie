@@ -38,7 +38,6 @@ export const useRetrieveUser = async (name: string, password: string) => {
   try {
     if (await argon2.verify(user.password, password)) {
       loginSession(user);
-      console.log;
       return true;
     } else {
       return "Error: contraseña incorrecta";

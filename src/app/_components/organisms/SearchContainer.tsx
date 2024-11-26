@@ -4,7 +4,6 @@ import SearchBar from "../molecules/SearchBar";
 const SearchContainer: React.FC = () => {
   const handleSearch = (term: string) => {
     console.log(`Buscando: ${term}`);
-    // Aquí iría la lógica real de búsqueda
   };
 
   return (

@@ -4,15 +4,25 @@ import { Key, useState } from "react";
 import PatientRecordForm from "../_components/organisms/patientRecordForm";
 import PatientCard from "../_components/organisms/PatientCard";
 import { getRecords } from "../_components/hooks/getRecords";
+import SearchBar from "../_components/molecules/SearchBar";
 import "./style.css";
 
 export default function System() {
   const [isFormVisible, setFormVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const { data, error, isLoading } = getRecords();
 
   const toggleForm = () => {
     setFormVisible(!isFormVisible);
   };
+
+  const handleSearch = (term: string) => {
+    setSearchTerm(term);
+  };
+
+  const filteredData = data?.filter((patient) =>
+    patient.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   return (
     <div className="p-8">
@@ -26,6 +36,10 @@ export default function System() {
         </button>
       </header>
 
+      <div className="mb-6 max-w-xl">
+        <SearchBar onSearch={handleSearch} />
+      </div>
+
       {isFormVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="rounded-lg bg-white p-6 shadow-lg">
@@ -37,8 +51,12 @@ export default function System() {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {isLoading ? (
           <p className="col-span-full text-center">Cargando registros...</p>
-        ) : (
-          data?.map(
+        ) : error ? (
+          <p className="col-span-full text-center text-red-500">
+            Error al cargar los registros
+          </p>
+        ) : filteredData && filteredData.length > 0 ? (
+          filteredData.map(
             (patient: {
               id: Key | null | undefined;
               name: string;
@@ -55,14 +73,19 @@ export default function System() {
               />
             ),
           )
+        ) : (
+          <p className="col-span-full text-center">
+            No se encontraron pacientes con ese nombre
+          </p>
         )}
-        <button
-          className="generatePdfButton h-16 w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)]"
-          onClick={() => window.print()}
-        >
-          Generar PDF
-        </button>
       </div>
+
+      <button
+        className="generatePdfButton fixed bottom-8 left-8 h-16 w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)]"
+        onClick={() => window.print()}
+      >
+        Generar PDF
+      </button>
     </div>
   );
 }

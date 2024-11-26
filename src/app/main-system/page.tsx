@@ -4,7 +4,7 @@ import { Key, useState } from "react";
 import PatientRecordForm from "../_components/organisms/patientRecordForm";
 import PatientCard from "../_components/organisms/PatientCard";
 import { getRecords } from "../_components/hooks/getRecords";
-import SearchBar from "../_components/molecules/SearchBar";
+import SearchContainer from "../_components/organisms/SearchContainer";
 import "./style.css";
 
 export default function System() {
@@ -16,6 +16,7 @@ export default function System() {
     setFormVisible(!isFormVisible);
   };
 
+  // Modificamos el handleSearch del nivel superior
   const handleSearch = (term: string) => {
     setSearchTerm(term);
   };
@@ -36,9 +37,8 @@ export default function System() {
         </button>
       </header>
 
-      <div className="mb-6 max-w-xl">
-        <SearchBar onSearch={handleSearch} />
-      </div>
+      {/* Aquí va el SearchContainer */}
+      <SearchContainer onSearch={handleSearch} />
 
       {isFormVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

@@ -1,15 +1,16 @@
 import React from "react";
 import SearchBar from "../molecules/SearchBar";
 
-const SearchContainer: React.FC = () => {
-  const handleSearch = (term: string) => {
-    console.log(`Buscando: ${term}`);
-  };
+interface SearchContainerProps {
+  onSearch: (term: string) => void;
+}
 
+const SearchContainer: React.FC<SearchContainerProps> = ({ onSearch }) => {
   return (
-    <div className="mx-auto mt-8 max-w-md">
-      <h2 className="mb-4 text-2xl font-bold">Búsqueda</h2>
-      <SearchBar onSearch={handleSearch} />
+    <div className="w-full px-4 py-4">
+      <div className="mx-auto w-full rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm">
+        <SearchBar onSearch={onSearch} />
+      </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const router = usePathname();
-  if (router === "/main-system" || router === "/main-system/reports"){
+  if (router.startsWith("/main-system")){
     return(
       <div/>
     );

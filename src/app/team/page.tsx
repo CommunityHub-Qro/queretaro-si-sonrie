@@ -5,20 +5,20 @@ const Team = () => {
         {/* Team Introduction Section */}
         <section className="flex flex-col items-center mt-5">
           <div className="flex w-full">
-          <h1 className="text-[4vw] sm:text-3xl lg:text-5xl w-[70%] text-red-600 font-bold mt-[3%] ml-[5.5%] mb-0"> ¡Te presentamos a nuestro equipo! </h1>
+            <h1 className="text-[6vw] sm:text-3xl md:text-[4vw] lg:text-5xl w-[70%] text-red-600 font-bold mt-[3%] ml-[5.5%] mb-0"> ¡Te presentamos a nuestro equipo! </h1>
 
-              <div className="relative w-[30%]">
-                  <div className="absolute left-[30%] w-[70%] top-[28%] h-[33%] bg-third rounded-l-3xl shadow-dsgn"></div>
-                  <div className="absolute left-[10%] w-[90%] top-[50%] h-[33%] bg-fourth rounded-l-3xl shadow-dsgn"></div>
-              </div>
+            <div className="relative w-[30%]">
+                <div className="absolute left-[30%] w-[70%] top-[38%] md:top-[20%] lg:top-[28%] h-[2vh] lg:h-[6vh] bg-third rounded-l-3xl shadow-dsgn"></div>
+                <div className="absolute left-[10%] w-[90%] top-[50%] h-[2vh] lg:h-[6vh] bg-fourth rounded-l-3xl shadow-dsgn"></div>
+            </div>
           </div>
           
           <div className="flex justify-center gap-[7.1%] py-[8vh] w-full">
-            <div className="w-[50vw] text-center">
+            <div className="w-[5z0vw] text-center">
               <img 
                 src="images/nosotros.jpg" 
                 alt="imagen del equipo" 
-                className="w-[50vw] rounded-3xl border-[0.8vw] border-fourth"
+                className="w-[80vw] lg:w-[50vw] rounded-3xl border-[0.8vw] border-fourth"
               />
             </div>
           </div>
@@ -27,11 +27,11 @@ const Team = () => {
         {/* Institutions Section */}
         <section className="flex flex-col items-center pb-[10vh]">
           <div className="relative w-full">
-            <div className="absolute w-[15%] mt-[0.5%] h-[18.455%] bg-third rounded-r-3xl shadow-dsgn"></div>
-            <div className="absolute w-[9%] mt-[2%] h-[18.455%] bg-fourth rounded-r-3xl shadow-dsgn"></div>
-            <h1 className="text-[4.5vw] text-center mt-[8%] font-semibold">Nuestros convenios</h1>
+            <div className="absolute w-[23%] lg:w-[15%] mt-[0.5%] h-[2vh] lg:h-[6vh] bg-third rounded-r-3xl shadow-dsgn"></div>
+            <div className="absolute w-[15%] lg:w-[9%] mt-[3%] lg:mt-[2%] h-[2vh] lg:h-[6vh] bg-fourth rounded-r-3xl shadow-dsgn"></div>
+            <h1 className="text-[4.5vw] md:text-[4vw] lg:text-[4.5vw] text-center mt-[8%] font-semibold">Nuestros convenios</h1>
           </div>
-          <p className="text-[1.26vw] mt-[2.5%] text-center">
+          <p className="text-[3vw] mx-[2%] md:text-[2.3vw] lg:text-[1.26vw] mt-[2.5%] text-center">
             Hemos hecho sinergia con varias instituciones 
             para poder lograr una mejor atención a mejores 
             costos para nuestros pacientes.

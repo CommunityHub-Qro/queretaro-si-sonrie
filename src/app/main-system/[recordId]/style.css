@@ -1,7 +1,9 @@
 @media print {
   .nav-bar-component,
   .generatePdfButton,
-  .addFile {
+  .addFile,
+  .regresar,
+  .editar {
     display: none;
   }
   @page {
@@ -9,5 +11,8 @@
   }
   footer {
     display: none;
+  }
+  .detailsTitle {
+    margin-top: 50px;
   }
 }

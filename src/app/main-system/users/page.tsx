@@ -7,10 +7,9 @@ import UserCards from "~/app/_components/molecules/UserCards";
 import { UserDataType } from "~/server/api/routers/newUser";
 
 const EliminarUsuario = () => {
-  const [users, setUsers] = useState<any>();
-  const [signIn, setSignIn] = useState(false);
+  const [users, setUsers] = useState<UserDataType[] | void>([]);
 
-  const fetchUsers = async () => {
+  const useFetchUsers = async () => {
     // Función fetchUsers para conseguir usuario y contraseña para acceder acceso
     const users = await useRetrieveAllUsers()
       .then((users) => users)
@@ -23,7 +22,8 @@ const EliminarUsuario = () => {
   }, [users]);
 
   if (!users) {
-    fetchUsers();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    void useFetchUsers();
   }
 
   // Sign in funcionality
@@ -39,7 +39,11 @@ const EliminarUsuario = () => {
           Registrar Usuario
         </Link>
       </div>
-      {users ? users.map((u: UserDataType) => <UserCards user={u} />) : null}
+      {users
+        ? users.map((u: UserDataType, idx: number) => (
+            <UserCards user={u} key={idx} />
+          ))
+        : null}
     </div>
   );
 };

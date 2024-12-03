@@ -14,11 +14,11 @@ export default function PatientRecordForm() {
     api.patientRecord.createPatientRecord.useMutation();
 
   function create_patientRecord(e: FormEvent<HTMLFormElement>) {
-    if (!photoUrl) {
-      e.preventDefault();
-      alert("Cargar foto del paciente.");
-      return;
-    }
+    // if (!photoUrl) {
+    //   e.preventDefault();
+    //   alert("Cargar foto del paciente.");
+    //   return;
+    // }
     e.preventDefault();
     createPatientRecordMutation.mutate(
       {

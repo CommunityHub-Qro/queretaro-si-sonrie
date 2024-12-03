@@ -18,7 +18,6 @@ const EliminarUsuario = () => {
   };
 
   useEffect(() => {
-    console.log(users);
   }, [users]);
 
   if (!users) {

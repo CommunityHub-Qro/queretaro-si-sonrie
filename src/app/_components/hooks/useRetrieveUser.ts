@@ -1,14 +1,19 @@
 "use server";
+import { UserRole } from "@prisma/client";
 import { newUser } from "./../../../server/api/routers/newUser";
 
 import { error } from "console";
 import { api } from "~/trpc/server";
+import { loginSession } from "../library/sessionAuth";
 import argon2 from "argon2";
+
+const argon2 = require("argon2");
 
 type newUser = {
   name: string;
   password: string;
   email: string;
+  role: UserRole;
 };
 
 export const useCreateUser = async (newUser: newUser) => {
@@ -19,6 +24,7 @@ export const useCreateUser = async (newUser: newUser) => {
         name: newUser.name,
         email: newUser.email,
         password: h,
+        role: newUser.role,
       }),
     )
     .catch((error: string) => console.log(error));
@@ -33,9 +39,10 @@ export const useRetrieveUser = async (name: string, password: string) => {
 
   try {
     if (await argon2.verify(user.password, password)) {
+      loginSession(user);
       return true;
     } else {
-      return false;
+      return "Error: contraseña incorrecta";
     }
   } catch (error) {
     return error;

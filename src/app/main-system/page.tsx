@@ -4,6 +4,7 @@ import { Key, useState } from "react";
 import PatientRecordForm from "../_components/organisms/patientRecordForm";
 import PatientCard from "../_components/organisms/PatientCard";
 import { getRecords } from "../_components/hooks/getRecords";
+import { getSession, loginSession } from "../_components/library/sessionAuth";
 
 export default function System() {
   const [isFormVisible, setFormVisible] = useState(false);

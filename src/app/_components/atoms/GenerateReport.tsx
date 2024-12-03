@@ -16,8 +16,14 @@ const GenerateReport: React.FC = () => {
 
         let rows = [[`Total`, `${records.data?records.data.length:0}`],
           [`Sexo:`],
-          [`Hombres`, `NA`],
-          [`Mujeres`, `NA`],
+          [`Hombres`, `${records.data?records.data.filter(
+            item => item.sex===true &&
+            item.active === true
+          ).length:0}`],
+          [`Mujeres`, `${records.data?records.data.filter(
+            item => item.sex===false &&
+            item.active === true
+          ).length:0}`],
           [`Ingresos recientes:`],
           [`${MONTHS[day.getMonth()]} ${day.getFullYear()}`, `${records.data?records.data.filter(
               item => item.register_date.getMonth()==day.getMonth()
@@ -30,7 +36,8 @@ const GenerateReport: React.FC = () => {
 
         for (let i = 0; i < 18; i++) {
           rows = [rows, [`${i}`, `${records.data?records.data.filter(
-              item => moment().diff(item.birth_date, 'years') == i
+              item => moment().diff(item.birth_date, 'years') == i &&
+              item.active === true
             ).length:0}`]].join('\n');
         }
 

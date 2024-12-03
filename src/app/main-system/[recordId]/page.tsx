@@ -4,7 +4,9 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getRecords } from "../../_components/hooks/getRecords";
 import UpdatePatientRecord from "../../_components/organisms/updatePatientRecord";
+import DeletePatientRecord from "~/app/_components/organisms/deletePatientRecord";
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 import "./style.css";
 
 interface Exam {
@@ -39,6 +41,7 @@ interface Patient {
 
 const RecordDetails = () => {
   const { recordId } = useParams();
+  const router = useRouter();
   const [records, setRecords] = useState<Patient[]>([]);
   const [patient, setPatient] = useState<Patient | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -62,6 +65,10 @@ const RecordDetails = () => {
   const handleUpdateSuccess = (updatedData: Patient) => {
     setPatient(updatedData);
     setIsEditing(false);
+  };
+
+  const handleDeleteSucces = () => {
+    router.push("/main-system");
   };
 
   if (isLoading) {
@@ -178,6 +185,10 @@ const RecordDetails = () => {
           >
             Editar
           </button>
+          <DeletePatientRecord 
+            patientId={patient.id}
+            onSuccess={handleDeleteSucces}
+          />
           <button
             className="generatePdfButton h-10 w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)]"
             onClick={() => window.print()}

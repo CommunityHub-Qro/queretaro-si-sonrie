@@ -17,6 +17,7 @@ export const patientRecordRouter = createTRPCRouter({
     r_date: z.date().optional(),
     dx: z.string(),
     notes: z.string(),
+    photoUrl: z.string(),
   })).mutation(({ input }) => {
     const patientRecord = db.record.create({
       data: {
@@ -24,7 +25,8 @@ export const patientRecordRouter = createTRPCRouter({
         birth_date: input.b_date ?? new Date(),
         register_date: input.r_date ?? new Date(),
         dx: input.dx,
-        notes: input.notes
+        notes: input.notes,
+        photoUrl: input.photoUrl,
       }
     });
     return patientRecord;

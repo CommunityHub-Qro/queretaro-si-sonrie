@@ -10,11 +10,6 @@
         url       = env("POSTGRES_URL") // uses connection pooling
         // directUrl = env("POSTGRES_URL_NON_POOLING")
     }
-datasource db {
-    provider  = "postgresql"
-    url       = env("POSTGRES_URL") // uses connection pooling
-    // directUrl = env("POSTGRES_URL_NON_POOLING")
-}
 
     model Post {
         id        Int      @id @default(autoincrement())
@@ -86,13 +81,16 @@ datasource db {
     model Record {
         id            String   @id @default(cuid())
         name          String
+        birth_date    DateTime @default(now())
         register_date DateTime @default(now())
-        birth_date DateTime @default(now())
         dx            String
         notes         String
+        photoUrl      String?
         treatments    Treatment[]
         exams         Exam[]
         record_link   String   @default("")
+        active        Boolean?
+        sex           Boolean?
     }
 
     model Treatment {
@@ -103,6 +101,10 @@ datasource db {
         report      String
         patient     Record       @relation(fields: [patientId], references: [id])
         patientId   String
+        photoUrl    String
+        doctor      String
+        external    Boolean
+        date DateTime @default(now())
 
         @@index([patientId])
     }
@@ -126,3 +128,5 @@ datasource db {
 
         @@index([patientId])
     }
+
+

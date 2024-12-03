@@ -3,11 +3,10 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getRecords } from "../../_components/hooks/getRecords";
-import { UploadButton } from "@uploadthing/react";
 import UpdatePatientRecord from "../../_components/organisms/updatePatientRecord";
 import DeletePatientRecord from "~/app/_components/organisms/deletePatientRecord";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import "./style.css";
 
 interface Exam {
@@ -187,30 +186,13 @@ const RecordDetails = () => {
           ) : (
             <p>No hay tratamientos disponibles.</p>
           )}
-          {/* Display Treatment photos*/}
-          <h2 className="mt-6 text-xl font-bold">Evolución del paciente</h2>
-          <UploadButton
-            className="imageUploader"
-            endpoint="imageUploader"
-            onClientUploadComplete={(res) => {
-              if (res && res[0] && res[0].url) {
-                setPhotoUrl(res[0].url);
-                console.log("Files: ", res);
-                alert("Upload Completed");
-              }
-            }}
-            onUploadError={(error: Error) => {
-              // Do something with the error.
-              alert(`ERROR! ${error.message}`);
-            }}
-          />
           <button
             onClick={handleEditClick}
             className="editar rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
           >
             Editar
           </button>
-          <DeletePatientRecord 
+          <DeletePatientRecord
             patientId={patient.id}
             onSuccess={handleDeleteSucces}
           />

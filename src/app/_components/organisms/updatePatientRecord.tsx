@@ -1,5 +1,6 @@
 import { api } from "~/trpc/react";
 import { useState, FormEvent } from "react";
+import { UploadButton } from "@uploadthing/react";
 
 interface Patient {
   id: string;
@@ -18,6 +19,7 @@ interface Treatment {
   patientId: string;
   doctor: string;
   external: boolean;
+  photoUrlTreatment: string;
 }
 
 interface UpdatePatientRecordProps {
@@ -45,8 +47,10 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   const [dx, setDx] = useState(initialData.dx);
   const [notes, setNotes] = useState(initialData.notes);
   const [recordLink, setLink] = useState(initialData.record_link);
-  const [treatments, setTreatments] = useState<Treatment[]>(initialData.treatments || []);
-
+  const [photoUrlTreatment, setPhotoUrlTreatment] = useState("");
+  const [treatments, setTreatments] = useState<Treatment[]>(
+    initialData.treatments || [],
+  );
 
   const updatePatientRecordMutation =
     api.patientRecord.updatePatientRecord.useMutation();
@@ -109,6 +113,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         report: treatment.report,
         doctor: treatment.doctor,
         external: treatment.external,
+        photoUrlTreatment: treatment.photoUrlTreatment,
       });
       alert("Tratamiento actualizado exitosamente");
     } catch (error) {
@@ -126,6 +131,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         patientId,
         doctor: "Nombre del doctor", // Cambiar por valor dinámico si es necesario
         external: false,
+        photoUrlTreatment: "",
       },
     ]);
   };
@@ -250,6 +256,21 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         >
           Añadir tratamiento
         </button>
+        {/* Upload Treatment photos*/}
+        <h2 className="mt-6 text-xl font-bold">Evolución del paciente</h2>
+        <UploadButton
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            if (res && res[0] && res[0].url) {
+              setPhotoUrlTreatment(res[0].url);
+              console.log("Files: ", res);
+              alert("Upload Completed");
+            }
+          }}
+          onUploadError={(error: Error) => {
+            alert(`ERROR! ${error.message}`);
+          }}
+        />
       </div>
     </>
   );

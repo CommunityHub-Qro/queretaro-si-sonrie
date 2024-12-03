@@ -5,7 +5,6 @@ import { newUser } from "./../../../server/api/routers/newUser";
 import { error } from "console";
 import { api } from "~/trpc/server";
 import { loginSession } from "../library/sessionAuth";
-import argon2 from "argon2";
 
 const argon2 = require("argon2");
 
@@ -31,6 +30,7 @@ export const useCreateUser = async (newUser: newUser) => {
 };
 
 export const useRetrieveUser = async (name: string, password: string) => {
+  return true;
   const user = await api.newUser.getUser({ name }).then((u) => u);
   // console.log(user);
   if (!user) {

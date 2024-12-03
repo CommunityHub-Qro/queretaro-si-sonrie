@@ -30,7 +30,7 @@ const RegisterUser = () => {
     return true;
   }
 
-  function sessionSignIn(e: any) {
+  function sessionSignIn(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
     const userEntry = document.getElementById("user");
     const passwordEntry = document.getElementById("password");

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import {
   useCreateUser,
   useRetrieveUser,
@@ -32,21 +32,21 @@ export default function AccessPage() {
     return true;
   }
 
-  function sessionLogIn(e: any) {
+  function sessionLogIn(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
 
     if (!comprobarEntradas()) {
       return;
     }
 
-    const fetch = async () => {
+    const useFetch = async (): Promise<void> => {
       // Función Fetch para conseguir usuario y contraseña para acceder acceso
       userSession = await useRetrieveUser(user, password)
         .then((value) => value)
         .catch((error) => {
           console.log("Error" + error);
           alert("Error: Usuario no registrado");
-          return error;
+          return;
         });
       // console.log(userSession);
       if (userSession === true) {
@@ -54,13 +54,12 @@ export default function AccessPage() {
       } else {
         alert(userSession);
       }
+      return;
     };
-    fetch();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    void useFetch();
   }
 
-  function recuperarContraseña() {
-    setRecuperarContraseniaState(true);
-  }
   if (recuperarContraseniaState) {
     return <RecuperarContrasenia />;
   } else {

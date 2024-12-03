@@ -150,12 +150,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Organigrama */}
-      <div className="text-bold poppins -mt-48 flex h-screen flex-col items-center p-5 text-6xl md:mt-60 lg:mt-64 xl:mt-96">
-        <div className="flex h-full items-center">
-          <img src={"images/organigrama.png"} className="h-full w-full drop-shadow-md" />
-        </div>
-      </div>
       {/* Servicios */}
       <Decorations
         color1="fifth"

@@ -1,23 +1,64 @@
 'use client';
 import React from 'react';
+import { getRecords } from "../hooks/getRecords";
+import moment from 'moment';
+
+const MONTHS = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
 const GenerateReport: React.FC = () => {
-    const data = [
-        { name: 'Total personas atendidas', value: 120 },
-        { name: 'Atendidos actualmente', value: 90 },
-        { name: 'Pacientes ortopedia', value: 75 },
-        { name: 'Pacientes quieloplastia', value: 60 },
-        { name: 'Pacientes ontología general', value: 30 },
-      ];    
-      const generateCSV = () => {
+      const records = getRecords(); // { data, error, isLoading }
+      moment().format("MM/DD/YYYY");
+  
+      const generateCSV = async () => {
         // Encabezados
-        const headers = ['Atributo', 'Cantidad'];
-    
-        // Unir los encabezados y los datos en formato CSV
-        const rows = data.map(item => `${item.name},${item.value}`).join('\n');
+        const headers = ['', 'Pacientes atendidos'];
+        const day = new Date();
+
+        let rows = [[`Total`, `${records.data?records.data.length:0}`],
+          [`Sexo:`],
+          [`Hombres`, `${records.data?records.data.filter(
+            item => item.sex===true &&
+            item.active === true
+          ).length:0}`],
+          [`Mujeres`, `${records.data?records.data.filter(
+            item => item.sex===false &&
+            item.active === true
+          ).length:0}`],
+          [`Ingresos recientes:`],
+          [`${MONTHS[day.getMonth()]} ${day.getFullYear()}`, `${records.data?records.data.filter(
+              item => item.register_date.getMonth()==day.getMonth()
+            ).length:0}`],
+          [`${day.getFullYear()}`, `${records.data?records.data.filter(
+              item => item.register_date.getFullYear()==day.getFullYear()
+            ).length:0}`],
+          [`Edades atendidas:`]
+        ].join('\n');
+
+        for (let i = 0; i < 18; i++) {
+          rows = [rows, [`${i}`, `${records.data?records.data.filter(
+              item => moment().diff(item.birth_date, 'years') == i &&
+              item.active === true
+            ).length:0}`]].join('\n');
+        }
+
+        try {
+          const response = await fetch('/api/Report');
+          if (!response.ok) {
+            throw new Error('Error fetching treatment data');
+          }
+          const treatments = await response.json();
+
+          rows = [rows, ['Tratamientos:', '']].join('\n');
+          treatments.forEach((treatment: { title: string; count: number }) => {
+            rows = [rows, [treatment.title, treatment.count.toString()]].join('\n');
+          });
+        } catch (error) {
+          console.error('Error fetching treatments:', error);
+          rows = [rows, ['Error fetching treatments', '']].join('\n');
+        }
+        
         const csvContent = [headers.join(','), rows].join('\n');
     
-        // Crear un enlace para descargar el archivo CSV
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -25,7 +66,7 @@ const GenerateReport: React.FC = () => {
         link.setAttribute('download', 'data.csv');
         document.body.appendChild(link);
         link.click();
-        document.body.removeChild(link); // Elimina el enlace después de la descarga
+        document.body.removeChild(link);
       };    
 
   return (

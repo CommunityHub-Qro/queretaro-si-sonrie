@@ -45,6 +45,7 @@ export default function System() {
               birth_date: Date;
               register_date: Date;
               dx: string;
+              photoUrl: string;
             }) => (
               <PatientCard
                 key={patient.id}
@@ -52,6 +53,7 @@ export default function System() {
                 name={patient.name}
                 b_date={patient.birth_date.toLocaleDateString()}
                 dx={patient.dx || "No definido"}
+                photoUrl={patient.photoUrl}
               />
             ),
           )

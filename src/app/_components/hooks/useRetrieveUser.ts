@@ -5,6 +5,8 @@ import { newUser } from "./../../../server/api/routers/newUser";
 import { error } from "console";
 import { api } from "~/trpc/server";
 import { loginSession } from "../library/sessionAuth";
+import argon2 from "argon2";
+
 const argon2 = require("argon2");
 
 type newUser = {
@@ -25,7 +27,7 @@ export const useCreateUser = async (newUser: newUser) => {
         role: newUser.role,
       }),
     )
-    .catch((error: any) => console.log(error));
+    .catch((error: string) => console.log(error));
 };
 
 export const useRetrieveUser = async (name: string, password: string) => {

@@ -11,7 +11,7 @@ const CorpusVolunteering = () => {
           <div className="relative md:w-1/2 flex items-center justify-center">
             <img
               src="images/wave.png"
-              className="md:-ml-20 -mt-96 2xl:-mt-48 w-full object-cover"
+              className="md:-ml-20 md:-mt-80 -mt-96 2xl:-mt-48 w-full object-cover"
             />
           </div>
           <div className="md:w-1/2 flex flex-col items-center md:items-start px-8">
@@ -105,7 +105,7 @@ const CorpusVolunteering = () => {
             color1={"fourth"}
             color2={"secondary"}
             color3={"fifth"}
-            className={"-right-10 top-[320vh] md:top-[200vh] -rotate-45 overflow-hidden"}
+            className={"-right-10 top-[320vh] md:top-[200vh] -rotate-45"}
           />
         </div>
         <div className="flex flex-col items-center text-justify justify-center p-8 md:p-10 md:pl-20">
@@ -151,7 +151,7 @@ const CorpusVolunteering = () => {
             <Decorations
               color1={"fourth"}
               color2={"secondary"}
-              className={"left-0 top-[340vh] md:top-[230vh] -rotate-45 overflow-hidden"}
+              className={"left-0 top-[340vh] md:top-[230vh] md:right-[90vw] -rotate-45"}
             />
 
             <div className="md:m-10 mt-11 mb-10 md:mb-0 flex flex-col rounded-3xl bg-secondary p-4 text-white">

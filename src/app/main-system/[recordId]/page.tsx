@@ -84,13 +84,14 @@ const RecordDetails = () => {
     <div className="mx-auto max-w-xl p-4">
       <Link
         href={"/main-system"}
-        className="regresar flex h-full w-32 items-center justify-center rounded-full bg-third py-2 text-center text-white drop-shadow-md hover:bg-[rgb(255,40,40)]"
+        className="regresar ml-[55rem] flex h-full w-32 items-center justify-center rounded-full bg-third py-2 text-center text-white drop-shadow-md hover:bg-[rgb(255,40,40)]"
       >
         Regresar
       </Link>
-      <h1 className="detailsTitle mb-4 text-2xl font-bold">
+      <h1 className="detailsTitle mb-4 text-3xl font-bold">
         Detalles del Registro
       </h1>
+
       {isEditing ? (
         <UpdatePatientRecord
           patientId={patient.id}
@@ -107,32 +108,36 @@ const RecordDetails = () => {
         />
       ) : (
         <div className="space-y-4">
-          <p>
+          <div className="ml-20 flex items-center">
             <img
               src={patient.photoUrl}
               alt="ícono de paciente"
-              className="mr-4 h-32 w-32 rounded-sm object-cover"
+              className="mr-4 h-52 w-52 rounded-sm object-cover"
             />
-          </p>
-          <p>
-            <strong>ID del registro:</strong> {recordId}
-          </p>
-          <p>
-            <strong>Nombre:</strong> {patient.name}
-          </p>
-          <p>
-            <strong>Fecha de nacimiento:</strong>{" "}
-            {patient.birth_date.toDateString()}
-          </p>
-          <p>
-            <strong>DX:</strong> {patient.dx}
-          </p>
-          <p>
-            <strong>Notas:</strong> {patient.notes}
-          </p>
+            <div>
+              <p className="hidden">
+                <strong>ID del registro:</strong> {recordId}
+              </p>
+              <p className="ml-5 mt-2 text-lg">
+                <strong>Nombre:</strong> <br></br> {patient.name}
+              </p>
+              <p className="ml-5 mt-2 text-lg">
+                <strong>Fecha de nacimiento:</strong>{" "}
+                {patient.birth_date.toDateString()}
+              </p>
+              <p className="ml-5 mt-2 text-lg">
+                <strong>DX:</strong> <br></br>
+                {patient.dx}
+              </p>
+              <p className="ml-5 mt-2 text-lg">
+                <strong>Notas:</strong>
+                {patient.notes}
+              </p>
+            </div>
+          </div>
 
           {/* Display Exams */}
-          <h2 className="mt-6 text-xl font-bold">Exámenes</h2>
+          <h2 className="ml-5 mt-6 text-xl font-bold">Exámenes</h2>
           {patient.exams && patient.exams.length > 0 ? (
             <ul>
               {patient.exams.map((exam) => (
@@ -146,7 +151,7 @@ const RecordDetails = () => {
           )}
 
           {/* Display Diagnoses */}
-          <h2 className="mt-6 text-xl font-bold">Diagnósticos</h2>
+          <h2 className="ml-5 mt-6 text-xl font-bold">Diagnósticos</h2>
           {patient.diagnoses && patient.diagnoses.length > 0 ? (
             <ul>
               {patient.diagnoses.map((diagnosis) => (
@@ -159,7 +164,9 @@ const RecordDetails = () => {
             <p>No hay diagnósticos disponibles.</p>
           )}
 
-          <h2 className="mt-6 text-xl font-bold">Documento del paciente</h2>
+          <h2 className="ml-5 mt-6 text-xl font-bold">
+            Documento del paciente
+          </h2>
           {patient.record_link ? (
             <Link
               href={patient.record_link}
@@ -174,7 +181,7 @@ const RecordDetails = () => {
           )}
 
           {/* Display Treatments */}
-          <h2 className="mt-6 text-xl font-bold">Tratamientos</h2>
+          <h2 className="ml-5 mt-6 text-xl font-bold">Tratamientos</h2>
           {patient.treatments && patient.treatments.length > 0 ? (
             <ul>
               {patient.treatments.map((treatment) => (
@@ -186,22 +193,24 @@ const RecordDetails = () => {
           ) : (
             <p>No hay tratamientos disponibles.</p>
           )}
-          <button
-            onClick={handleEditClick}
-            className="editar rounded bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
-          >
-            Editar
-          </button>
-          <DeletePatientRecord
-            patientId={patient.id}
-            onSuccess={handleDeleteSucces}
-          />
-          <button
-            className="generatePdfButton h-10 w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)]"
-            onClick={() => window.print()}
-          >
-            Generar PDF
-          </button>
+          <div className="justify-between">
+            <button
+              onClick={handleEditClick}
+              className="editar rounded-full bg-yellow-500 px-4 py-2 text-white hover:bg-yellow-600"
+            >
+              Editar
+            </button>
+            <button
+              className="generatePdfButton ml-20 h-10 w-32 items-center rounded-full bg-third py-2 text-center text-slate-100 drop-shadow-md hover:bg-[rgb(255,40,40)]"
+              onClick={() => window.print()}
+            >
+              Generar PDF
+            </button>
+            <DeletePatientRecord
+              patientId={patient.id}
+              onSuccess={handleDeleteSucces}
+            />
+          </div>
         </div>
       )}
     </div>

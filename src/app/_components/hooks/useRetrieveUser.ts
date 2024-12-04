@@ -30,7 +30,6 @@ export const useCreateUser = async (newUser: newUser) => {
 };
 
 export const useRetrieveUser = async (name: string, password: string) => {
-  return true;
   const user = await api.newUser.getUser({ name }).then((u) => u);
   // console.log(user);
   if (!user) {

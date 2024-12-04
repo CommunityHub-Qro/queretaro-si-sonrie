@@ -16,11 +16,11 @@ export default function Home() {
   return (
     <main className="h-fit pb-32">
       {/* Inicio */}
-      <section className="grid h-screen flex-col items-start justify-start md:grid-cols-2 md:text-left">
+      <section className="grid h-screen flex-col items-start justify-start md:h-[26rem] md:grid-cols-2 md:text-left">
         <div className="h-fit-content flex flex-col items-start justify-start md:flex md:shrink-0">
-          <img src="/images/Collage.png" alt="imagen" />
+          <img src="/images/Collage.png" alt="imagen" className="sm:mt-0" />
         </div>
-        <div className="-mt-20 flex flex-col items-start justify-start p-10 md:mt-12 md:flex md:shrink-0">
+        <div className="xs:mt-0 mt-28 flex flex-col items-start justify-start p-10 md:mt-12 md:flex md:shrink-0">
           <img src="/images/mainTitle.png" />
           <div className="bottom-0 left-0 m-10 flex space-x-4">
             <Link href="https://www.instagram.com/qrosisonrie/">
@@ -30,50 +30,55 @@ export default function Home() {
               <img src="icons/logoFacebook.png" className="h-8 w-8" />
             </Link>
             <Decorations
-              color1="fifth"
-              color2="third"
-              className="-z-20 hidden md:left-[40rem] md:block lg:left-[50rem] lg:block xl:left-[65rem] xl:top-[26rem] xl:block"
+              color1="third"
+              color2="fourth"
+              className="xl:hiden xs:top-[20rem] xs:right-[15rem] xs:h-1 sm:hidden md:hidden lg:hidden 2xl:hidden"
             />
             <Decorations
               color1="fifth"
               color2="third"
-              className="absolute left-[20rem] top-[38rem] md:hidden lg:hidden xl:hidden"
+              className="xs:hidden -z-20 md:left-[40rem] md:block lg:left-[50rem] lg:block xl:left-[65rem] xl:top-[26rem] xl:block"
+            />
+            <Decorations
+              color1="fifth"
+              color2="third"
+              className="xs:left-[10rem] sm:left-[20rem] sm:top-[36rem] md:hidden lg:hidden xl:hidden"
             />
           </div>
         </div>
       </section>
 
-      <div className="mt-60 flex md:-mt-52 md:mb-32 md:shrink-0 xl:h-28">
+      <div className="mt-60 flex md:mb-28 md:mt-0 md:shrink-0 xl:h-28">
         <Decorations
           color1="third"
           color2="fourth"
-          className="relative right-[30rem] -z-20 h-fit md:-top-5 md:right-[30rem] lg:right-[30rem] lg:top-4 xl:right-[30rem] xl:top-32"
+          className="xs:right-[40rem] relative right-[30rem] -z-20 h-fit md:-top-5 md:right-[30rem] lg:right-[30rem] lg:top-4 xl:right-[30rem] xl:top-32"
         />
-        <h1 className="block text-4xl font-bold sm:-ml-80 md:-ml-80 md:-mt-8 md:w-[40rem] lg:right-[30rem] lg:mt-8 xl:right-[30rem] xl:mt-36">
+        <h1 className="xs:top-[10rem] xs:right-[200rem] xs:text-sm sm:-ml-80 sm:mt-0 sm:text-3xl sm:font-bold md:-ml-80 md:-mt-8 md:w-[40rem] lg:right-[30rem] lg:mt-12 lg:text-3xl xl:right-[30rem] xl:mt-40 xl:flex-auto xl:text-3xl">
           El Instituto Queretano para la Atención de Enfermedades Congénitas
           (IQUEC)
         </h1>
       </div>
 
       {/* Misión / Visión */}
-      <section className="grid min-h-screen flex-col items-start justify-start md:grid-cols-2 md:text-left">
-        <div className="flex min-h-screen flex-col items-start justify-start md:flex md:shrink-0 xl:mt-32">
+      <section className="grid min-h-screen flex-col items-start justify-start md:grid-cols-2 md:text-left xl:mt-10">
+        <div className="flex min-h-screen flex-col items-start justify-start md:mt-6 md:flex md:shrink-0 xl:mt-40">
           <img
             src="/images/elipse1.png"
             alt="imagen"
-            className="top-[2%] w-[95%] md:-mt-20 xl:-mt-24"
+            className="xs:w-[40%] xs:left-[15rem] sm:top-[2%] sm:w-[95%] md:-mt-20 xl:-mt-24"
           />
           <Decorations
             color1="third"
             color2="fourth"
-            className="relative left-[65rem] -z-20 md:left-[35rem] md:mt-60 lg:mt-8 xl:left-[65rem] xl:-mt-24"
+            className="relative left-[65rem] -z-20 md:left-[39rem] md:mt-52 lg:mt-8 xl:left-[65rem] xl:-mt-24"
           />
         </div>
-        <div className="flex flex-col items-start justify-start sm:-mt-32 sm:ml-16 md:-ml-20 md:-mt-11 md:flex md:shrink-0 lg:-mt-20 xl:mt-1">
-          <h1 className="-mt-[3%] ml-5 w-[100%] text-4xl font-bold md:ml-[30%] xl:mt-8">
+        <div className="flex flex-col items-start justify-start sm:-mt-32 sm:ml-16 md:-ml-20 md:-mt-11 md:flex md:shrink-0 lg:-mt-24 xl:mt-10">
+          <h1 className="-mt-[3%] ml-5 w-[100%] text-4xl font-bold md:ml-[30%] lg:mt-8 xl:mt-8">
             Conócenos...
           </h1>
-          <p className="overflow-wrap: break-word ml-5 mt-[5%] w-[75%] text-justify text-2xl md:ml-[15%]">
+          <p className="overflow-wrap: break-word ml-5 mt-[5%] w-[75%] text-justify text-2xl md:ml-[15%] md:text-xl xl:text-2xl">
             Nuestra misión es atender a todos los pacientes con fisura labio
             palatina que se encuentren radicando en la ciudad de Querétaro,
             teniendo acceso a un tratamiento multidisciplinario de alta calidad,
@@ -84,7 +89,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid min-h-screen flex-col items-start justify-start md:grid-cols-2 md:text-left">
+      <section className="lg:mt grid min-h-screen flex-col items-start justify-start md:grid-cols-2 md:text-left">
         <div className="flex min-h-screen flex-col items-start justify-start sm:mt-10 sm:flex sm:shrink-0 md:-mt-32 md:flex md:shrink-0 xl:-mt-44">
           <h1 className="z-50 w-[100%] text-4xl font-bold sm:ml-20 sm:mt-[1%] md:ml-[110%]">
             Visión
@@ -99,10 +104,10 @@ export default function Home() {
             para poder trabajar con finanzas transparentes y no depender de
             donativos, los cuales pueden ser variables.
           </p>
-          <h1 className="overflow-wrap: break-word ml-5 w-[100%] text-center text-4xl font-bold text-[#FF4141] sm:top-[10%] sm:mb-5 sm:ml-[1%] md:ml-[95%] xl:ml-[95%] xl:mt-[3%]">
+          <h1 className="overflow-wrap: break-word ml-5 w-[100%] text-center text-4xl font-bold text-[#FF4141] sm:top-[10%] sm:mb-5 sm:ml-[1%] md:ml-[95%] md:mt-5 lg:mt-10 xl:ml-[95%] xl:mt-[3%]">
             ¡Sigue sonriendo con <br></br>nosotros!
           </h1>
-          <div className="max-w-lg rounded-md border-[14px] border-solid border-blue-600 sm:ml-24 sm:mt-[0%] md:-mt-[29rem] lg:-mt-[82%] xl:-mt-[60%]">
+          <div className="max-w-lg rounded-md border-[14px] border-solid border-blue-600 sm:ml-24 sm:mt-[0%] md:-mt-[29rem] lg:-mt-[87%] xl:-mt-[60%]">
             <Carousel images={images} />
           </div>
           <Link
@@ -111,17 +116,18 @@ export default function Home() {
           >
             Donar
           </Link>
+          <Decorations
+            color1="fifth"
+            color2="third"
+            className="-z-20 hidden md:right-[50rem] md:top-11 lg:left-[50rem] lg:hidden xl:hidden"
+          />
           {/*Sonrisas que inspiran*/}
-          <div className="block h-40 flex-col items-start justify-start md:flex md:shrink-0 xl:ml-20 xl:mt-5">
-            <h1 className="ml-6 mt-8 w-[100%] text-4xl font-bold md:ml-[30%] xl:ml-1 xl:mt-10">
+          <div className="block h-40 flex-col items-start justify-start md:mt-28 md:flex md:shrink-0 xl:ml-20 xl:mt-5">
+            <h1 className="ml-6 mt-8 w-[100%] text-4xl font-bold md:ml-[30%] lg:mt-20 xl:ml-1 xl:mt-10">
               <span className="text-red-500">SONRISAS</span> QUE INSPIRAN
             </h1>
-            <Decorations
-              color1="fifth"
-              color2="third"
-              className="-z-20 hidden md:left-[40rem] md:block lg:left-[50rem] lg:top-[118rem] lg:block xl:-left-[27rem] xl:top-[122rem] xl:block"
-            />
-            <div className="flex h-60 justify-between md:flex md:shrink-0 xl:ml-28">
+
+            <div className="flex h-60 justify-between md:ml-16 md:mt-10 md:flex md:shrink-0 lg:ml-16 lg:mt-10 lg:justify-between xl:ml-28">
               <img
                 src="/images/antes1.png"
                 alt="imagen"
@@ -131,19 +137,19 @@ export default function Home() {
               <img
                 src="/images/despues1.png"
                 alt="imagen"
-                className="h-52 rounded-lg border-[10px] border-solid border-yellow-300 xl:ml-20 xl:mt-10"
+                className="h-52 rounded-lg border-[10px] border-solid border-yellow-300 md:ml-8 lg:ml-8 xl:ml-20 xl:mt-10"
               />
             </div>
-            <div className="flex h-60 justify-between md:flex md:shrink-0 xl:ml-28">
+            <div className="flex h-60 justify-between md:ml-44 md:flex lg:ml-72 xl:ml-28">
               <img
                 src="/images/antes2.png"
                 alt="imagen"
-                className="h-52 rounded-lg border-[10px] border-solid border-blue-600 xl:ml-80 xl:mt-20"
+                className="h-52 w-56 rounded-lg border-[10px] border-solid border-blue-600 xl:ml-80 xl:mt-20"
               />
               <img
                 src="/images/despues2.png"
                 alt="imagen"
-                className="h-52 rounded-lg border-[10px] border-solid border-blue-600 xl:ml-20 xl:mt-20"
+                className="h-52 w-60 rounded-lg border-[10px] border-solid border-blue-600 md:ml-8 lg:ml-8 xl:ml-20 xl:mt-20"
               />
             </div>
           </div>
@@ -155,18 +161,22 @@ export default function Home() {
         color1="fifth"
         color2="third"
         color3="fourth"
-        className="top-[480vh] -z-20 ml-[10rem]"
+        className="top-[480vh] -z-20 ml-[10rem] lg:top-[445vh] lg:ml-[30rem] xl:top-[206rem] xl:ml-[55rem] xl:h-1"
         rotation="-45"
       />
-      <section className="h-screen w-full p-10">
-        <h1 className="poppins mb-10 text-center text-6xl">Servicios</h1>
+      <section className="h-screen w-full p-10 md:mt-96 lg:mb-0 lg:mt-[30rem] xl:mt-[25rem]">
+        <h1 className="poppins mb-10 text-center text-6xl md:mt-20">
+          Servicios
+        </h1>
 
         <section className="h-screen">
           <Decorations
             color1={"fourth"}
             color2={""}
             color3="fifth"
-            className={"-right-80 top-[280vh] -rotate-45"}
+            className={
+              "-right-80 top-[280vh] -rotate-45 md:left-[100vh] md:top-[280vh] xl:ml-[30rem]"
+            }
           />
           <Decorations
             color1={"third"}
@@ -175,7 +185,7 @@ export default function Home() {
             className={"-left-36 top-[380vh] -rotate-45"}
           />
           {/* <Decorations color1={"third"} color2={"fourth"} color3="fifth" className={"top-[400vh] right-[30rem] -rotate-45 border-2 border-red-600 w-32"}/> */}
-          <section className="flex h-screen flex-col flex-wrap items-center gap-10">
+          <section className="flex h-screen flex-col items-center gap-10 md:flex-col lg:grid lg:grid-cols-2">
             {servicios.map((servicio, i) => (
               <div key={i}>
                 <div className="flex items-center gap-5">
@@ -186,18 +196,13 @@ export default function Home() {
                       {servicio.descripción}
                     </span>
                   </span>
-                  <Decorations
-                    color1={"fourth"}
-                    color2={""}
-                    color3="fifth"
-                    className={"-right-24 top-[520vh] -rotate-45"}
-                  />
                 </div>
               </div>
             ))}
           </section>
         </section>
       </section>
+      <br></br>
     </main>
   );
 }

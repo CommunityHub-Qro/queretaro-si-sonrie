@@ -354,6 +354,7 @@ const Impact = () => {
                         <p className="mb-2 text-gray-600 text-sm">CADA AÑO</p>
                       </div>
                     </div>
+                    
 
                     <div className="my-8 relative">
                       {/* Bar Chart */}

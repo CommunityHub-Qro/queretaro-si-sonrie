@@ -304,18 +304,21 @@ const Impact = () => {
           {/* Texto descriptivo */}
           <div className="mb-8 max-w-2xl md:mb-0 md:pr-8 px-10 md:pb-10">
             <p className="mb-4 text-base">
-              Lorem ipsum dolor sit amet consectetur. Rhoncus consequat est
-              tortor risus neque pellentesque arcu. Risus ut elementum semper
-              sit aliquam. Parturient consectetur turpis nulla mattis aenean.
-              Enim commodo at pellentesque sed lobortis nulla. Viverra ut quam
-              faucibus neque. Vivamus at et sem volutpat eu amet.
+              Uno de nuestros casos de éxito es el tratamiento integral a un niño con fisura 
+              labio palatina. En 2017, comenzamos con la primera intervención quirúrgica y 
+              el uso de dispositivos para mejorar la alineación dental y corregir la fisura. 
+              A lo largo de los años, hemos trabajado junto al niño y su familia, brindando 
+              apoyo y seguimiento constante de manera gratuita. En 2020, se logró una mejora 
+              significativa en su sonrisa y calidad de vida, con la corrección avanzada de la 
+              fisura.
             </p>
             <p className="text-base">
-              A convallis elementum egestas pharetra orci massa senectus turpis
-              maecenas. Vel eu platea tortor non. Gravida accumsan nisi commodo
-              ac tellus sit viverra consequat. Ac ultrices condimentum id aenean
-              pretium mauris quis amet. Vitae enim scelerisque vitae mollis
-              placerat nisl.
+              En 2024, podemos celebrar el resultado final: una sonrisa funcional y estética, 
+              producto de años de trabajo, dedicación y esfuerzo conjunto. Además de las 
+              intervenciones quirúrgicas, hemos proporcionado cuidados postoperatorios, 
+              incluyendo terapia dental y seguimiento. Este caso es solo uno de los muchos 
+              ejemplos de cómo nuestra organización impacta positivamente la vida de los niños, 
+              brindándoles una segunda oportunidad para sonreír y desarrollarse sin limitaciones.
             </p>
           </div>
 
@@ -394,16 +397,16 @@ const Impact = () => {
             {/* Text Section with 30% Width */}
             <div className="basis-[40%] px-10 lg:pr-10 lg:py-20 flex felx-col justify-center items-center">
               <p className="text-gray-800 text-base leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                  Curabitur bibendum ante ut feugiat semper. 
-                  Integer interdum tincidunt nulla id ullamcorper. 
-                  Aliquam erat volutpat. 
-                  Phasellus vitae dui finibus, euismod ante at, tristique leo. 
-                  Proin dictum justo at ante varius, 
-                  facilisis euismod tellus mattis. 
-                  Suspendisse rutrum ultricies consectetur. <br /><br />
-                  Integer sagittis lectus eu ultricies vehicula.
-                  Praesent turpis ante, tempus sit amet elit quis, porta placerat est. 
+                  A lo largo de los años, nuestra organización ha atendido a cientos de niños con fisura 
+                  labio palatina, ofreciendo tratamientos gratuitos para mejorar su calidad de vida. 
+                  En 2019, comenzamos con 200 pacientes, y cada año hemos logrado incrementar nuestra 
+                  capacidad de atención. En 2020, atendimos a 500 pacientes, y en 2023, alcanzamos un 
+                  récord de 800 niños que recibieron tratamiento especializado. <br /> <br />
+                  Este crecimiento demuestra el impacto positivo que hemos logrado con el apoyo de 
+                  nuestra comunidad y colaboradores. En 2024, seguimos trabajando para mantener esta 
+                  tendencia, asegurando que cada vez más niños tengan acceso a la atención médica 
+                  necesaria para tratar la fisura labio palatina y permitirles una vida mejor y con 
+                  más oportunidades.
                 </p>
             </div>
           </div>

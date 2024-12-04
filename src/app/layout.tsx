@@ -8,7 +8,6 @@ import Navbar from "./_components/molecules/Navbar";
 import Footer from "./_components/organisms/footer";
 import ClientSessionProvider from "./_components/scripts/clientProvider";
 
-
 export const metadata: Metadata = {
   title: "Querétaro Sí Sonríe",
   description: "Página web de Querétaro Sí Sonríe",
@@ -17,17 +16,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}:
-Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="inter overflow-x-hidden h-full">
+      <body className="inter grid min-h-screen grid-rows-[auto_1fr_auto] overflow-x-hidden">
         <ClientSessionProvider>
-          <Navbar/>
-          <TRPCReactProvider>
-            {children}
-          </TRPCReactProvider>
-          <Footer/>
+          <Navbar />
+          <div className="overflow-auto">
+            <TRPCReactProvider>{children}</TRPCReactProvider>
+          </div>
+          <Footer />
         </ClientSessionProvider>
       </body>
     </html>

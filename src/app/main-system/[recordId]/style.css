@@ -3,6 +3,7 @@
   .generatePdfButton,
   .addFile,
   .regresar,
+  .eliminar,
   .editar {
     display: none;
   }

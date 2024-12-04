@@ -49,7 +49,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   const [recordLink, setLink] = useState(initialData.record_link);
   const [photoUrlTreatment, setPhotoUrlTreatment] = useState("");
   const [treatments, setTreatments] = useState<Treatment[]>(
-    initialData.treatments || [],
+    initialData.treatments || []
   );
 
   const updatePatientRecordMutation =
@@ -86,12 +86,12 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   const handleTreatmentChange = (
     index: number,
     field: keyof Treatment,
-    value: string | boolean,
+    value: string | boolean
   ) => {
     setTreatments((prev) =>
       prev.map((treatment, i) =>
-        i === index ? { ...treatment, [field]: value } : treatment,
-      ),
+        i === index ? { ...treatment, [field]: value } : treatment
+      )
     );
   };
 
@@ -101,7 +101,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
     if (!treatment) {
       console.error(
         "Tratamiento no encontrado para el índice proporcionado:",
-        index,
+        index
       );
       return;
     }
@@ -129,7 +129,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         title: "",
         report: "",
         patientId,
-        doctor: "Nombre del doctor", // Cambiar por valor dinámico si es necesario
+        doctor: "Nombre del doctor",
         external: false,
         photoUrlTreatment: "",
       },
@@ -158,8 +158,8 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
 
       setTreatments((prev) =>
         prev.map((treatment, i) =>
-          i === index ? { ...treatment, id: createdTreatment.id } : treatment,
-        ),
+          i === index ? { ...treatment, id: createdTreatment.id } : treatment
+        )
       );
 
       alert("Nuevo tratamiento creado exitosamente");
@@ -172,7 +172,6 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
     <>
       {/* Formulario principal del paciente */}
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Campos del paciente */}
         <div>
           <label>Nombre:</label>
           <input
@@ -235,15 +234,59 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         {treatments?.length > 0 ? (
           treatments.map((treatment, index) => (
             <div key={treatment.id || index} className="space-y-2 border p-4">
-              <input
-                type="text"
-                value={treatment.title}
-                onChange={(e) =>
-                  handleTreatmentChange(index, "title", e.target.value)
-                }
-                className="mt-1 block w-full rounded-md border border-gray-300 p-2"
-              />
-              {/* Otros campos */}
+              <div>
+                <label className="block font-semibold">Título:</label>
+                <input
+                  type="text"
+                  value={treatment.title}
+                  onChange={(e) =>
+                    handleTreatmentChange(index, "title", e.target.value)
+                  }
+                  className="mt-1 block w-full rounded-md border border-gray-300 p-2"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold">Reporte:</label>
+                <textarea
+                  value={treatment.report}
+                  onChange={(e) =>
+                    handleTreatmentChange(index, "report", e.target.value)
+                  }
+                  className="mt-1 block w-full rounded-md border border-gray-300 p-2"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold">Doctor:</label>
+                <input
+                  type="text"
+                  value={treatment.doctor}
+                  onChange={(e) =>
+                    handleTreatmentChange(index, "doctor", e.target.value)
+                  }
+                  className="mt-1 block w-full rounded-md border border-gray-300 p-2"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold">Externo:</label>
+                <input
+                  type="checkbox"
+                  checked={treatment.external}
+                  onChange={(e) =>
+                    handleTreatmentChange(index, "external", e.target.checked)
+                  }
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  treatment.id
+                    ? handleUpdateTreatment(index)
+                    : handleCreateTreatment(index);
+                }}
+                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+              >
+                {treatment.id ? "Actualizar tratamiento" : "Guardar tratamiento"}
+              </button>
             </div>
           ))
         ) : (
@@ -256,21 +299,6 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         >
           Añadir tratamiento
         </button>
-        {/* Upload Treatment photos*/}
-        <h2 className="mt-6 text-xl font-bold">Evolución del paciente</h2>
-        <UploadButton
-          endpoint="imageUploader"
-          onClientUploadComplete={(res) => {
-            if (res && res[0] && res[0].url) {
-              setPhotoUrlTreatment(res[0].url);
-              console.log("Files: ", res);
-              alert("Upload Completed");
-            }
-          }}
-          onUploadError={(error: Error) => {
-            alert(`ERROR! ${error.message}`);
-          }}
-        />
       </div>
     </>
   );

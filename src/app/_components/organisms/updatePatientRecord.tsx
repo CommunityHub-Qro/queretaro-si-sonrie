@@ -1,5 +1,5 @@
 import { api } from "~/trpc/react";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { UploadButton } from "@uploadthing/react";
 
 interface Patient {
@@ -19,7 +19,7 @@ interface Treatment {
   patientId: string;
   doctor: string;
   external: boolean;
-  photoUrlTreatment: string;
+  diagnosis?: string;
 }
 
 interface UpdatePatientRecordProps {
@@ -47,20 +47,27 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   const [dx, setDx] = useState(initialData.dx);
   const [notes, setNotes] = useState(initialData.notes);
   const [recordLink, setLink] = useState(initialData.record_link);
-  const [photoUrlTreatment, setPhotoUrlTreatment] = useState("");
-  const [treatments, setTreatments] = useState<Treatment[]>(
-    initialData.treatments || []
-  );
+  const [loading, setLoading] = useState(false);
 
   const updatePatientRecordMutation =
     api.patientRecord.updatePatientRecord.useMutation();
-
   const createTreatmentMutation = api.treatment.createTreatment.useMutation();
-
   const updateTreatmentMutation = api.treatment.updateTreatment.useMutation();
+  const { data: treatmentsData, isLoading, isError } = api.treatment.getTreatmentsByPatientId.useQuery({
+    patientId: patientId,
+  });
+
+  const [treatments, setTreatments] = useState<Treatment[]>([]);
+
+  useEffect(() => {
+    if (treatmentsData && Array.isArray(treatmentsData)) {
+      setTreatments(treatmentsData);
+    }
+  }, [treatmentsData]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const birthDateObj = new Date(birthDate);
@@ -80,6 +87,9 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
       onSuccess(updatedPatient);
     } catch (error) {
       console.error("Error al actualizar el registro del paciente:", error);
+      alert("Hubo un error al actualizar el registro. Inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,92 +105,80 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
     );
   };
 
-  const handleUpdateTreatment = async (index: number) => {
+  const handleSaveTreatment = async (index: number) => {
     const treatment = treatments[index];
-
+  
     if (!treatment) {
-      console.error(
-        "Tratamiento no encontrado para el índice proporcionado:",
-        index
-      );
+      console.error("Tratamiento no encontrado para el índice proporcionado:", index);
       return;
     }
-
+  
     try {
-      await updateTreatmentMutation.mutateAsync({
-        id: treatment.id,
-        title: treatment.title,
-        report: treatment.report,
-        doctor: treatment.doctor,
-        external: treatment.external,
-        photoUrlTreatment: treatment.photoUrlTreatment,
-      });
-      alert("Tratamiento actualizado exitosamente");
+      if (treatment.id) {
+        // Si tiene id, es un tratamiento existente, lo actualizas
+        await updateTreatmentMutation.mutateAsync({
+          id: treatment.id,
+          title: treatment.title,
+          report: treatment.report,
+          doctor: treatment.doctor,
+          external: treatment.external,
+          diagnosis: treatment.diagnosis,
+        });
+        alert("Tratamiento actualizado exitosamente");
+      } else {
+        // Si no tiene id, es un tratamiento nuevo, lo creas
+        const createdTreatment = await createTreatmentMutation.mutateAsync({
+          title: treatment.title,
+          report: treatment.report,
+          patientId,
+          doctor: treatment.doctor,
+          external: treatment.external,
+          diagnosis: treatment.diagnosis,
+        });
+        alert("Tratamiento creado exitosamente");
+        setTreatments((prev) =>
+          prev.map((t, i) =>
+            i === index ? { ...t, id: createdTreatment.id } : t
+          )
+        );
+      }
     } catch (error) {
-      console.error("Error al actualizar el tratamiento:", error);
+      console.error("Error al guardar el tratamiento:", error);
+      alert("Hubo un error al guardar el tratamiento.");
     }
   };
+  
 
   const handleAddTreatment = () => {
     setTreatments((prev) => [
       ...prev,
       {
-        id: "",
+        id: "", // id vacío significa que es un nuevo tratamiento
         title: "",
         report: "",
         patientId,
-        doctor: "Nombre del doctor",
+        doctor: "",
+        diagnosis: "",
         external: false,
-        photoUrlTreatment: "",
       },
     ]);
   };
 
-  const handleCreateTreatment = async (index: number) => {
-    const newTreatment = treatments[index];
-
-    if (
-      !newTreatment ||
-      !newTreatment.title ||
-      !newTreatment.report ||
-      !newTreatment.doctor
-    ) {
-      console.error("Los datos del tratamiento no están completos.");
-      alert("Por favor, completa todos los campos requeridos del tratamiento.");
-      return;
-    }
-
-    try {
-      const createdTreatment = await createTreatmentMutation.mutateAsync({
-        ...newTreatment,
-        patientId,
-      });
-
-      setTreatments((prev) =>
-        prev.map((treatment, i) =>
-          i === index ? { ...treatment, id: createdTreatment.id } : treatment
-        )
-      );
-
-      alert("Nuevo tratamiento creado exitosamente");
-    } catch (error) {
-      console.error("Error al crear el tratamiento:", error);
-    }
-  };
-
   return (
     <>
-      {/* Formulario principal del paciente */}
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Nombre del paciente */}
         <div>
-          <label>Nombre:</label>
+          <label className="block font-semibold">Nombre:</label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full rounded border p-2"
+            className="mt-1 block w-full rounded-md border border-gray-300 p-2"
           />
         </div>
+
+        {/* Fecha de nacimiento */}
         <div>
           <label className="block font-semibold">Fecha de nacimiento:</label>
           <input
@@ -190,8 +188,10 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
             className="mt-1 block w-full rounded-md border border-gray-300 p-2"
           />
         </div>
+
+        {/* Fecha de registro */}
         <div>
-          <label className="block font-semibold">Fecha de ingreso:</label>
+          <label className="block font-semibold">Fecha de registro:</label>
           <input
             type="date"
             value={registerDate}
@@ -199,6 +199,8 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
             className="mt-1 block w-full rounded-md border border-gray-300 p-2"
           />
         </div>
+
+        {/* Diagnóstico */}
         <div>
           <label className="block font-semibold">Diagnóstico:</label>
           <textarea
@@ -207,6 +209,8 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
             className="mt-1 block w-full rounded-md border border-gray-300 p-2"
           />
         </div>
+
+        {/* Notas */}
         <div>
           <label className="block font-semibold">Notas:</label>
           <textarea
@@ -215,20 +219,27 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
             className="mt-1 block w-full rounded-md border border-gray-300 p-2"
           />
         </div>
+
+        {/* Enlace al registro */}
         <div>
-          <label className="block font-semibold">Link del documento:</label>
-          <textarea
+          <label className="block font-semibold">Enlace al registro:</label>
+          <input
+            type="url"
             value={recordLink}
             onChange={(e) => setLink(e.target.value)}
             className="mt-1 block w-full rounded-md border border-gray-300 p-2"
           />
         </div>
-        <button type="submit" className="btn-primary">
-          Guardar
+
+        <button
+          type="submit"
+          className="transform rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+          disabled={loading}
+        >
+          {loading ? "Guardando..." : "Guardar"}
         </button>
       </form>
 
-      {/* Tratamientos */}
       <div className="mt-6 space-y-4">
         <h3 className="text-lg font-semibold">Tratamientos</h3>
         {treatments?.length > 0 ? (
@@ -246,7 +257,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
                 />
               </div>
               <div>
-                <label className="block font-semibold">Reporte:</label>
+                <label className="block font-semibold">Informe:</label>
                 <textarea
                   value={treatment.report}
                   onChange={(e) =>
@@ -267,37 +278,35 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
                 />
               </div>
               <div>
-                <label className="block font-semibold">Externo:</label>
-                <input
-                  type="checkbox"
-                  checked={treatment.external}
+                <label className="block font-semibold">Diagnóstico:</label>
+                <textarea
+                  value={treatment.diagnosis || ""}
                   onChange={(e) =>
-                    handleTreatmentChange(index, "external", e.target.checked)
+                    handleTreatmentChange(index, "diagnosis", e.target.value)
                   }
+                  className="mt-1 block w-full rounded-md border border-gray-300 p-2"
                 />
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  treatment.id
-                    ? handleUpdateTreatment(index)
-                    : handleCreateTreatment(index);
-                }}
-                className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-              >
-                {treatment.id ? "Actualizar tratamiento" : "Guardar tratamiento"}
-              </button>
+              <div className="flex space-x-4">
+                <button
+                  type="button"
+                  onClick={() => handleSaveTreatment(index)}
+                  className="mt-2 rounded-lg bg-green-500 px-4 py-2 text-white"
+                >
+                  Guardar
+                </button>
+              </div>
             </div>
           ))
         ) : (
-          <p>No hay tratamientos disponibles. Añade uno nuevo.</p>
+          <p>No hay tratamientos registrados.</p>
         )}
         <button
           type="button"
           onClick={handleAddTreatment}
-          className="rounded bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+          className="mt-4 rounded-lg bg-blue-500 px-4 py-2 text-white"
         >
-          Añadir tratamiento
+          Agregar tratamiento
         </button>
       </div>
     </>

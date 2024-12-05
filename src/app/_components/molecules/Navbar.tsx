@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navbar } from "../../constants";
 import { useScroll, useMotionValueEvent, motion } from "framer-motion";
-import Donar from "../Atoms/Donar";
+import Donar from "../atoms/Donar";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {

@@ -53,23 +53,23 @@ export async function logout() {
 
 export async function updateSession(request: NextRequest) {
   const session = request.cookies.get("session")?.value;
-  if (!session) {
-    return NextResponse.redirect(new URL("/access-page", request.url));
-  }
+  // if (!session) {
+  //   return NextResponse.redirect(new URL("/access-page", request.url));
+  // }
 
-  const parsed = await decrypt(session);
-  if (!parsed) {
-    console.error("Parsed error");
-    return NextResponse.redirect(new URL("/access-page", request.url));
-  }
-  const expires = new Date(Date.now() + 5 * 60 * 60 * 1000);
+  // const parsed = await decrypt(session);
+  // if (!parsed) {
+  //   console.error("Parsed error");
+  //   return NextResponse.redirect(new URL("/access-page", request.url));
+  // }
+  // const expires = new Date(Date.now() + 5 * 60 * 60 * 1000);
 
-  const response = NextResponse.next();
-  response.cookies.set("session", JSON.stringify(parsed), {
-    expires,
-    httpOnly: true,
-    path: "/",
-  });
+  // const response = NextResponse.next();
+  // response.cookies.set("session", JSON.stringify(parsed), {
+  //   expires,
+  //   httpOnly: true,
+  //   path: "/",
+  // });
 
   // return response;
 }

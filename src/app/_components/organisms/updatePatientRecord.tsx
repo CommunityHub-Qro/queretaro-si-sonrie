@@ -22,6 +22,7 @@ interface Treatment {
   doctor: string;
   external: boolean;
   diagnosis?: string;
+  date?: Date;
 }
 
 interface UpdatePatientRecordProps {
@@ -46,16 +47,16 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   onSuccess,
 }) => {
   const [name, setName] = useState(initialData.name);
-  const [birthDate, setBirthDate] = useState(initialData.birth_date);
-  const [registerDate, setRegisterDate] = useState(initialData.register_date);
+  const [birthDate, setBirthDate] = useState<string>(initialData.birth_date);
+  const [registerDate, setRegisterDate] = useState<string>(
+    initialData.register_date,
+  );
   const [dx, setDx] = useState(initialData.dx);
   const [notes, setNotes] = useState(initialData.notes);
   const [recordLink, setLink] = useState(initialData.record_link);
   const [sex, setSex] = useState(initialData.sex ?? false);
-  const [active, setActive] = useState(initialData.active  ?? false);
+  const [active, setActive] = useState(initialData.active ?? false);
   const [loading, setLoading] = useState(false);
-
-  console.log(initialData)
 
   const updatePatientRecordMutation =
     api.patientRecord.updatePatientRecord.useMutation();
@@ -73,7 +74,14 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
 
   useEffect(() => {
     if (treatmentsData && Array.isArray(treatmentsData)) {
-      setTreatments(treatmentsData);
+      const updatedTreatments = treatmentsData.map((treatment) => {
+        if (treatment.date) {
+          const treatmentDate = new Date(treatment.date);
+          treatment.date = treatmentDate.toISOString().split("T")[0];
+        }
+        return treatment;
+      });
+      setTreatments(updatedTreatments);
     }
   }, [treatmentsData]);
 
@@ -107,16 +115,19 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
     }
   };
 
-  const handleTreatmentChange = (
-    index: number,
-    field: keyof Treatment,
-    value: string | boolean,
-  ) => {
-    setTreatments((prev) =>
-      prev.map((treatment, i) =>
-        i === index ? { ...treatment, [field]: value } : treatment,
-      ),
-    );
+  const handleTreatmentChange = (index: number, field: string, value: any) => {
+    if (field === "date" && value) {
+      value = new Date(value);
+    }
+
+    setTreatments((prevTreatments) => {
+      const updatedTreatments = [...prevTreatments];
+      updatedTreatments[index] = {
+        ...updatedTreatments[index],
+        [field]: value,
+      };
+      return updatedTreatments;
+    });
   };
 
   const handleSaveTreatment = async (index: number) => {
@@ -130,9 +141,12 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
       return;
     }
 
+    if (treatment.date && !(treatment.date instanceof Date)) {
+      treatment.date = new Date(treatment.date);
+    }
+
     try {
       if (treatment.id) {
-        // Si tiene id, es un tratamiento existente, lo actualizas
         await updateTreatmentMutation.mutateAsync({
           id: treatment.id,
           title: treatment.title,
@@ -140,10 +154,10 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
           doctor: treatment.doctor,
           external: treatment.external,
           diagnosis: treatment.diagnosis,
+          date: treatment.date,
         });
         alert("Tratamiento actualizado exitosamente");
       } else {
-        // Si no tiene id, es un tratamiento nuevo, lo creas
         const createdTreatment = await createTreatmentMutation.mutateAsync({
           title: treatment.title,
           report: treatment.report,
@@ -151,6 +165,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
           doctor: treatment.doctor,
           external: treatment.external,
           diagnosis: treatment.diagnosis,
+          date: treatment.date,
         });
         alert("Tratamiento creado exitosamente");
         setTreatments((prev) =>
@@ -207,8 +222,8 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         <div>
           <label className="block font-semibold">Sexo:</label>
           <select
-            value={sex !== null ? (sex ? "true" : "false") : ""} 
-            onChange={(e) => setSex(e.target.value === "true")} 
+            value={sex !== null ? (sex ? "true" : "false") : ""}
+            onChange={(e) => setSex(e.target.value === "true")}
             className="mt-1 block w-full rounded-md border border-gray-300 p-2"
           >
             <option value="" disabled>
@@ -313,9 +328,21 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
                   <option value="Rinoplastia">Rinoplastia</option>
                 </select>
               </div>
-
               <div>
-                <label className="block font-semibold">Informe:</label>
+                <label className="block font-semibold">
+                  Fecha del tratamiento:
+                </label>
+                <input
+                  type="date"
+                  value={treatment.date || ""} // Fecha directamente desde la base de datos
+                  onChange={(e) =>
+                    handleTreatmentChange(index, "date", e.target.value)
+                  }
+                  className="mt-1 block w-full rounded-md border border-gray-300 p-2"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold">Reporte:</label>
                 <textarea
                   value={treatment.report}
                   onChange={(e) =>

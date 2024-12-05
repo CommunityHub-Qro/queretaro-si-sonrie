@@ -30,10 +30,14 @@ const PatientCard: React.FC<PatientCardProps> = ({
           </p>
           <p className="font-semibold">
             Fecha de nacimiento:{" "}
-            <span className="text-sm font-normal">{b_date}</span>
+            <span className="text-sm font-normal">
+              {new Date(
+                new Date(b_date).setDate(new Date(b_date).getDate() + 1),
+              ).toDateString()}
+            </span>
           </p>
           <p className="font-semibold">
-            Diagnóstico: <span className="text-sm font-normal">{dx}</span>
+            DX: <span className="text-sm font-normal">{dx}</span>
           </p>
         </div>
       </div>

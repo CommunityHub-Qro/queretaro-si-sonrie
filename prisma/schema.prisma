@@ -89,7 +89,7 @@
         treatments    Treatment[]
         // exams         Exam[]
         record_link   String   @default("")
-        active        Boolean?
+        active        Boolean? @default(true)
         sex           Boolean?
     }
 

@@ -143,12 +143,24 @@ const RecordDetails = () => {
                 <strong>Nombre:</strong> <br></br> {patient.name}
               </p>
               <p className="ml-5 mt-2 text-lg">
+                <strong>Sexo:</strong>{" "}
+                {patient.sex === true ? "Hombre" : "Mujer"}
+              </p>
+              <p className="ml-5 mt-2 text-lg">
                 <strong>Fecha de nacimiento:</strong>{" "}
-                {patient.birth_date.toDateString()}
+                {new Date(
+                  new Date(patient.birth_date).setDate(
+                    new Date(patient.birth_date).getDate() + 1,
+                  ),
+                ).toDateString()}
               </p>
               <p className="ml-5 mt-2 text-lg">
                 <strong>Fecha de registro:</strong>{" "}
-                {patient.register_date.toDateString()}
+                {new Date(
+                  new Date(patient.register_date).setDate(
+                    new Date(patient.register_date).getDate() + 1,
+                  ),
+                ).toDateString()}
               </p>
               <p className="ml-5 mt-2 text-lg">
                 <strong>DX:</strong> <br></br>
@@ -157,9 +169,6 @@ const RecordDetails = () => {
               <p className="ml-5 mt-2 text-lg">
                 <strong>Notas:</strong>
                 {patient.notes}
-              </p>
-              <p className="ml-5 mt-2 text-lg">
-                <strong>Sexo:</strong> {patient.sex === true ? "Hombre" : "Mujer"}
               </p>
             </div>
           </div>
@@ -233,7 +242,13 @@ const RecordDetails = () => {
                     </p>
                     <p className="mt-2 text-gray-600">
                       <strong>Fecha:</strong>{" "}
-                      {new Date(treatment.date).toLocaleDateString()}
+                      {(() => {
+                        const date = new Date(treatment.date);
+                        // Agregar un día a la fecha
+                        date.setDate(date.getDate() + 1);
+                        // Formatear la fecha con el nuevo día
+                        return date.toLocaleDateString();
+                      })()}
                     </p>
                   </div>
                   <p

@@ -14,23 +14,25 @@ export default function PatientRecordForm() {
     api.patientRecord.createPatientRecord.useMutation();
 
   function create_patientRecord(e: FormEvent<HTMLFormElement>) {
-    // if (!photoUrl) {
-    //   e.preventDefault();
-    //   alert("Cargar foto del paciente.");
-    //   return;
-    // }
     e.preventDefault();
+
+    // Convierte las fechas a Date si están presentes
+    const birthDate = birthdayDate ? new Date(birthdayDate) : new Date();
+    const registerDate = registrationDate ? new Date(registrationDate) : new Date();
+
     createPatientRecordMutation.mutate(
       {
         name,
         dx,
         notes,
         photoUrl,
+        b_date: birthDate,
+        r_date: registerDate,
+        active: true,
       },
       {
         onSuccess(data) {
           console.log("Registro creado exitosamente:", data);
-          // Recargar la página después de que la mutación sea exitosa
           window.location.reload();
         },
 
@@ -64,6 +66,7 @@ export default function PatientRecordForm() {
           type="date"
           id="b_date"
           name="b_date"
+          value={birthdayDate}  
           onChange={(e) => setBirthdayDate(e.target.value)}
         />
       </div>
@@ -73,6 +76,7 @@ export default function PatientRecordForm() {
           type="date"
           id="r_date"
           name="r_date"
+          value={registrationDate} 
           onChange={(e) => setRegistrationDate(e.target.value)}
         />
       </div>

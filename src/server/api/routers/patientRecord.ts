@@ -102,10 +102,11 @@ export const treatmentRouter = createTRPCRouter({
         doctor: z.string(),
         external: z.boolean().optional(),
         diagnosis: z.string(),
+        date: z.date().optional(),
       }),
     )
     .mutation(async ({ input }) => {
-      const { title, report, patientId, doctor, external, diagnosis } = input;
+      const { title, report, patientId, doctor, external, diagnosis, date } = input;
 
       const createdTreatment = await db.treatment.create({
         data: {
@@ -117,6 +118,7 @@ export const treatmentRouter = createTRPCRouter({
           doctor,
           external,
           diagnosis: diagnosis,
+          date: date ?? new Date(),
         },
       });
 
@@ -159,6 +161,7 @@ export const treatmentRouter = createTRPCRouter({
         doctor: z.string(),
         external: z.boolean().optional(),
         diagnosis: z.string(),
+        date: z.date().optional(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -170,8 +173,10 @@ export const treatmentRouter = createTRPCRouter({
           doctor: input.doctor,
           external: input.external ?? false,
           diagnosis: input.diagnosis,
+          date: input.date ?? new Date(),
         },
       });
+      console.log(input)
       return updatedTreatment;
     }),
 

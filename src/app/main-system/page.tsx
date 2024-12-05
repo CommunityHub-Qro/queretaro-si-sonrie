@@ -4,6 +4,7 @@ import { Key, useState } from "react";
 import PatientRecordForm from "../_components/organisms/patientRecordForm";
 import PatientCard from "../_components/organisms/PatientCard";
 import { getRecords } from "../_components/hooks/getRecords";
+import { getSession, loginSession } from "../_components/library/sessionAuth";
 
 export default function System() {
   const [isFormVisible, setFormVisible] = useState(false);
@@ -39,18 +40,24 @@ export default function System() {
         ) : (
           data?.map(
             (patient: {
-              id: Key | null | undefined;
+              id: string;
               name: string;
               birth_date: Date;
               register_date: Date;
               dx: string;
+              notes: string;
+              photoUrl: string | null;
+              record_link: string;
+              active: boolean | null;
+              sex: boolean | null;
             }) => (
               <PatientCard
                 key={patient.id}
-                id={patient.id as number}
+                id={patient.id}
                 name={patient.name}
                 b_date={patient.birth_date.toLocaleDateString()}
                 dx={patient.dx || "No definido"}
+                photoUrl={patient.photoUrl}
               />
             ),
           )

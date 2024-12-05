@@ -1,88 +1,132 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+    // This is your Prisma schema file,
+    // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator client {
-    provider = "prisma-client-js"
-}
+    generator client {
+        provider = "prisma-client-js"
+    }
 
-datasource db {
-    provider  = "postgresql"
-    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-    directUrl = env("POSTGRES_URL_NON_POOLING")
-}
+    datasource db {
+        provider  = "postgresql"
+        url       = env("POSTGRES_URL") // uses connection pooling
+        // directUrl = env("POSTGRES_URL_NON_POOLING")
+    }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    model Post {
+        id        Int      @id @default(autoincrement())
+        name      String
+        createdAt DateTime @default(now())
+        updatedAt DateTime @updatedAt
 
-    // createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-    User        User?   @relation(fields: [userId], references: [id])
-    userId      String?
+        // createdBy   User   @relation(fields: [createdById], references: [id])
+        createdById String
+        User        User?   @relation(fields: [userId], references: [id])
+        userId      String?
 
-    @@index([name])
-}
+        @@index([name])
+    }
 
-// Necessary for Next auth
-model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? // @db.Text
-    session_state            String?
-    // user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
-    User                     User    @relation(fields: [userId], references: [id])
+    // Necessary for Next auth
+    model Account {
+        id                       String  @id @default(cuid())
+        userId                   String
+        type                     String
+        provider                 String
+        providerAccountId        String
+        refresh_token            String? // @db.Text
+        access_token             String? // @db.Text
+        expires_at               Int?
+        token_type               String?
+        scope                    String?
+        id_token                 String? // @db.Text
+        session_state            String?
+        // user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+        refresh_token_expires_in Int?
+        User                     User    @relation(fields: [userId], references: [id])
 
-    @@unique([provider, providerAccountId])
-}
+        @@unique([provider, providerAccountId])
+    }
 
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    // user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    // User         User     @relation(fields: [userId], references: [id])
-}
+    model Session {
+        id           String   @id @default(cuid())
+        sessionToken String   @unique
+        userId       String
+        expires      DateTime
+        // user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+        // User         User     @relation(fields: [userId], references: [id])
+    }
 
-enum UserRole {
-    ADMIN
-    USER
-}
+    enum UserRole {
+        ADMIN
+        USER
+    }
 
-model User {
-    id       String    @id @default(cuid())
-    name     String
-    email    String    @unique
-    password String
-    role     UserRole  @default(USER)
-    Account  Account[]
-    Post     Post[]
-}
+    model User {
+        id       String    @id @default(cuid())
+        name     String
+        email    String    @unique
+        password String
+        role     UserRole  @default(USER)
+        Account  Account[]
+        Post     Post[]
+    }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+    model VerificationToken {
+        identifier String
+        token      String   @unique
+        expires    DateTime
 
-    @@unique([identifier, token])
-}
+        @@unique([identifier, token])
+    }
 
-model Record {
-    id            String   @id @default(cuid())
-    name          String
-    birth_date    DateTime @default(now())
-    register_date DateTime @default(now())
-    dx            String
-    notes         String
-}
+    model Record {
+        id            String   @id @default(cuid())
+        name          String
+        birth_date    DateTime @default(now())
+        register_date DateTime @default(now())
+        dx            String
+        notes         String
+        photoUrl      String?
+        treatments    Treatment[]
+        // exams         Exam[]
+        record_link   String   @default("")
+        active        Boolean? @default(true)
+        sex           Boolean?
+    }
+
+    model Treatment {
+        id          String       @id @default(cuid())
+        title       String
+        diagnosis String    
+        // diagnosis   Diagnosis    @relation(fields: [diagnosis], references: [id])
+        // diagnosis String
+        report      String
+        patient     Record       @relation(fields: [patientId], references: [id])
+        patientId   String
+        doctor      String
+        external    Boolean
+        date DateTime @default(now())
+
+        @@index([patientId])
+    }
+
+
+    // model Diagnosis {
+    //     id         String       @id @default(cuid())
+    //     title      String
+    //     description String
+    //     // exams      Exam[]
+    //     treatments Treatment[]
+    // }
+
+
+    // model Exam {
+    //     id         String       @id @default(cuid())
+    //     title      String
+    //     patient    Record       @relation(fields: [patientId], references: [id])
+    //     patientId  String
+    //     diagnoses  Diagnosis[]
+
+    //     @@index([patientId])
+    // }
+
+

@@ -51,7 +51,7 @@ export default function ContactPage() {
             <Map />
             <ContactInfo
               iconSrc="/icons/location.png"
-              text="Calle 123 - Queretaro / Mexico"
+              text="Ignacio Zaragoza Poniente 330 B Col. Niños Hérroes 76010, Querétaro, Querétaro"
               alt="Location icon"
               iconClassName="h-8"
               textClassName="text-base md:text-2xl text-gray-700"

@@ -1,4 +1,4 @@
-import { $Enums } from "@prisma/client";
+import { $Enums, UserRole } from "@prisma/client";
 import { z } from "zod";
 
 import {
@@ -21,6 +21,7 @@ export const newUser = createTRPCRouter({
         name: z.string(),
         email: z.string(),
         password: z.string(),
+        role: z.enum(["USER", "ADMIN"]),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -29,6 +30,7 @@ export const newUser = createTRPCRouter({
           name: input.name,
           email: input.email,
           password: input.password,
+          role: input.role,
         },
       });
     }),

@@ -49,10 +49,10 @@ export default function AccessPage() {
           return;
         });
       // console.log(userSession);
-      if (userSession != "Error: usuario no registrado") {
+      if (userSession === true) {
         window.location.href = "main-system";
       } else {
-        alert("Error: usuario no registrado");
+        alert(userSession);
       }
       return;
     };

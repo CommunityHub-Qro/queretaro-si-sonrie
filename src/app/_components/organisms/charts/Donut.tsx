@@ -3,18 +3,16 @@ import React, { useRef } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import html2canvas from 'html2canvas';
 
-// const data = [
-//   { name: 'Flu', value: 120 },
-//   { name: 'Cold', value: 90 },
-//   { name: 'COVID-19', value: 75 },
-//   { name: 'Chickenpox', value: 60 },
-//   { name: 'Measles', value: 30 },
-// ];
-
+// Colores para las celdas del gráfico
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF"];
 
 const DiseaseDonutChart: React.FC<{ data: { name: string; value: number }[] }> = ({ data }) => {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // Verificar si 'data' es un array y tiene datos válidos
+  if (!Array.isArray(data) || data.length === 0) {
+    return <div>Datos no disponibles para mostrar el gráfico.</div>; // Mostrar un mensaje si no hay datos
+  }
 
   const handleDownload = async () => {
     if (chartContainerRef.current) {

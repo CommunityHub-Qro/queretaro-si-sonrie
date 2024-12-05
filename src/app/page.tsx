@@ -37,11 +37,13 @@ export default function Home() {
       </section>
 
       {/* Título principal */}
-      <div className="container mx-auto my-16 text-center md:text-left">
-        <h1 className="text-2xl font-bold md:text-4xl">
-          El Instituto Queretano para la Atención de Enfermedades Congénitas
-          (IQUEC)
-        </h1>
+      <div className="container mx-auto my-16 flex justify-end">
+        <div className="w-full text-right md:w-1/2">
+          <h1 className="text-2xl font-bold md:text-4xl">
+            El Instituto Queretano para la Atención de Enfermedades Congénitas
+            (IQUEC)
+          </h1>
+        </div>
       </div>
 
       {/* Misión / Visión */}

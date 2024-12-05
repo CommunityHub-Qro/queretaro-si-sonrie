@@ -19,6 +19,7 @@ export const patientRecordRouter = createTRPCRouter({
         dx: z.string(),
         notes: z.string(),
         photoUrl: z.string(),
+        active: z.boolean(),
       }),
     )
     .mutation(({ input }) => {
@@ -30,6 +31,7 @@ export const patientRecordRouter = createTRPCRouter({
           dx: input.dx,
           notes: input.notes,
           photoUrl: input.photoUrl,
+          active: true
         },
       });
       return patientRecord;
@@ -50,6 +52,8 @@ export const patientRecordRouter = createTRPCRouter({
         dx: z.string(),
         notes: z.string(),
         record_link: z.string(),
+        sex: z.boolean(),
+        active: z.boolean(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -62,6 +66,8 @@ export const patientRecordRouter = createTRPCRouter({
           dx: input.dx,
           notes: input.notes,
           record_link: input.record_link,
+          sex: input.sex,
+          active: input.active,
         },
       });
       return updatedPatientRecord;
@@ -95,35 +101,41 @@ export const treatmentRouter = createTRPCRouter({
         patientId: z.string(),
         doctor: z.string(),
         external: z.boolean().optional(),
-        diagnosis: z.string(),  // Diagnóstico sin título ni descripción
+        diagnosis: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
       const { title, report, patientId, doctor, external, diagnosis } = input;
-      
+
       const createdTreatment = await db.treatment.create({
         data: {
           title,
           report,
           patient: {
-            connect: { id: patientId }, 
+            connect: { id: patientId },
           },
           doctor,
           external,
-          diagnosis: diagnosis, 
+          diagnosis: diagnosis,
         },
       });
 
       return createdTreatment;
     }),
 
-  // Obtener todos los tratamientos
-  getTreatments: publicProcedure.query(async () => {
-    const treatments = await db.treatment.findMany();
-    return treatments;
-  }),
+  getTreatments: publicProcedure
+    .input(
+      z.object({
+        patientId: z.string().optional(),
+      }).optional(),
+    )
+    .query(async ({ input }) => {
+      const treatments = await db.treatment.findMany({
+        where: input?.patientId ? { patientId: input.patientId } : undefined,
+      });
+      return treatments;
+    }),
 
-  // Obtener tratamientos de un paciente específico
   getTreatmentsByPatientId: publicProcedure
     .input(
       z.object({
@@ -141,7 +153,7 @@ export const treatmentRouter = createTRPCRouter({
   updateTreatment: publicProcedure
     .input(
       z.object({
-        id: z.string(), 
+        id: z.string(),
         title: z.string(),
         report: z.string(),
         doctor: z.string(),

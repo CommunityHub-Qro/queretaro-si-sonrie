@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getRecords } from "../../_components/hooks/getRecords";
+import { useGetTreatments } from "../../_components/hooks/getTreatments";
 import UpdatePatientRecord from "../../_components/organisms/updatePatientRecord";
 import DeletePatientRecord from "~/app/_components/organisms/deletePatientRecord";
 import Link from "next/link";
@@ -38,6 +39,8 @@ interface Patient {
   diagnoses?: Diagnosis[];
   treatments?: Treatment[];
   record_link: string;
+  sex: boolean;
+  active: boolean;
 }
 
 const RecordDetails = () => {
@@ -48,16 +51,25 @@ const RecordDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
 
-  const { data, error, isLoading: isFetching } = getRecords();
+  const {
+    data: recordsData,
+    error: recordsError,
+    isLoading: isFetching,
+  } = getRecords();
+  const {
+    data: treatmentsData,
+    error: treatmentsError,
+    isLoading: isFetchingt,
+  } = useGetTreatments(patient?.id ?? null);
 
   useEffect(() => {
-    if (data) {
-      setRecords(data);
-      const foundPatient = data.find((record) => record.id === recordId);
+    if (recordsData) {
+      setRecords(recordsData);
+      const foundPatient = recordsData.find((record) => record.id === recordId);
       setPatient(foundPatient ?? null);
     }
     setIsLoading(isFetching);
-  }, [data, recordId, isFetching]);
+  }, [recordsData, recordId, isFetching]);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -88,9 +100,7 @@ const RecordDetails = () => {
       >
         Regresar
       </Link>
-      <h1 className="detailsTitle mb-4 text-3xl font-bold">
-        Detalles del Registro
-      </h1>
+      <h2 className="detailsTitle mb-4 text-3xl font-bold">Paciente</h2>
 
       {isEditing ? (
         <UpdatePatientRecord
@@ -103,6 +113,8 @@ const RecordDetails = () => {
             dx: patient.dx,
             notes: patient.notes,
             record_link: patient.record_link,
+            sex: patient.sex,
+            active: patient.active,
           }}
           onSuccess={handleUpdateSuccess}
         />
@@ -115,8 +127,17 @@ const RecordDetails = () => {
               className="mr-4 h-52 w-52 rounded-sm object-cover"
             />
             <div>
-              <p className="hidden">
-                <strong>ID del registro:</strong> {recordId}
+              <p className="ml-5 mt-2 text-lg">
+                <strong>Estado:</strong> <br />
+                <span
+                  className={
+                    patient.active
+                      ? "font-semibold text-green-600"
+                      : "font-semibold text-red-600"
+                  }
+                >
+                  {patient.active ? "Activo" : "Inactivo"}
+                </span>
               </p>
               <p className="ml-5 mt-2 text-lg">
                 <strong>Nombre:</strong> <br></br> {patient.name}
@@ -126,6 +147,10 @@ const RecordDetails = () => {
                 {patient.birth_date.toDateString()}
               </p>
               <p className="ml-5 mt-2 text-lg">
+                <strong>Fecha de registro:</strong>{" "}
+                {patient.register_date.toDateString()}
+              </p>
+              <p className="ml-5 mt-2 text-lg">
                 <strong>DX:</strong> <br></br>
                 {patient.dx}
               </p>
@@ -133,10 +158,13 @@ const RecordDetails = () => {
                 <strong>Notas:</strong>
                 {patient.notes}
               </p>
+              <p className="ml-5 mt-2 text-lg">
+                <strong>Sexo:</strong> {patient.sex === true ? "Hombre" : "Mujer"}
+              </p>
             </div>
           </div>
 
-          {/* Display Exams */}
+          {/* Display Exams
           <h2 className="ml-5 mt-6 text-xl font-bold">Exámenes</h2>
           {patient.exams && patient.exams.length > 0 ? (
             <ul>
@@ -148,9 +176,9 @@ const RecordDetails = () => {
             </ul>
           ) : (
             <p>No hay exámenes disponibles.</p>
-          )}
+          )} */}
 
-          {/* Display Diagnoses */}
+          {/* Display Diagnoses
           <h2 className="ml-5 mt-6 text-xl font-bold">Diagnósticos</h2>
           {patient.diagnoses && patient.diagnoses.length > 0 ? (
             <ul>
@@ -162,7 +190,7 @@ const RecordDetails = () => {
             </ul>
           ) : (
             <p>No hay diagnósticos disponibles.</p>
-          )}
+          )} */}
 
           <h2 className="ml-5 mt-6 text-xl font-bold">
             Documento del paciente
@@ -180,19 +208,50 @@ const RecordDetails = () => {
             <p>El paciente no tiene un documento.</p>
           )}
 
-          {/* Display Treatments */}
           <h2 className="ml-5 mt-6 text-xl font-bold">Tratamientos</h2>
-          {patient.treatments && patient.treatments.length > 0 ? (
-            <ul>
-              {patient.treatments.map((treatment) => (
-                <li key={treatment.id}>
-                  <strong>{treatment.title}:</strong> {treatment.report}
-                </li>
+          {isFetchingt ? (
+            <p className="text-center">Cargando tratamientos...</p>
+          ) : treatmentsData && treatmentsData.length > 0 ? (
+            <div className="space-y-4">
+              {treatmentsData.map((treatment: Treatment) => (
+                <div
+                  key={treatment.id}
+                  className="flex flex-col items-start rounded-lg bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl sm:flex-row sm:items-center"
+                >
+                  <div className="flex-grow">
+                    <h3 className="text-xl font-semibold text-gray-800">
+                      {treatment.title}
+                    </h3>
+                    <p className="mt-2 text-gray-600">
+                      <strong>Diagnóstico:</strong> {treatment.diagnosis}
+                    </p>
+                    <p className="mt-2 text-gray-600">
+                      <strong>Informe:</strong> {treatment.report}
+                    </p>
+                    <p className="mt-2 text-gray-600">
+                      <strong>Doctor:</strong> {treatment.doctor}
+                    </p>
+                    <p className="mt-2 text-gray-600">
+                      <strong>Fecha:</strong>{" "}
+                      {new Date(treatment.date).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <p
+                    className={`mt-4 text-sm font-medium sm:ml-6 sm:mt-0 ${
+                      treatment.external ? "text-red-600" : "text-green-600"
+                    }`}
+                  >
+                    {treatment.external
+                      ? "Tratamiento externo"
+                      : "Tratamiento interno"}
+                  </p>
+                </div>
               ))}
-            </ul>
+            </div>
           ) : (
-            <p>No hay tratamientos disponibles.</p>
+            <p className="text-center">No hay tratamientos disponibles.</p>
           )}
+
           <div className="justify-between">
             <button
               onClick={handleEditClick}

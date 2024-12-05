@@ -10,6 +10,8 @@ interface Patient {
   dx: string;
   notes: string;
   record_link: string;
+  sex: boolean;
+  active: boolean;
 }
 
 interface Treatment {
@@ -32,6 +34,8 @@ interface UpdatePatientRecordProps {
     notes: string;
     record_link: string;
     treatments: Treatment[];
+    sex: boolean;
+    active: boolean;
   };
   onSuccess: (updatedData: Patient) => void;
 }
@@ -47,13 +51,21 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   const [dx, setDx] = useState(initialData.dx);
   const [notes, setNotes] = useState(initialData.notes);
   const [recordLink, setLink] = useState(initialData.record_link);
+  const [sex, setSex] = useState(initialData.sex ?? false);
+  const [active, setActive] = useState(initialData.active  ?? false);
   const [loading, setLoading] = useState(false);
+
+  console.log(initialData)
 
   const updatePatientRecordMutation =
     api.patientRecord.updatePatientRecord.useMutation();
   const createTreatmentMutation = api.treatment.createTreatment.useMutation();
   const updateTreatmentMutation = api.treatment.updateTreatment.useMutation();
-  const { data: treatmentsData, isLoading, isError } = api.treatment.getTreatmentsByPatientId.useQuery({
+  const {
+    data: treatmentsData,
+    isLoading,
+    isError,
+  } = api.treatment.getTreatmentsByPatientId.useQuery({
     patientId: patientId,
   });
 
@@ -81,6 +93,8 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         dx,
         notes,
         record_link: recordLink,
+        sex,
+        active,
       });
 
       alert("Registro del paciente actualizado exitosamente");
@@ -96,23 +110,26 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   const handleTreatmentChange = (
     index: number,
     field: keyof Treatment,
-    value: string | boolean
+    value: string | boolean,
   ) => {
     setTreatments((prev) =>
       prev.map((treatment, i) =>
-        i === index ? { ...treatment, [field]: value } : treatment
-      )
+        i === index ? { ...treatment, [field]: value } : treatment,
+      ),
     );
   };
 
   const handleSaveTreatment = async (index: number) => {
     const treatment = treatments[index];
-  
+
     if (!treatment) {
-      console.error("Tratamiento no encontrado para el índice proporcionado:", index);
+      console.error(
+        "Tratamiento no encontrado para el índice proporcionado:",
+        index,
+      );
       return;
     }
-  
+
     try {
       if (treatment.id) {
         // Si tiene id, es un tratamiento existente, lo actualizas
@@ -138,8 +155,8 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         alert("Tratamiento creado exitosamente");
         setTreatments((prev) =>
           prev.map((t, i) =>
-            i === index ? { ...t, id: createdTreatment.id } : t
-          )
+            i === index ? { ...t, id: createdTreatment.id } : t,
+          ),
         );
       }
     } catch (error) {
@@ -147,7 +164,6 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
       alert("Hubo un error al guardar el tratamiento.");
     }
   };
-  
 
   const handleAddTreatment = () => {
     setTreatments((prev) => [
@@ -167,6 +183,16 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Activo */}
+        <div className="flex items-center space-x-4">
+          <label className="block font-semibold">Activo:</label>
+          <input
+            type="checkbox"
+            checked={active}
+            onChange={(e) => setActive(e.target.checked)} // Cambia el estado con el valor booleano del checkbox
+            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          />
+        </div>
         {/* Nombre del paciente */}
         <div>
           <label className="block font-semibold">Nombre:</label>
@@ -177,7 +203,21 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
             className="mt-1 block w-full rounded-md border border-gray-300 p-2"
           />
         </div>
-
+        {/* Sexo */}
+        <div>
+          <label className="block font-semibold">Sexo:</label>
+          <select
+            value={sex !== null ? (sex ? "true" : "false") : ""} 
+            onChange={(e) => setSex(e.target.value === "true")} 
+            className="mt-1 block w-full rounded-md border border-gray-300 p-2"
+          >
+            <option value="" disabled>
+              Selecciona una opción
+            </option>
+            <option value="true">Masculino</option>
+            <option value="false">Femenino</option>
+          </select>
+        </div>
         {/* Fecha de nacimiento */}
         <div>
           <label className="block font-semibold">Fecha de nacimiento:</label>
@@ -202,7 +242,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
 
         {/* Diagnóstico */}
         <div>
-          <label className="block font-semibold">Diagnóstico:</label>
+          <label className="block font-semibold">DX:</label>
           <textarea
             value={dx}
             onChange={(e) => setDx(e.target.value)}
@@ -247,15 +287,33 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
             <div key={treatment.id || index} className="space-y-2 border p-4">
               <div>
                 <label className="block font-semibold">Título:</label>
-                <input
-                  type="text"
-                  value={treatment.title}
+                <select
+                  value={treatment.title || ""}
                   onChange={(e) =>
                     handleTreatmentChange(index, "title", e.target.value)
                   }
                   className="mt-1 block w-full rounded-md border border-gray-300 p-2"
-                />
+                >
+                  <option value="" disabled>
+                    Selecciona una opción
+                  </option>
+                  <option value="NAM">NAM</option>
+                  <option value="Nutrición">Nutrición</option>
+                  <option value="Queiloplastia">Queiloplastia</option>
+                  <option value="C. nasal">C. nasal</option>
+                  <option value="Veloplastia">Veloplastia</option>
+                  <option value="Palatoplastia">Palatoplastia</option>
+                  <option value="T. Lenguaje">T. Lenguaje</option>
+                  <option value="Odonto Gral.">Odonto Gral.</option>
+                  <option value="Odontopediatria">Odontopediatría</option>
+                  <option value="Ortopedia">Ortopedia</option>
+                  <option value="Ortodoncia">Ortodoncia</option>
+                  <option value="Correc. Cicatriz">Correc. Cicatriz</option>
+                  <option value="Ortognatica">Ortognática</option>
+                  <option value="Rinoplastia">Rinoplastia</option>
+                </select>
               </div>
+
               <div>
                 <label className="block font-semibold">Informe:</label>
                 <textarea

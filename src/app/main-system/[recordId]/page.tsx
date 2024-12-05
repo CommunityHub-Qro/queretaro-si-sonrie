@@ -8,6 +8,7 @@ import DeletePatientRecord from "~/app/_components/organisms/deletePatientRecord
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "./style.css";
+import { Patient } from "~/app/_components/types/types";
 
 interface Exam {
   id: string;
@@ -18,26 +19,6 @@ interface Diagnosis {
   id: string;
   title: string;
   description: string;
-}
-
-interface Treatment {
-  id: string;
-  title: string;
-  report: string;
-}
-
-interface Patient {
-  id: string;
-  name: string;
-  birth_date: Date;
-  register_date: Date;
-  dx: string;
-  notes: string;
-  photoUrl: string;
-  exams?: Exam[];
-  diagnoses?: Diagnosis[];
-  treatments?: Treatment[];
-  record_link: string;
 }
 
 const RecordDetails = () => {
@@ -52,9 +33,9 @@ const RecordDetails = () => {
 
   useEffect(() => {
     if (data) {
-      setRecords(data);
+      setRecords(data as Patient[]);
       const foundPatient = data.find((record) => record.id === recordId);
-      setPatient(foundPatient ?? null);
+      setPatient((foundPatient as Patient) ?? null);
     }
     setIsLoading(isFetching);
   }, [data, recordId, isFetching]);
@@ -102,6 +83,7 @@ const RecordDetails = () => {
             dx: patient.dx,
             notes: patient.notes,
             record_link: patient.record_link,
+            treatments: patient.treatments,
           }}
           onSuccess={handleUpdateSuccess}
         />

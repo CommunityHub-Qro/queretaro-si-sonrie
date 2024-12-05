@@ -95,6 +95,8 @@ export const treatmentRouter = createTRPCRouter({
         patientId: z.string(), // ID del paciente asociado
         doctor: z.string(),
         external: z.boolean().optional(),
+        photoUrl: z.string(),
+        diagnosisId: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -105,6 +107,8 @@ export const treatmentRouter = createTRPCRouter({
           patientId: input.patientId,
           doctor: input.doctor,
           external: input.external ?? true, // Valor por defecto
+          photoUrl: input.photoUrl ?? "",
+          diagnosisId: input.diagnosisId,
         },
       });
       return treatment;
@@ -150,7 +154,7 @@ export const treatmentRouter = createTRPCRouter({
           report: input.report,
           doctor: input.doctor,
           external: input.external ?? false,
-          photoUrlTreatment: input.photoUrlTreatment,
+          photoUrl: input.photoUrlTreatment,
         },
       });
       return updatedTreatment;

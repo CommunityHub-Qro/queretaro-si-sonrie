@@ -40,16 +40,20 @@ export default function System() {
         ) : (
           data?.map(
             (patient: {
-              id: Key | null | undefined;
+              id: string;
               name: string;
               birth_date: Date;
               register_date: Date;
               dx: string;
-              photoUrl: string;
+              notes: string;
+              photoUrl: string | null;
+              record_link: string;
+              active: boolean | null;
+              sex: boolean | null;
             }) => (
               <PatientCard
                 key={patient.id}
-                id={patient.id as number}
+                id={Number(patient.id)}
                 name={patient.name}
                 b_date={patient.birth_date.toLocaleDateString()}
                 dx={patient.dx || "No definido"}

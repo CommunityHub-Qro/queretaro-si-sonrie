@@ -59,7 +59,8 @@ const RegisterUser = () => {
     }
     // Generar usuario con valores de entrada
     router.push("/main-system/users");
-    useCreateUser({
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    void useCreateUser({
       name: user,
       email: email,
       password: password,

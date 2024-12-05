@@ -1,26 +1,7 @@
 import { api } from "~/trpc/react";
 import { useState, FormEvent } from "react";
-import { UploadButton } from "@uploadthing/react";
-
-interface Patient {
-  id: string;
-  name: string;
-  birth_date: Date;
-  register_date: Date;
-  dx: string;
-  notes: string;
-  record_link: string;
-}
-
-interface Treatment {
-  id: string;
-  title: string;
-  report: string;
-  patientId: string;
-  doctor: string;
-  external: boolean;
-  photoUrlTreatment: string;
-}
+import { UploadButton } from "~/utils/uploadthing";
+import { Patient, Treatment } from "../types/types";
 
 interface UpdatePatientRecordProps {
   patientId: string;
@@ -31,7 +12,7 @@ interface UpdatePatientRecordProps {
     dx: string;
     notes: string;
     record_link: string;
-    treatments: Treatment[];
+    treatments: Treatment[] | undefined;
   };
   onSuccess: (updatedData: Patient) => void;
 }
@@ -49,7 +30,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   const [recordLink, setLink] = useState(initialData.record_link);
   const [photoUrlTreatment, setPhotoUrlTreatment] = useState("");
   const [treatments, setTreatments] = useState<Treatment[]>(
-    initialData.treatments || [],
+    initialData.treatments ?? [],
   );
 
   const updatePatientRecordMutation =
@@ -77,7 +58,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
       });
 
       alert("Registro del paciente actualizado exitosamente");
-      onSuccess(updatedPatient);
+      onSuccess(updatedPatient as Patient);
     } catch (error) {
       console.error("Error al actualizar el registro del paciente:", error);
     }
@@ -128,6 +109,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         id: "",
         title: "",
         report: "",
+        diagnosisId: "",
         patientId,
         doctor: "Nombre del doctor", // Cambiar por valor dinámico si es necesario
         external: false,
@@ -139,12 +121,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
   const handleCreateTreatment = async (index: number) => {
     const newTreatment = treatments[index];
 
-    if (
-      !newTreatment ||
-      !newTreatment.title ||
-      !newTreatment.report ||
-      !newTreatment.doctor
-    ) {
+    if (!newTreatment?.title || !newTreatment.report || !newTreatment.doctor) {
       console.error("Los datos del tratamiento no están completos.");
       alert("Por favor, completa todos los campos requeridos del tratamiento.");
       return;
@@ -154,6 +131,8 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
       const createdTreatment = await createTreatmentMutation.mutateAsync({
         ...newTreatment,
         patientId,
+        photoUrl: newTreatment.photoUrlTreatment,
+        diagnosisId: newTreatment.diagnosisId,
       });
 
       setTreatments((prev) =>
@@ -261,7 +240,7 @@ const UpdatePatientRecord: React.FC<UpdatePatientRecordProps> = ({
         <UploadButton
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
-            if (res && res[0] && res[0].url) {
+            if (res?.[0]?.url) {
               setPhotoUrlTreatment(res[0].url);
               console.log("Files: ", res);
               alert("Upload Completed");

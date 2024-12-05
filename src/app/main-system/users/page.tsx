@@ -18,6 +18,7 @@ const EliminarUsuario = () => {
   };
 
   useEffect(() => {
+    console.log("Users retrieved");
   }, [users]);
 
   if (!users) {

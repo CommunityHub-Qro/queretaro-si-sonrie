@@ -97,7 +97,7 @@
         id          String       @id @default(cuid())
         title       String
         diagnosis   Diagnosis    @relation(fields: [diagnosisId], references: [id])
-        diagnosisId String
+        diagnosisId String       
         report      String
         patient     Record       @relation(fields: [patientId], references: [id])
         patientId   String

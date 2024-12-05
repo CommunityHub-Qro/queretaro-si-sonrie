@@ -50,9 +50,11 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
     GoogleProvider({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       clientId: env.GOOGLE_CLIENT_ID,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       clientSecret: env.GOOGLE_CLIENT_SECRET,
-    })
+    }),
     /**
      * ...add more providers here.
      *

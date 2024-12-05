@@ -96,7 +96,7 @@ export default function PatientRecordForm() {
         <UploadButton
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
-            if (res && res[0] && res[0].url) {
+            if (res?.[0]?.url) {
               setPhotoUrl(res[0].url);
               console.log("Files: ", res);
               alert("Upload Completed");

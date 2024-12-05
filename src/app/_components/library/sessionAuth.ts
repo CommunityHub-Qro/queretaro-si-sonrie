@@ -1,7 +1,7 @@
 "use server";
 
 import { $Enums } from "@prisma/client";
-import { jwtVerify, SignJWT } from "jose";
+import { JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -16,7 +16,10 @@ interface userType {
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
 
-export async function encrypt(payload: any) {
+export async function encrypt(payload: {
+  user: userType | undefined;
+  expires: Date;
+}) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -24,7 +27,7 @@ export async function encrypt(payload: any) {
     .sign(key);
 }
 
-export async function decrypt(input: string): Promise<any> {
+export async function decrypt(input: string): Promise<JWTPayload | null> {
   try {
     const { payload } = await jwtVerify(input, key, {
       algorithms: ["HS256"],
@@ -62,7 +65,7 @@ export async function updateSession(request: NextRequest) {
   const expires = new Date(Date.now() + 5 * 60 * 60 * 1000);
 
   const response = NextResponse.next();
-  response.cookies.set("session", parsed, {
+  response.cookies.set("session", JSON.stringify(parsed), {
     expires,
     httpOnly: true,
     path: "/",

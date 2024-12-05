@@ -76,7 +76,10 @@ async function main() {
   });
 
   const diagnosis5 = await prisma.diagnosis.create({
-    data: { title: "Diagnosis 4", description: "Description 5, but with diagnosis 4" },
+    data: {
+      title: "Diagnosis 4",
+      description: "Description 5, but with diagnosis 4",
+    },
   });
 
   // Seed Records
@@ -134,6 +137,10 @@ async function main() {
       report: "Report 1",
       diagnosis: { connect: { id: diagnosis1.id } },
       patient: { connect: { id: record1.id } },
+      photoUrl:
+        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      doctor: "Rick Sanchez",
+      external: false,
     },
   });
 
@@ -143,6 +150,10 @@ async function main() {
       report: "Report 2",
       diagnosis: { connect: { id: diagnosis2.id } },
       patient: { connect: { id: record2.id } },
+      photoUrl:
+        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      doctor: "Rick Sanchez",
+      external: false,
     },
   });
 
@@ -152,6 +163,10 @@ async function main() {
       report: "Report 3",
       diagnosis: { connect: { id: diagnosis3.id } },
       patient: { connect: { id: record3.id } },
+      photoUrl:
+        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      doctor: "Rick Sanchez",
+      external: false,
     },
   });
 
@@ -161,6 +176,10 @@ async function main() {
       report: "Report 4",
       diagnosis: { connect: { id: diagnosis4.id } },
       patient: { connect: { id: record4.id } },
+      photoUrl:
+        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      doctor: "Rick Sanchez",
+      external: false,
     },
   });
 
@@ -170,6 +189,10 @@ async function main() {
       report: "Report 5",
       diagnosis: { connect: { id: diagnosis1.id } },
       patient: { connect: { id: record5.id } },
+      photoUrl:
+        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      doctor: "Rick Sanchez",
+      external: false,
     },
   });
 
@@ -179,6 +202,10 @@ async function main() {
       report: "Report 6",
       diagnosis: { connect: { id: diagnosis2.id } },
       patient: { connect: { id: record5.id } },
+      photoUrl:
+        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      doctor: "Rick Sanchez",
+      external: false,
     },
   });
 
@@ -219,6 +246,6 @@ main()
     console.error(e);
     process.exit(1);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
+  .finally(() => {
+    void prisma.$disconnect();
   });

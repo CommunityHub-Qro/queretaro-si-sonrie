@@ -30,7 +30,6 @@ export const useCreateUser = async (newUser: newUser) => {
 };
 
 export const useRetrieveUser = async (name: string, password: string) => {
-  return true;
   const user = await api.newUser.getUser({ name }).then((u) => u);
   // console.log(user);
   if (!user) {
@@ -39,7 +38,7 @@ export const useRetrieveUser = async (name: string, password: string) => {
 
   try {
     if (await argon2.verify(user.password, password)) {
-      loginSession(user);
+      // loginSession(user);
       return true;
     } else {
       return "Error: contraseña incorrecta";

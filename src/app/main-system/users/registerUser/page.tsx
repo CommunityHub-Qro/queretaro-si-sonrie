@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCreateUser } from "~/app/_components/hooks/useRetrieveUser";
+import { getSession } from "~/app/_components/library/sessionAuth";
 
 const RegisterUser = () => {
   const [user, setUser] = useState<string>("");
@@ -10,6 +11,16 @@ const RegisterUser = () => {
   const [password, setPassword] = useState<string>("");
   const [emailValidation, setEmailValidation] = useState(false);
   const [role, setRole] = useState<string>("");
+  const [session, setSession] = useState<any>();
+
+  const fetchUser = async () => {
+    const session = await getSession();
+    console.log(session.user.role);
+    setSession(session);
+  };
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   const router = useRouter();
 
@@ -68,58 +79,61 @@ const RegisterUser = () => {
     alert("Usuario creado");
   }
 
-  return (
-    <div className="max-md:h-full md:flex md:h-[90vh]">
-      <img src="/images/Voluntariado2.png" className="-mt-2 h-[90vh]" />
-      <aside className="flex w-full flex-col items-center justify-center max-md:mt-10">
-        <form
-          className="flex h-1/2 w-full flex-col items-center justify-center gap-10"
-          id="sing_in"
-        >
-          <input
-            className="input w-3/5 p-2"
-            placeholder={"User"}
-            type="text"
-            onChange={(u) => setUser(u.target.value)}
-            id="user"
-          />
-          <input
-            className="input w-3/5 p-2"
-            placeholder={"Email"}
-            type="text"
-            onChange={(u) => setEmail(u.target.value)}
-            id="email"
-          />
-          <input
-            className="input w-3/5 p-2"
-            placeholder="Contraseña"
-            type="password"
-            onChange={(p) => setPassword(p.target.value)}
-            id="password"
-          />
-          <select
-            className="input w-3/5 p-2"
-            onChange={(e) => setRole(e.target.value)}
+  if (session?.user.role == "ADMIN") {
+    return (
+      <div className="max-md:h-full md:flex md:h-[90vh]">
+        <img src="/images/Voluntariado2.png" className="-mt-2 h-[90vh]" />
+        <aside className="flex w-full flex-col items-center justify-center max-md:mt-10">
+          <form
+            className="flex h-1/2 w-full flex-col items-center justify-center gap-10"
+            id="sing_in"
           >
-            <option value="voluntario" selected>
-              Voluntario
-            </option>
-            <option value="admin">Admin</option>
-          </select>
-          <button
-            type="submit"
-            className={`h-[3rem] w-32 items-center rounded-full bg-third py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
-            onClick={(e) => sessionSignIn(e)}
-          >
-            Registrar
-          </button>
-        </form>
-        {/* <hr
-            className={`m-5 w-11/12 border-black border-b-[1] ${signIn ? "hidden" : ""}`}
-          /> */}
-      </aside>
-    </div>
-  );
+            <input
+              className="input w-3/5 p-2"
+              placeholder={"User"}
+              type="text"
+              onChange={(u) => setUser(u.target.value)}
+              id="user"
+            />
+            <input
+              className="input w-3/5 p-2"
+              placeholder={"Email"}
+              type="text"
+              onChange={(u) => setEmail(u.target.value)}
+              id="email"
+            />
+            <input
+              className="input w-3/5 p-2"
+              placeholder="Contraseña"
+              type="password"
+              onChange={(p) => setPassword(p.target.value)}
+              id="password"
+            />
+            <select
+              className="input w-3/5 p-2"
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="voluntario" selected>
+                Voluntario
+              </option>
+              <option value="admin">Admin</option>
+            </select>
+            <button
+              type="submit"
+              className={`h-[3rem] w-32 items-center rounded-full bg-third py-2 text-center text-xl font-bold text-white drop-shadow-md hover:bg-[rgb(255,40,40)]`}
+              onClick={(e) => sessionSignIn(e)}
+            >
+              Registrar
+            </button>
+          </form>
+          {/* <hr
+              className={`m-5 w-11/12 border-black border-b-[1] ${signIn ? "hidden" : ""}`}
+            /> */}
+        </aside>
+      </div>
+    );
+  }
+  return <>Loading</>;
 };
 
 export default RegisterUser;

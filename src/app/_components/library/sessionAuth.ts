@@ -36,7 +36,7 @@ export async function decrypt(input: string): Promise<any> {
   }
 }
 
-export async function loginSession(user?: userType) {
+export async function loginSession(user?: string) {
   const expires = new Date(Date.now());
   expires.setHours(expires.getHours() + 5);
   const session = await encrypt({ user, expires });

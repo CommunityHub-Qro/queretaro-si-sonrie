@@ -14,13 +14,13 @@ const EliminarUsuario = () => {
     const users = await useRetrieveAllUsers()
       .then((users) => users)
       .catch((error) => console.log("ERROR: " + error));
+    console.log("useFetchUSers");
     setUsers(users);
   };
 
-  useEffect(() => {
-  }, [users]);
+  useEffect(() => {}, [users]);
 
-  if (!users) {
+  if (!users?.length) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     void useFetchUsers();
   }

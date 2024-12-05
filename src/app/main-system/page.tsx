@@ -53,7 +53,7 @@ export default function System() {
             }) => (
               <PatientCard
                 key={patient.id}
-                id={Number(patient.id)}
+                id={patient.id}
                 name={patient.name}
                 b_date={patient.birth_date.toLocaleDateString()}
                 dx={patient.dx || "No definido"}

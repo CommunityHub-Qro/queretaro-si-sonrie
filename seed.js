@@ -59,28 +59,28 @@ async function main() {
   });
 
   // Seed Diagnoses
-  const diagnosis1 = await prisma.diagnosis.create({
-    data: { title: "Diagnosis 1", description: "Description 1" },
-  });
+  // const diagnosis1 = await prisma.diagnosis.create({
+  //   data: { title: "Diagnosis 1", description: "Description 1" },
+  // });
 
-  const diagnosis2 = await prisma.diagnosis.create({
-    data: { title: "Diagnosis 2", description: "Description 2" },
-  });
+  // const diagnosis2 = await prisma.diagnosis.create({
+  //   data: { title: "Diagnosis 2", description: "Description 2" },
+  // });
 
-  const diagnosis3 = await prisma.diagnosis.create({
-    data: { title: "Diagnosis 3", description: "Description 3" },
-  });
+  // const diagnosis3 = await prisma.diagnosis.create({
+  //   data: { title: "Diagnosis 3", description: "Description 3" },
+  // });
 
-  const diagnosis4 = await prisma.diagnosis.create({
-    data: { title: "Diagnosis 4", description: "Description 4" },
-  });
+  // const diagnosis4 = await prisma.diagnosis.create({
+  //   data: { title: "Diagnosis 4", description: "Description 4" },
+  // });
 
-  const diagnosis5 = await prisma.diagnosis.create({
-    data: {
-      title: "Diagnosis 4",
-      description: "Description 5, but with diagnosis 4",
-    },
-  });
+  // const diagnosis5 = await prisma.diagnosis.create({
+  //   data: {
+  //     title: "Diagnosis 4",
+  //     description: "Description 5, but with diagnosis 4",
+  //   },
+  // });
 
   // Seed Records
   const record1 = await prisma.record.create({
@@ -135,10 +135,10 @@ async function main() {
     data: {
       title: "Treatment 1",
       report: "Report 1",
-      diagnosis: { connect: { id: diagnosis1.id } },
+      diagnosis: "Diagnossis test",
       patient: { connect: { id: record1.id } },
-      photoUrl:
-        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      // photoUrl:
+      //   "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       doctor: "Rick Sanchez",
       external: false,
     },
@@ -148,10 +148,10 @@ async function main() {
     data: {
       title: "Treatment 2",
       report: "Report 2",
-      diagnosis: { connect: { id: diagnosis2.id } },
+      diagnosis: "Diagnossis test",
       patient: { connect: { id: record2.id } },
-      photoUrl:
-        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      // photoUrl:
+      //   "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       doctor: "Rick Sanchez",
       external: false,
     },
@@ -161,10 +161,10 @@ async function main() {
     data: {
       title: "Treatment 3",
       report: "Report 3",
-      diagnosis: { connect: { id: diagnosis3.id } },
+      diagnosis: "Diagnossis test",
       patient: { connect: { id: record3.id } },
-      photoUrl:
-        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      // photoUrl:
+      //   "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       doctor: "Rick Sanchez",
       external: false,
     },
@@ -174,10 +174,10 @@ async function main() {
     data: {
       title: "Treatment 4",
       report: "Report 4",
-      diagnosis: { connect: { id: diagnosis4.id } },
+      diagnosis: "Diagnossis test",
       patient: { connect: { id: record4.id } },
-      photoUrl:
-        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      // photoUrl:
+      //   "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       doctor: "Rick Sanchez",
       external: false,
     },
@@ -187,10 +187,10 @@ async function main() {
     data: {
       title: "Treatment 5",
       report: "Report 5",
-      diagnosis: { connect: { id: diagnosis1.id } },
+      diagnosis: "Diagnossis test",
       patient: { connect: { id: record5.id } },
-      photoUrl:
-        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      // photoUrl:
+      //   "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       doctor: "Rick Sanchez",
       external: false,
     },
@@ -200,43 +200,43 @@ async function main() {
     data: {
       title: "Treatment 6",
       report: "Report 6",
-      diagnosis: { connect: { id: diagnosis2.id } },
+      diagnosis: "Diagnossis test",
       patient: { connect: { id: record5.id } },
-      photoUrl:
-        "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      // photoUrl:
+      //   "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       doctor: "Rick Sanchez",
       external: false,
     },
   });
 
   // Seed Exams
-  await prisma.exam.create({
-    data: {
-      title: "Exam 1",
-      patient: { connect: { id: record1.id } },
-    },
-  });
+  // await prisma.exam.create({
+  //   data: {
+  //     title: "Exam 1",
+  //     patient: { connect: { id: record1.id } },
+  //   },
+  // });
 
-  await prisma.exam.create({
-    data: {
-      title: "Exam 2",
-      patient: { connect: { id: record2.id } },
-    },
-  });
+  // await prisma.exam.create({
+  //   data: {
+  //     title: "Exam 2",
+  //     patient: { connect: { id: record2.id } },
+  //   },
+  // });
 
-  await prisma.exam.create({
-    data: {
-      title: "Exam 3",
-      patient: { connect: { id: record3.id } },
-    },
-  });
+  // await prisma.exam.create({
+  //   data: {
+  //     title: "Exam 3",
+  //     patient: { connect: { id: record3.id } },
+  //   },
+  // });
 
-  await prisma.exam.create({
-    data: {
-      title: "Exam 4",
-      patient: { connect: { id: record4.id } },
-    },
-  });
+  // await prisma.exam.create({
+  //   data: {
+  //     title: "Exam 4",
+  //     patient: { connect: { id: record4.id } },
+  //   },
+  // });
 
   console.log("Database seeded successfully!");
 }

@@ -1,13 +1,7 @@
 import { z } from "zod";
 import { db } from "../../db";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "~/server/api/trpc";
-import UpdatePatientRecord from "~/app/_components/organisms/updatePatientRecord";
-import DeletePatientRecord from "~/app/_components/organisms/deletePatientRecord";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const patientRecordRouter = createTRPCRouter({
   createPatientRecord: publicProcedure
@@ -19,6 +13,7 @@ export const patientRecordRouter = createTRPCRouter({
         dx: z.string(),
         notes: z.string(),
         photoUrl: z.string(),
+        active: z.boolean(),
       }),
     )
     .mutation(({ input }) => {
@@ -30,6 +25,7 @@ export const patientRecordRouter = createTRPCRouter({
           dx: input.dx,
           notes: input.notes,
           photoUrl: input.photoUrl,
+          active: true,
         },
       });
       return patientRecord;
@@ -50,6 +46,8 @@ export const patientRecordRouter = createTRPCRouter({
         dx: z.string(),
         notes: z.string(),
         record_link: z.string(),
+        sex: z.boolean(),
+        active: z.boolean(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -62,6 +60,8 @@ export const patientRecordRouter = createTRPCRouter({
           dx: input.dx,
           notes: input.notes,
           record_link: input.record_link,
+          sex: input.sex,
+          active: input.active,
         },
       });
       return updatedPatientRecord;
@@ -92,35 +92,45 @@ export const treatmentRouter = createTRPCRouter({
       z.object({
         title: z.string(),
         report: z.string(),
-        patientId: z.string(), // ID del paciente asociado
+        patientId: z.string(),
         doctor: z.string(),
         external: z.boolean().optional(),
-        photoUrl: z.string(),
-        diagnosisId: z.string(),
+        // photoUrl: z.string(),
+        diagnosis: z.string(),
+        date: z.date(),
       }),
     )
     .mutation(async ({ input }) => {
-      const treatment = await db.treatment.create({
+      const createdTreatment = await db.treatment.create({
         data: {
           title: input.title,
           report: input.report,
           patientId: input.patientId,
           doctor: input.doctor,
           external: input.external ?? true, // Valor por defecto
-          photoUrl: input.photoUrl ?? "",
-          diagnosisId: input.diagnosisId,
+          diagnosis: input.diagnosis,
+          date: input.date,
         },
       });
-      return treatment;
+
+      return createdTreatment;
     }),
 
-  // Obtener todos los tratamientos
-  getTreatments: publicProcedure.query(async () => {
-    const treatments = await db.treatment.findMany();
-    return treatments;
-  }),
+  getTreatments: publicProcedure
+    .input(
+      z
+        .object({
+          patientId: z.string().optional(),
+        })
+        .optional(),
+    )
+    .query(async ({ input }) => {
+      const treatments = await db.treatment.findMany({
+        where: input?.patientId ? { patientId: input.patientId } : undefined,
+      });
+      return treatments;
+    }),
 
-  // Obtener tratamientos de un paciente específico
   getTreatmentsByPatientId: publicProcedure
     .input(
       z.object({
@@ -138,12 +148,14 @@ export const treatmentRouter = createTRPCRouter({
   updateTreatment: publicProcedure
     .input(
       z.object({
-        id: z.string(), // ID del tratamiento a actualizar
+        id: z.string(),
         title: z.string(),
         report: z.string(),
         doctor: z.string(),
         external: z.boolean().optional(),
-        photoUrlTreatment: z.string(),
+        diagnosis: z.string(),
+        date: z.date(),
+        // photoUrlTreatment: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -154,9 +166,11 @@ export const treatmentRouter = createTRPCRouter({
           report: input.report,
           doctor: input.doctor,
           external: input.external ?? false,
-          photoUrl: input.photoUrlTreatment,
+          date: input.date,
+          // photoUrl: input.photoUrlTreatment,
         },
       });
+      console.log(input);
       return updatedTreatment;
     }),
 
@@ -172,22 +186,5 @@ export const treatmentRouter = createTRPCRouter({
         where: { id: input.id },
       });
       return { message: "Tratamiento eliminado con éxito" };
-    }),
-
-  deletePatientRecord: publicProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      }),
-    )
-    .mutation(async ({ input }) => {
-      try {
-        const deletePatientRecord = await db.record.delete({
-          where: { id: input.id },
-        });
-        return deletePatientRecord;
-      } catch (error) {
-        throw new Error("No se pudo eliminar el registro del paciente");
-      }
     }),
 });

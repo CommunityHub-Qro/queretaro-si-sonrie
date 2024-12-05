@@ -58,12 +58,12 @@ export default function Reports() {
         }[];
         setMonthlyReports(reportsData);
 
-        const donutResponse = await fetch("/api/Donut");
-        const donutData = (await donutResponse.json()) as {
-          name: string;
-          value: number;
-        }[];
-        setDonutData(donutData);
+        // const donutResponse = await fetch("/api/Donut");
+        // const donutData = (await donutResponse.json()) as {
+        //   name: string;
+        //   value: number;
+        // }[];
+        // setDonutData(donutData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -115,9 +115,9 @@ export default function Reports() {
           <HistogramChart data={monthlyReports} />
         </div>
       </div>
-      <div className="border-primary-1 m-8 flex flex-col items-center rounded-lg border-4 p-4">
+      {/* <div className="border-primary-1 m-8 flex flex-col items-center rounded-lg border-4 p-4">
         <DiseaseDonutChart data={donutData} />
-      </div>
+      </div> */}
     </div>
   );
 }

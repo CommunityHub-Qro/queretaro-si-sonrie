@@ -77,7 +77,7 @@ CREATE TABLE "Record" (
 CREATE TABLE "Treatment" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "diagnosisId" TEXT NOT NULL,
+    "diagnosis" TEXT NOT NULL,
     "report" TEXT NOT NULL,
     "patientId" TEXT NOT NULL,
 
@@ -145,7 +145,7 @@ ALTER TABLE "Post" ADD CONSTRAINT "Post_userId_fkey" FOREIGN KEY ("userId") REFE
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Treatment" ADD CONSTRAINT "Treatment_diagnosisId_fkey" FOREIGN KEY ("diagnosisId") REFERENCES "Diagnosis"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Treatment" ADD CONSTRAINT "Treatment_diagnosis_fkey" FOREIGN KEY ("diagnosis") REFERENCES "Diagnosis"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Treatment" ADD CONSTRAINT "Treatment_patientId_fkey" FOREIGN KEY ("patientId") REFERENCES "Record"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

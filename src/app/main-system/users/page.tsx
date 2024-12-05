@@ -7,26 +7,30 @@ import UserCards from "~/app/_components/molecules/UserCards";
 import { UserDataType } from "~/server/api/routers/newUser";
 
 const EliminarUsuario = () => {
-  const [users, setUsers] = useState<UserDataType[] | void>([]);
-
-  const useFetchUsers = async () => {
-    // Función fetchUsers para conseguir usuario y contraseña para acceder acceso
-    const users = await useRetrieveAllUsers()
-      .then((users) => users)
-      .catch((error) => console.log("ERROR: " + error));
-    setUsers(users);
-  };
+  const [users, setUsers] = useState<UserDataType[]>([]); // Estado inicial como un arreglo vacío
+  const [loading, setLoading] = useState<boolean>(true); // Estado de carga
 
   useEffect(() => {
-    console.log("Users retrieved");
-  }, [users]);
+    const fetchUsers = async () => {
+      try {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const fetchedUsers = await useRetrieveAllUsers();
+        if (fetchedUsers) {
+          setUsers(fetchedUsers); // Actualiza usuarios si se obtienen correctamente
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false); // Finaliza el estado de carga
+      }
+    };
 
-  if (!users) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    void useFetchUsers();
+    void fetchUsers();
+  }, []); // Solo ejecuta al montar el componente
+
+  if (loading) {
+    return <div>Cargando usuarios...</div>;
   }
-
-  // Sign in funcionality
 
   return (
     <div className="flex h-screen flex-col gap-5 p-4">
@@ -39,11 +43,13 @@ const EliminarUsuario = () => {
           Registrar Usuario
         </Link>
       </div>
-      {users
-        ? users.map((u: UserDataType, idx: number) => (
-            <UserCards user={u} key={idx} />
-          ))
-        : null}
+      {users.length > 0 ? (
+        users.map((u: UserDataType, idx: number) => (
+          <UserCards user={u} key={idx} />
+        ))
+      ) : (
+        <div>No se encontraron usuarios.</div>
+      )}
     </div>
   );
 };

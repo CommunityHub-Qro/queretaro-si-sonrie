@@ -1,14 +1,22 @@
-import { Diagnosis, Exam } from "@prisma/client";
-
+interface Diagnosis {
+  id: string;
+  title: string;
+  description: string;
+}
+interface Exam {
+  id: string;
+  title: string;
+}
 export interface Treatment {
   id: string;
   title: string;
   report: string;
-  diagnosisId: string;
+  diagnosis: string;
   patientId: string;
   doctor: string;
   external: boolean;
-  photoUrlTreatment: string;
+  date: Date;
+  // photoUrlTreatment: string;
 }
 
 export interface Patient {
@@ -23,4 +31,6 @@ export interface Patient {
   diagnoses?: Diagnosis[];
   treatments?: Treatment[];
   record_link: string;
+  sex: boolean;
+  active: boolean;
 }

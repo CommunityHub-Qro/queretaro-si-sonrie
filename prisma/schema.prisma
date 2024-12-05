@@ -87,21 +87,21 @@
         notes         String
         photoUrl      String?
         treatments    Treatment[]
-        exams         Exam[]
+        // exams         Exam[]
         record_link   String   @default("")
-        active        Boolean?
+        active        Boolean? @default(true)
         sex           Boolean?
     }
 
     model Treatment {
         id          String       @id @default(cuid())
         title       String
-        diagnosis   Diagnosis    @relation(fields: [diagnosisId], references: [id])
-        diagnosisId String       
+        diagnosis String    
+        // diagnosis   Diagnosis    @relation(fields: [diagnosis], references: [id])
+        // diagnosis String
         report      String
         patient     Record       @relation(fields: [patientId], references: [id])
         patientId   String
-        photoUrl    String
         doctor      String
         external    Boolean
         date DateTime @default(now())
@@ -110,23 +110,23 @@
     }
 
 
-    model Diagnosis {
-        id         String       @id @default(cuid())
-        title      String
-        description String
-        exams      Exam[]   
-        treatments Treatment[]
-    }
+    // model Diagnosis {
+    //     id         String       @id @default(cuid())
+    //     title      String
+    //     description String
+    //     // exams      Exam[]
+    //     treatments Treatment[]
+    // }
 
 
-    model Exam {
-        id         String       @id @default(cuid())
-        title      String
-        patient    Record       @relation(fields: [patientId], references: [id])
-        patientId  String
-        diagnoses  Diagnosis[]
+    // model Exam {
+    //     id         String       @id @default(cuid())
+    //     title      String
+    //     patient    Record       @relation(fields: [patientId], references: [id])
+    //     patientId  String
+    //     diagnoses  Diagnosis[]
 
-        @@index([patientId])
-    }
+    //     @@index([patientId])
+    // }
 
 
